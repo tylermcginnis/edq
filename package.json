@@ -1,15 +1,17 @@
 {
-  "name": "react-router-firebase",
+  "name": "EDQ",
   "version": "1.0.0",
   "description": "",
   "main": "App.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tylermcginnis/react-router-firebase-auth"
+    "url": ""
   },
   "author": "Tyler McGinnis",
   "dependencies": {
+    "events": "^1.0.2",
     "firebase": "^2.2.0",
+    "flux": "^2.0.1",
     "react": "^0.12.2",
     "react-router": "^0.12.0"
   },

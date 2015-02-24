@@ -4,7 +4,7 @@ var firebaseUtils = require('../../utils/firebaseUtils');
 var Login = React.createClass({
   mixins: [Router.Navigation],
   statics: {
-    attemptedTransition: null
+    attemptedTransition: null,
   },
   getInitialState: function(){
     return {

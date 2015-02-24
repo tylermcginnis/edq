@@ -19,7 +19,8 @@ var addNewUserToFB = function(newUser){
 
 var firebaseUtils = {
   createUser: function(user, cb) {
-    ref.createUser(user, function(err) {
+    var loginObj = {email: user.email, password: user.password};
+    ref.createUser(loginObj, function(err) {
       if (err) {
         switch (err.code) {
           case "EMAIL_TAKEN":
@@ -32,8 +33,10 @@ var firebaseUtils = {
             console.log("Error creating user:", err);
         }
       } else {
-          this.loginWithPW(user, function(authData){
+          this.loginWithPW(loginObj, function(authData){
             addNewUserToFB({
+              firstName: user.firstName,
+              lastName: user.lastName,
               email: user.email,
               uid: authData.uid,
               token: authData.token
@@ -48,7 +51,6 @@ var firebaseUtils = {
         console.log('Error on login:', err.message);
         cbOnRegister && cbOnRegister(false);
       } else {
-        authData.email = userObj.email;
         cachedUser = authData;
         cb(authData);
         this.onChange(true);
