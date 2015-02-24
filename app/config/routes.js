@@ -5,7 +5,7 @@ var Main = require('../components/Main');
 var Register = require('../components/login-register/Register');
 var Login = require("../components/login-register/Login");
 var Logout = require('../components/login-register/Logout');
-var Dashboard = require('../components/secure/Dashboard');
+var Dashboard = require('../components/secure/dashboard/Dashboard');
 var Home = require("../components/Home");
 
 var routes = (

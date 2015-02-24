@@ -17,6 +17,12 @@ var authActions = {
       dispatcherCallback.call(null, authObj);
       routeChangeCb.call(null, authObj);
     });
+  },
+  loginWithPW: function(user, routeChangeCb){
+    firebaseUtils.loginWithPW(user, routeChangeCb);
+  },
+  logout: function(){
+    firebaseUtils.logout();
   }
 };
 

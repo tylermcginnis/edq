@@ -1,6 +1,7 @@
 var React = require('react');
 var Router = require('react-router');
-var firebaseUtils = require('../../utils/firebaseUtils');
+var authActions = require('../../actions/authActions');
+
 var Login = React.createClass({
   mixins: [Router.Navigation],
   statics: {
@@ -15,7 +16,7 @@ var Login = React.createClass({
     e.preventDefault();
     var email = this.refs.email.getDOMNode().value;
     var pw = this.refs.pw.getDOMNode().value;
-    firebaseUtils.loginWithPW({email: email, password: pw}, function(){
+    authActions.loginWithPW({email: email, password: pw}, function(){
       if(Login.attemptedTransition){
         var transition = Login.attemptedTransition;
         Login.attemptedTransition = null;

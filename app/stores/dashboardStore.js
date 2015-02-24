@@ -3,22 +3,20 @@ var appConstants = require('../constants/appConstants');
 var objectAssign = require('react/lib/Object.assign');
 var EventEmitter = require('events').EventEmitter;
 
+var CHANGE_EVENT = 'change';
+
 var _state = {
-  user: {
-    firstName: '',
-    lastName: '',
-    email: ''
-  }
+  classes: []
 };
 
 var setState = function(newState){
   objectAssign(_state, newState);
-  UserStore.emit(CHANGE_EVENT);
+  dashboardStore.emit(CHANGE_EVENT);
 };
 
-var userStore = objectAssign({}, EventEmitter.prototype, {
-  getUser: function(){
-    return _state.user;
+var dashboardStore = objectAssign({}, EventEmitter.prototype, {
+  getClasses: function(){
+    return _state.classes;
   },
   addChangeListener: function(cb) {
     this.on(CHANGE_EVENT, cb);
@@ -31,16 +29,20 @@ var userStore = objectAssign({}, EventEmitter.prototype, {
 appDispatcher.register(function(payload){
   var action = payload.action;
   switch(action.actionType) {
-    case appConstants.INIT_USER :
+    case appConstants.ADD_CLASS :
       setState({
-        user: action.data
+        classes: _state.classes.concat([action.data])
       });
     break;
-    case appConstants.XXX :
-      setState(action.data);
+    case appConstants.REMOVE_CLASS :
+      var ref = _state.classes.slice(0);
+      ref.splice(action.data, 1);
+      setState({
+        classes: ref
+      });
     default :
       return true;
   }
 });
 
-module.exports = userStore;
+module.exports = dashboardStore;
