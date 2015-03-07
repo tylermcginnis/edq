@@ -7,8 +7,8 @@ users
       - classid
         - name (physics-tm*gmail*com)
 classes
-  - id (physics-tm*gmail*com)
-    - name
+  - id (userid)
+    - name (physics-tm*gmail*com)
     - students
       - studentid
         - name
