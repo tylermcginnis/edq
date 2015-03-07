@@ -2,7 +2,7 @@ var React = require('react');
 var Router = require('react-router');
 var RouteHandler = Router.RouteHandler;
 var Link = Router.Link;
-var firebaseUtils = require('../utils/firebaseUtils');
+var firebaseUtils = require('../utils/firebase/firebaseUtils');
 
 var Main = React.createClass({
   getInitialState: function(){

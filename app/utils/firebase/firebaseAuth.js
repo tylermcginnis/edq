@@ -1,23 +1,8 @@
-var Firebase = require('firebase');
-var appConstants = require('../constants/appConstants');
-var forge = appConstants.FIREBASE_URL;
-var ref = new Firebase(forge);
+var ref = require('../../constants/fbref');
+var fbHelpers = require('./fbHelpers');
 var cachedUser = null;
 
-var formatEmailForFirebase =  function(email){
-  var key = email.replace('@', '^');
-  if(key.indexOf('.') !== -1){
-    return key.split('.').join('*');
-  }
-  return key;
-};
-
-var addNewUserToFB = function(newUser){
-  var key = formatEmailForFirebase(newUser.email);
-  ref.child('user').child(key).set(newUser);
-};
-
-var firebaseUtils = {
+var firebaseAuth = {
   createUser: function(user, cb) {
     var loginObj = {email: user.email, password: user.password};
     ref.createUser(loginObj, function(err) {
@@ -34,7 +19,7 @@ var firebaseUtils = {
         }
       } else {
           this.loginWithPW(loginObj, function(authData){
-            addNewUserToFB({
+            fbHelpers.addNewUserToFB({
               firstName: user.firstName,
               lastName: user.lastName,
               email: user.email,
@@ -65,7 +50,10 @@ var firebaseUtils = {
     ref.unauth();
     cachedUser = null;
     this.onChange(false);
+  },
+  getUser: function(){
+    return cachedUser || ref.getAuth();
   }
 };
 
-module.exports = firebaseUtils;
+module.exports = firebaseAuth;

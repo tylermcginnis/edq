@@ -1,6 +1,6 @@
 var appDispatcher = require('../dispatcher/appDispatcher');
 var appConstants = require('../constants/appConstants');
-var firebaseUtils = require('../utils/firebaseUtils');
+var firebaseUtils = require('../utils/firebase/firebaseUtils');
 
 var dispatcherCallback = function(authObj) {
   if(authObj){

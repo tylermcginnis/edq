@@ -24,8 +24,8 @@ var Dashboard = React.createClass({
     this.refs.newClass.getDOMNode().value = ''
     dashboardActions.addClass({name: newClass});
   },
-  removeClass: function(index){
-    dashboardActions.removeClass(index);
+  removeClass: function(name, index){
+    dashboardActions.removeClass(name, index);
   },
   _onChange: function(){
     this.setState({
@@ -35,7 +35,7 @@ var Dashboard = React.createClass({
   render: function(){
     var list = this.state.classes.map(function(item, index){
       return (
-        <Class info={item} index={index} key={index} removeClass={this.removeClass}/>
+        <Class info={item} index={index} key={index} removeClass={this.removeClass.bind(null, item.name, index)}/>
       )
     }.bind(this));
     return (

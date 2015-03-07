@@ -1,6 +1,6 @@
 var appDispatcher = require('../dispatcher/appDispatcher');
 var appConstants = require('../constants/appConstants');
-var firebaseUtils = require('../utils/firebaseUtils');
+var firebaseUtils = require('../utils/firebase/firebaseUtils');
 
 var dashboardActions = {
   addClass: function(newClass) {
@@ -8,14 +8,14 @@ var dashboardActions = {
       actionType: appConstants.ADD_CLASS,
       data: newClass
     });
-    // FirebaseUtils.addClassToFirebase(klass);
+    firebaseUtils.addClassToFB(newClass);
   },
-  removeClass: function(index) {
+  removeClass: function(name, index) {
     appDispatcher.handleAction({
       actionType: appConstants.REMOVE_CLASS,
       data: index
     });
-    // FirebaseUtils.removeClass(name, email);
+    firebaseUtils.removeClass(name);
   },
 };
 

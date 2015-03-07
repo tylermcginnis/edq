@@ -1,5 +1,5 @@
 var Login = require("../components/login-register/Login");
-var firebaseUtils = require('./firebaseUtils');
+var firebaseUtils = require('./firebase/firebaseUtils');
 
 var Authenticated = {
   statics: {
