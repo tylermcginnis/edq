@@ -3,9 +3,9 @@ var fbHelpers = require('./fbHelpers');
 var cachedUser = null;
 
 var firebaseAuth = {
-  createUser: function(user, cb) {
+  createUser(user, cb) {
     var loginObj = {email: user.email, password: user.password};
-    ref.createUser(loginObj, function(err) {
+    ref.createUser(loginObj, (err) => {
       if (err) {
         switch (err.code) {
           case "EMAIL_TAKEN":
@@ -18,7 +18,7 @@ var firebaseAuth = {
             console.log("Error creating user:", err);
         }
       } else {
-          this.loginWithPW(loginObj, function(authData){
+          this.loginWithPW(loginObj, (authData) => {
             fbHelpers.addNewUserToFB({
               firstName: user.firstName,
               lastName: user.lastName,
@@ -28,10 +28,10 @@ var firebaseAuth = {
             });
           }, cb);
       }
-    }.bind(this));
+    });
   },
-  loginWithPW: function(userObj, cb, cbOnRegister){
-    ref.authWithPassword(userObj, function(err, authData){
+  loginWithPW(userObj, cb, cbOnRegister){
+    ref.authWithPassword(userObj, (err, authData) => {
       if(err){
         console.log('Error on login:', err.message);
         cbOnRegister && cbOnRegister(false);
@@ -41,17 +41,17 @@ var firebaseAuth = {
         this.onChange(true);
         cbOnRegister && cbOnRegister(true);
       }
-    }.bind(this));
+    });
   },
-  isLoggedIn: function(){
+  isLoggedIn(){
     return cachedUser && true || ref.getAuth() || false;
   },
-  logout: function(){
+  logout(){
     ref.unauth();
     cachedUser = null;
     this.onChange(false);
   },
-  getUser: function(){
+  getUser(){
     return cachedUser || ref.getAuth();
   }
 };

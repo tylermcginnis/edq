@@ -1,24 +1,21 @@
 var React = require('react');
 var Router = require('react-router');
-var RouteHandler = Router.RouteHandler;
-var Link = Router.Link;
+var {RouteHandler, Link} = Router;
 var firebaseUtils = require('../utils/firebase/firebaseUtils');
 
-var Main = React.createClass({
-  getInitialState: function(){
-    return {
+class Main extends React.Component {
+  constructor(props){
+    this.state = {
       loggedIn: firebaseUtils.isLoggedIn()
     }
-  },
-  handleLogout: function(loggedIn){
-    this.setState({
-      loggedIn: loggedIn
-    });
-  },
-  componentWillMount: function(){
-    firebaseUtils.onChange = this.handleLogout;
-  },
-  render: function(){
+  }
+  handleLogout(loggedIn){
+    this.setState({loggedIn});
+  }
+  componentWillMount(){
+    firebaseUtils.onChange = () => this.handleLogout()
+  }
+  render(){
     var loginOrOut;
     var register;
     if(this.state.loggedIn){
@@ -51,6 +48,6 @@ var Main = React.createClass({
       </span>
     )
   }
-});
+};
 
 module.exports = Main;
