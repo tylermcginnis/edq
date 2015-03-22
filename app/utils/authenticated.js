@@ -3,10 +3,10 @@ var firebaseUtils = require('./firebase/firebaseUtils');
 
 var Authenticated = {
   statics: {
-    willTransitionTo: function(transition){
+    willTransitionTo(transition){
+      var nextPath = transition.path;
       if(!firebaseUtils.isLoggedIn()){
-        Login.attemptedTransition = transition;
-        transition.redirect('login');
+        transition.redirect('login', {}, {'nextPath': nextPath});
       }
     }
   }

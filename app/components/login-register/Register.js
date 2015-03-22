@@ -2,23 +2,26 @@ var React = require('react');
 var Router = require('react-router');
 var authActions = require('../../actions/authActions');
 
-var Register = React.createClass({
-  mixins: [ Router.Navigation ],
-  handleSubmit: function(e){
+class Register extends React.Component{
+  constructor(){
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  handleSubmit(e){
     e.preventDefault();
+    var { router } = this.context;
     var authObj = {
       email: this.refs.email.getDOMNode().value,
       password: this.refs.pw.getDOMNode().value,
       firstName: this.refs.firstName.getDOMNode().value,
       lastName: this.refs.lastName.getDOMNode().value
     }
-    authActions.registerUser(authObj, function(result){
+    authActions.registerUser(authObj, (result) => {
       if(result){
-        this.replaceWith('dashboard');
+        router.replaceWith('dashboard');
       }
-    }.bind(this))
-  },
-  render: function(){
+    });
+  }
+  render(){
     return (
       <div className="col-sm-6 col-sm-offset-3">
         <form onSubmit={this.handleSubmit}>
@@ -43,6 +46,10 @@ var Register = React.createClass({
       </div>
     )
   }
-});
+};
+
+Register.contextTypes = {
+  router: React.PropTypes.func.isRequired
+}
 
 module.exports = Register;

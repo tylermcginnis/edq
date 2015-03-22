@@ -2,7 +2,7 @@ var appDispatcher = require('../dispatcher/appDispatcher');
 var appConstants = require('../constants/appConstants');
 var firebaseUtils = require('../utils/firebase/firebaseUtils');
 
-var dispatcherCallback = function(authObj) {
+function dispatcherCallback(authObj) {
   if(authObj){
     appDispatcher.handleAction({
       actionType: appConstants.INIT_USER,
@@ -12,16 +12,16 @@ var dispatcherCallback = function(authObj) {
 };
 
 var authActions = {
-  registerUser: function(user, routeChangeCb){
-    firebaseUtils.createUser(user, function (authObj){
+  registerUser(user, routeChangeCb){
+    firebaseUtils.createUser(user, (authObj) => {
       dispatcherCallback.call(null, authObj);
       routeChangeCb.call(null, authObj);
     });
   },
-  loginWithPW: function(user, routeChangeCb){
+  loginWithPW(user, routeChangeCb){
     firebaseUtils.loginWithPW(user, routeChangeCb);
   },
-  logout: function(){
+  logout(){
     firebaseUtils.logout();
   }
 };

@@ -2,31 +2,27 @@ var React = require('react');
 var Router = require('react-router');
 var authActions = require('../../actions/authActions');
 
-var Login = React.createClass({
-  mixins: [Router.Navigation],
-  statics: {
-    attemptedTransition: null,
-  },
-  getInitialState: function(){
-    return {
-      error: false
-    }
-  },
-  handleSubmit: function(e){
+class Login extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {error: false};
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleSubmit(e){
     e.preventDefault();
+    var { router } = this.context;
     var email = this.refs.email.getDOMNode().value;
-    var pw = this.refs.pw.getDOMNode().value;
-    authActions.loginWithPW({email: email, password: pw}, function(){
-      if(Login.attemptedTransition){
-        var transition = Login.attemptedTransition;
-        Login.attemptedTransition = null;
-        transition.retry();
+    var password = this.refs.pw.getDOMNode().value;
+    var nextPath = router.getCurrentQuery().nextPath;
+    authActions.loginWithPW({email, password}, () => {
+      if(nextPath){
+        this.context.router.transitionTo(nextPath);
       } else {
-        this.replaceWith('dashboard');
+        this.context.router.replaceWith('dashboard');
       }
-    }.bind(this));
-  },
-  render: function(){
+    });
+  }
+  render(){
     var errors = this.state.error ? <p> Error on Login </p> : '';
     return (
       <div className="col-sm-6 col-sm-offset-3">
@@ -45,6 +41,10 @@ var Login = React.createClass({
       </div>
     );
   }
-});
+};
+
+Login.contextTypes = {
+  router: React.PropTypes.func.isRequired
+}
 
 module.exports = Login;
