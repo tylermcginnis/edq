@@ -1,6 +1,6 @@
 var ref = require('../../constants/fbref');
 
-var formatEmailForFirebase = function(email){
+function formatEmailForFirebase(email){
   var key = email.replace('@', '^');
   if(key.indexOf('.') !== -1){
     return key.split('.').join('*');
@@ -8,13 +8,13 @@ var formatEmailForFirebase = function(email){
   return key;
 };
 
-var prepFBEndpoint = function(endpoint){
+function prepFBEndpoint(endpoint){
   var hash = {
     ".": true, "#": true, "$": true, "[": true, "]": true
   };
 
   endpoint = endpoint.split('');
-  var result = endpoint.map(function(item){
+  var result = endpoint.map((item) => {
     if(hash[item]){
       return ""
     }
@@ -24,15 +24,15 @@ var prepFBEndpoint = function(endpoint){
 };
 
 var fbHelpers = {
-  addNewUserToFB: function(newUser){
+  addNewUserToFB(newUser){
     var key = formatEmailForFirebase(newUser.email);
     ref.child('user').child(key).set(newUser);
   },
-  addNewClassToFB: function(newClass){
+  addNewClassToFB(newClass){
     var email = formatEmailForFirebase(ref.getAuth().password.email);
     ref.child('classes').child(email).child(prepFBEndpoint(newClass.name)).set(newClass);
   },
-  removeClassFromFB: function(name){
+  removeClassFromFB(name){
     var email = formatEmailForFirebase(ref.getAuth().password.email);
     ref.child('classes').child(email).child(prepFBEndpoint(name)).remove();
   }

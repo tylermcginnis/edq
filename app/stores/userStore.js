@@ -11,24 +11,24 @@ var _state = {
   }
 };
 
-var setState = function(newState){
+function setState(newState){
   objectAssign(_state, newState);
   UserStore.emit(CHANGE_EVENT);
 };
 
 var userStore = objectAssign({}, EventEmitter.prototype, {
-  getUser: function(){
+  getUser(){
     return _state.user;
   },
-  addChangeListener: function(cb) {
+  addChangeListener(cb) {
     this.on(CHANGE_EVENT, cb);
   },
-  removeChangeListener: function(cb) {
+  removeChangeListener(cb) {
     this.removeListener(CHANGE_EVENT, cb);
   }
 });
 
-appDispatcher.register(function(payload){
+appDispatcher.register((payload) => {
   var action = payload.action;
   switch(action.actionType) {
     case appConstants.INIT_USER :

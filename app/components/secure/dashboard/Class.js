@@ -1,7 +1,7 @@
 var React = require('react');
 
-var Class = React.createClass({
-  render: function(){
+class Class extends React.Component{
+  render(){
     /*
     var setMemberStr = function(){
       var length = Object.keys(this.props.info.members).length || 0;
@@ -32,6 +32,6 @@ var Class = React.createClass({
       </div>
     )
   }
-});
+};
 
 module.exports = Class;

@@ -7,37 +7,37 @@ var dashboardActions = require('../../../actions/dashboardActions');
 
 var Dashboard = React.createClass({
   mixins: [Authenticated],
-  getInitialState: function(){
+  getInitialState(){
     return {
       classes: dashboardStore.getClasses()
-    }
+    };
   },
-  componentDidMount: function(){
+  componentDidMount(){
     dashboardStore.addChangeListener(this._onChange);
   },
-  componentWillUnmount: function(){
+  componentWillUnmount(){
     dashboardStore.removeChangeListener(this._onChange)
   },
-  handleSubmit: function(e){
+  handleSubmit(e){
     e.preventDefault();
     var newClass = this.refs.newClass.getDOMNode().value;
     this.refs.newClass.getDOMNode().value = ''
     dashboardActions.addClass({name: newClass});
   },
-  removeClass: function(name, index){
+  removeClass(name, index){
     dashboardActions.removeClass(name, index);
   },
-  _onChange: function(){
+  _onChange(){
     this.setState({
       classes: dashboardStore.getClasses()
     });
   },
-  render: function(){
-    var list = this.state.classes.map(function(item, index){
+  render(){
+    var list = this.state.classes.map((item, index) => {
       return (
         <Class info={item} index={index} key={index} removeClass={this.removeClass.bind(null, item.name, index)}/>
       )
-    }.bind(this));
+    });
     return (
       <span>
         <div className="col-sm-4 card">
