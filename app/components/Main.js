@@ -13,7 +13,7 @@ class Main extends React.Component {
     this.setState({loggedIn});
   }
   componentWillMount(){
-    firebaseUtils.onChange = () => this.handleLogout()
+    firebaseUtils.onChange = this.handleLogout.bind(this)
   }
   render(){
     var loginOrOut;

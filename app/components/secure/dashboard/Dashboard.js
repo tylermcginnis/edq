@@ -1,37 +1,36 @@
 var React = require('react');
 var Router = require('react-router');
 var Class = require('./Class');
-var Authenticated = require('../../../utils/authenticated');
+var requireAuth = require('../../../utils/authenticated');
 var dashboardStore = require('../../../stores/dashboardStore');
 var dashboardActions = require('../../../actions/dashboardActions');
 
-var Dashboard = React.createClass({
-  mixins: [Authenticated],
-  getInitialState(){
-    return {
+var Dashboard = requireAuth(class extends React.Component{
+  constructor(){
+    this.state = {
       classes: dashboardStore.getClasses()
-    };
-  },
+    }
+  }
   componentDidMount(){
     dashboardStore.addChangeListener(this._onChange);
-  },
+  }
   componentWillUnmount(){
     dashboardStore.removeChangeListener(this._onChange)
-  },
+  }
   handleSubmit(e){
     e.preventDefault();
     var newClass = this.refs.newClass.getDOMNode().value;
     this.refs.newClass.getDOMNode().value = ''
     dashboardActions.addClass({name: newClass});
-  },
+  }
   removeClass(name, index){
     dashboardActions.removeClass(name, index);
-  },
+  }
   _onChange(){
     this.setState({
       classes: dashboardStore.getClasses()
     });
-  },
+  }
   render(){
     var list = this.state.classes.map((item, index) => {
       return (
