@@ -1,6 +1,6 @@
 var React = require('react');
 var Router = require('react-router');
-var Class = require('./Class');
+var ClassBadge = require('./ClassBadge');
 var requireAuth = require('../../../utils/authenticated');
 var dashboardStore = require('../../../stores/dashboardStore');
 var dashboardActions = require('../../../actions/dashboardActions');
@@ -15,6 +15,7 @@ var Dashboard = requireAuth(class extends React.Component{
   }
   componentDidMount(){
     dashboardStore.addChangeListener(this._onChange);
+    // dashboardActions.getInitialClasses();
   }
   componentWillUnmount(){
     dashboardStore.removeChangeListener(this._onChange)
@@ -36,7 +37,7 @@ var Dashboard = requireAuth(class extends React.Component{
   render(){
     var list = this.state.classes.map((item, index) => {
       return (
-        <Class info={item} index={index} key={index} removeClass={this.removeClass.bind(null, item.name, index)}/>
+        <ClassBadge info={item} index={index} key={index} removeClass={this.removeClass.bind(null, item.name, index)}/>
       )
     });
     return (
