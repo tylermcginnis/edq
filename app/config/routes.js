@@ -7,7 +7,7 @@ var Login = require("../components/login-register/Login");
 var Logout = require('../components/login-register/Logout');
 var Dashboard = require('../components/secure/dashboard/Dashboard');
 var Home = require("../components/Home");
-var Settings = require('../components/secure/Settings');
+var Settings = require('../components/secure/settings/Settings');
 
 var routes = (
   <Route handler={Main} >

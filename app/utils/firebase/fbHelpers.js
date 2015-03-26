@@ -88,10 +88,26 @@ var fbHelpers = {
     var email = formatEmailForFirebase(ref.getAuth().password.email);
     var formatedClass = prepFBKey(className);
     var classId = prepClassId(formatedClass, email);
-    ref.child('classes').child(classId).child('students').on('value', (snapshot) =>{
+    ref.child(`classes/${classId}/students`).on('value', (snapshot) => {
       var data = snapshot.val();
       data ? cb(toArray(data)) : cb([]);
     });
+  },
+  addStudent(className, studentObj){
+    var classId = prepClassId(prepFBKey(className), formatEmailForFirebase(ref.getAuth().password.email));
+    ref.child(`classes/${classId}/students/${formatEmailForFirebase(studentObj.email)}`).set(studentObj);
+    ref.child(`users/${formatEmailForFirebase(studentObj.email)}/classes/${classId}`)
+      .set({
+        name: className,
+        isTeacher: false,
+        isMentor: false,
+        isStudent: true
+      })
+  },
+  removeStudent(className, studentEmail){
+    var classId = prepClassId(prepFBKey(className), formatEmailForFirebase(ref.getAuth().password.email));
+    ref.child(`classes/${classId}/students/${formatEmailForFirebase(studentEmail)}`).remove();
+    ref.child(`users/${formatEmailForFirebase(studentEmail)}/classes/${classId}`).remove();
   }
 };
 

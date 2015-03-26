@@ -10,6 +10,8 @@ var firebaseUtils = {
   removeClass: fbHelpers.removeClassFromFB,
   getClasses: fbHelpers.getClasses,
   getStudents: fbHelpers.getStudents,
+  addStudent: fbHelpers.addStudent,
+  removeStudent: fbHelpers.removeStudent,
   logout: firebaseAuth.logout
 };
 
