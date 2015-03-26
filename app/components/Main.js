@@ -30,7 +30,7 @@ class Main extends React.Component {
         <nav className="navbar navbar-default navbar-static-top">
           <div className="container">
             <div className="navbar-header">
-              <Link to="home" className="navbar-brand"> PROJECT NAME </Link>
+              <Link to="home" className="navbar-brand"> EDQ </Link>
             </div>
             <ul className="nav navbar-nav pull-right">
               <li><Link to="home" className="navbar-brand"> Home </Link></li>

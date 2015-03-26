@@ -66,11 +66,12 @@ var fbHelpers = {
     ref.child('classes').child(classId).set(newClass);
     addClassToUser(newClass.name, email, 'teacher');
   },
-  removeClassFromFB(name){
+  removeClassFromFB(name, cb){
     var email = formatEmailForFirebase(ref.getAuth().password.email);
     var name = prepFBKey(name);
     ref.child('classes').child(prepClassId(name, email)).remove();
     removeClassFromUser(name, email);
+    cb();
   },
   getClasses(cb){
     var email = formatEmailForFirebase(ref.getAuth().password.email);
@@ -82,6 +83,15 @@ var fbHelpers = {
         cb(toArray(classes));
       }
     })
+  },
+  getStudents(className, cb){
+    var email = formatEmailForFirebase(ref.getAuth().password.email);
+    var formatedClass = prepFBKey(className);
+    var classId = prepClassId(formatedClass, email);
+    ref.child('classes').child(classId).child('students').on('value', (snapshot) =>{
+      var data = snapshot.val();
+      data ? cb(toArray(data)) : cb([]);
+    });
   }
 };
 
