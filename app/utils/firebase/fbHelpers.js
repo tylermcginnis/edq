@@ -34,20 +34,15 @@ function addClassToUser(className, email, role){
     isMentor: false,
     isStudent: false
   };
-  switch (role){
-    case 'teacher' :
-      roles.isTeacher = true;
-      break;
-    case 'mentor' :
-      roles.isMentor = true;
-      break;
-    case 'student' :
-      roles.isStudent = true;
-      break;
-    default :
-      return;
-  }
-  ref.child('users').child(email).child('classes').child(classId).set(roles)
+  role === 'teacher'  && (roles.isTeacher = true);
+  role === 'mentor' && (roles.isMentor = true);
+  role === 'student'  && (roles.isStudent = true);
+  ref.child('users').child(email).child('classes').child(classId).set(roles);
+};
+
+function removeClassFromUser(className, email){
+  var classId = prepClassId(className, email);
+  ref.child('users').child(email).child('classes').child(classId).remove();
 }
 
 var fbHelpers = {
@@ -66,6 +61,7 @@ var fbHelpers = {
     var email = formatEmailForFirebase(ref.getAuth().password.email);
     var name = prepFBKey(name);
     ref.child('classes').child(prepClassId(name, email)).remove();
+    removeClassFromUser(name, email);
   }
 };
 
