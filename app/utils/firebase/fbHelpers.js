@@ -8,7 +8,7 @@ function formatEmailForFirebase(email){
   return key;
 };
 
-function prepFBEndpoint(endpoint){
+function prepFBKey(endpoint){
   var hash = {
     ".": true, "#": true, "$": true, "[": true, "]": true
   };
@@ -23,6 +23,10 @@ function prepFBEndpoint(endpoint){
   return result.join('');
 };
 
+function prepClassId(className, email){
+  return className + '-' + email;
+}
+
 var fbHelpers = {
   addNewUserToFB(newUser){
     var key = formatEmailForFirebase(newUser.email);
@@ -30,11 +34,13 @@ var fbHelpers = {
   },
   addNewClassToFB(newClass){
     var email = formatEmailForFirebase(ref.getAuth().password.email);
-    ref.child('classes').child(email).child(prepFBEndpoint(newClass.name)).set(newClass);
+    var className = prepFBKey(newClass.name);
+    ref.child('classes').child(prepClassId(className, email)).set(newClass);
   },
   removeClassFromFB(name){
     var email = formatEmailForFirebase(ref.getAuth().password.email);
-    ref.child('classes').child(email).child(prepFBEndpoint(name)).remove();
+    var name = prepFBKey(name);
+    ref.child('classes').child(prepClassId(name, email)).remove();
   }
 };
 

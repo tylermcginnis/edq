@@ -10,6 +10,8 @@ var Dashboard = requireAuth(class extends React.Component{
     this.state = {
       classes: dashboardStore.getClasses()
     }
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this._onChange = this._onChange.bind(this);
   }
   componentDidMount(){
     dashboardStore.addChangeListener(this._onChange);
