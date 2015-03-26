@@ -17,6 +17,14 @@ var dashboardActions = {
     });
     firebaseUtils.removeClass(name);
   },
+  getInitialClasses(){
+    firebaseUtils.getClasses((classes) => {
+      appDispatcher.handleAction({
+        actionType: appConstants.INIT_CLASSES,
+        data: classes
+      });
+    });
+  }
 };
 
 module.exports = dashboardActions;

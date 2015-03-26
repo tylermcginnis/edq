@@ -40,6 +40,10 @@ appDispatcher.register((payload) => {
       setState({
         classes: ref
       });
+    case appConstants.INIT_CLASSES :
+      setState({
+        classes: action.data
+      });
     default :
       return true;
   }

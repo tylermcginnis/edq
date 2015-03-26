@@ -15,7 +15,7 @@ var Dashboard = requireAuth(class extends React.Component{
   }
   componentDidMount(){
     dashboardStore.addChangeListener(this._onChange);
-    // dashboardActions.getInitialClasses();
+    dashboardActions.getInitialClasses();
   }
   componentWillUnmount(){
     dashboardStore.removeChangeListener(this._onChange)

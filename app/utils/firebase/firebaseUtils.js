@@ -8,6 +8,7 @@ var firebaseUtils = {
   isLoggedIn: firebaseAuth.isLoggedIn,
   addClassToFB: fbHelpers.addNewClassToFB,
   removeClass: fbHelpers.removeClassFromFB,
+  getClasses: fbHelpers.getClasses,
   logout: firebaseAuth.logout
 };
 
