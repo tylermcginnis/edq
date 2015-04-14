@@ -5,7 +5,8 @@ users
     - token (XJDUY8ESX)
     - classes
       - classid (physics-tm*gmail*com)
-        - isOwner (true)
+        - name (Pysics)
+        - isTeacher (true)
         - isMentor (false)
         - isStudent (false)
 

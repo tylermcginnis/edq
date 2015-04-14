@@ -10,13 +10,6 @@ var dashboardActions = {
     });
     firebaseUtils.addClassToFB(newClass);
   },
-  removeClass(name, index) {
-    appDispatcher.handleAction({
-      actionType: appConstants.REMOVE_CLASS,
-      data: index
-    });
-    firebaseUtils.removeClass(name);
-  },
   getInitialClasses(){
     firebaseUtils.getClasses((classes) => {
       appDispatcher.handleAction({

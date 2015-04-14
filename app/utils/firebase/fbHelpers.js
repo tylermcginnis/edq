@@ -66,12 +66,19 @@ var fbHelpers = {
     ref.child('classes').child(classId).set(newClass);
     addClassToUser(newClass.name, email, 'teacher');
   },
-  removeClassFromFB(name, cb){
+  removeClassFromFB(className){
     var email = formatEmailForFirebase(ref.getAuth().password.email);
-    var name = prepFBKey(name);
-    ref.child('classes').child(prepClassId(name, email)).remove();
-    removeClassFromUser(name, email);
-    cb();
+    var className = prepFBKey(className);
+    var classId = prepClassId(className, email);
+    var studentsOfClassEndpoint = `classes/${classId}/students`;
+    ref.child(studentsOfClassEndpoint).once('value', (snapshot) => {
+      var students = snapshot.val();
+      for(var student in students){
+        ref.child(`users/${student}/classes/${classId}`).remove();
+      }
+      ref.child(`classes/${classId}`).remove();
+      removeClassFromUser(className, email);
+    });
   },
   getClasses(cb){
     var email = formatEmailForFirebase(ref.getAuth().password.email);

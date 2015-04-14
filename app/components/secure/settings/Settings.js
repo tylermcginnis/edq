@@ -2,33 +2,42 @@ var React = require('react');
 var firebaseUtils = require('../../../utils/firebase/firebaseUtils');
 var AddNewStudent = require('./AddNewStudent');
 var StudentItem = require('./StudentItem');
+var settingsActions = require('../../../actions/settingsActions');
+var settingsStore = require('../../../stores/settingsStore');
 
 class Settings extends React.Component{
   constructor(){
     this.state = {
-      students: []
+      students: settingsStore.getStudents()
     }
     this.updateStudents = this.updateStudents.bind(this);
     this.deleteClass = this.deleteClass.bind(this);
     this.removeStudent = this.removeStudent.bind(this);
+    this._onChange = this._onChange.bind(this);
   }
   updateStudents(students){
     this.setState({students});
   }
   removeStudent(index, email){
-    var newStudents = this.state.students;
-    var removedStudent = newStudents.splice(index, 1);
-    this.setState({
-      students: newStudents
-    });
+    settingsActions.removeStudent(index);
     firebaseUtils.removeStudent(this.context.router.getCurrentParams().class, email);
   }
   componentDidMount(){
+    settingsActions.getStudents();
+    settingsStore.addChangeListener(this._onChange);
     firebaseUtils.getStudents(this.context.router.getCurrentParams().class, this.updateStudents);
   }
+  componentWillUnmount(){
+    settingsStore.removeChangeListener(this._onChange);
+  }
   deleteClass(className){
-    firebaseUtils.removeClass(className, () =>{
+    settingsActions.removeClass(className, () =>{
       this.context.router.transitionTo('dashboard');
+    })
+  }
+  _onChange(){
+    this.setState({
+      students: settingsStore.getStudents()
     });
   }
   render(){
