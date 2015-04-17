@@ -3,12 +3,13 @@ var firebaseUtils = require('../../../utils/firebase/firebaseUtils');
 var AddNewStudent = require('./AddNewStudent');
 var StudentItem = require('./StudentItem');
 var settingsActions = require('../../../actions/settingsActions');
-var settingsStore = require('../../../stores/settingsStore');
+var classesStore = require('../../../stores/classesStore');
 
 class Settings extends React.Component{
   constructor(){
     this.state = {
-      students: settingsStore.getStudents()
+      students: classesStore.getStudents(),
+      classes: classesStore.getClasses()
     }
     this.updateStudents = this.updateStudents.bind(this);
     this.deleteClass = this.deleteClass.bind(this);
@@ -24,24 +25,27 @@ class Settings extends React.Component{
   }
   componentDidMount(){
     settingsActions.getStudents();
-    settingsStore.addChangeListener(this._onChange);
+    classesStore.addChangeListener(this._onChange);
     firebaseUtils.getStudents(this.context.router.getCurrentParams().class, this.updateStudents);
   }
   componentWillUnmount(){
-    settingsStore.removeChangeListener(this._onChange);
+    classesStore.removeChangeListener(this._onChange);
   }
   deleteClass(className){
-    settingsActions.removeClass(className, () =>{
+    var classIndex = this.state.classes.filter((item) => item.name === className)
+    settingsActions.removeClass(className, classIndex, () =>{
       this.context.router.transitionTo('dashboard');
     })
   }
   _onChange(){
     this.setState({
-      students: settingsStore.getStudents()
+      students: classesStore.getStudents(),
+      classes: classesStore.getClasses()
     });
   }
   render(){
-    var currentClass = this.context.router.getCurrentParams().class
+    var currentClass = this.context.router.getCurrentParams().class;
+    debugger;
     var students = this.state.students.map((item, index) => {
       return (
         <StudentItem

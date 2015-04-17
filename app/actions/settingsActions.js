@@ -8,7 +8,7 @@ var settingsActions = {
       actionType: appConstants.REMOVE_CLASS,
       data: index
     });
-    firebaseUtils.removeClass(name);
+    firebaseUtils.removeClass(name, cb);
   },
   removeStudent(index, email){
     appDispatcher.handleAction({

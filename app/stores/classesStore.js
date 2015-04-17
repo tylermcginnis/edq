@@ -6,15 +6,19 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
 var _state = {
+  classes: [],
   students: []
 };
 
 function setState(newState){
   objectAssign(_state, newState);
-  settingsStore.emit(CHANGE_EVENT);
+  classesStore.emit(CHANGE_EVENT);
 };
 
-var settingsStore = objectAssign({}, EventEmitter.prototype, {
+var classesStore = objectAssign({}, EventEmitter.prototype, {
+  getClasses(){
+    return _state.classes;
+  },
   getStudents(){
     return _state.students;
   },
@@ -29,6 +33,17 @@ var settingsStore = objectAssign({}, EventEmitter.prototype, {
 appDispatcher.register((payload) => {
   var action = payload.action;
   switch(action.actionType) {
+    case appConstants.ADD_CLASS :
+      setState({
+        classes: _state.classes.concat([action.data])
+      });
+    break;
+    case appConstants.REMOVE_CLASS :
+      var ref = _state.classes.slice(0);
+      ref.splice(action.data, 1);
+      setState({
+        classes: ref
+      });
     case appConstants.INIT_CLASSES :
       setState({
         classes: action.data
@@ -38,4 +53,4 @@ appDispatcher.register((payload) => {
   }
 });
 
-module.exports = settingsStore;
+module.exports = classesStore;
