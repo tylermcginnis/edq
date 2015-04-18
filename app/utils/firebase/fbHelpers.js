@@ -66,7 +66,7 @@ var fbHelpers = {
     ref.child('classes').child(classId).set(newClass);
     addClassToUser(newClass.name, email, 'teacher');
   },
-  removeClassFromFB(className, cb){
+  removeClass(className, cb){
     var email = formatEmailForFirebase(ref.getAuth().password.email);
     var className = prepFBKey(className);
     var classId = prepClassId(className, email);
@@ -78,7 +78,6 @@ var fbHelpers = {
       }
       ref.child(`classes/${classId}`).remove();
       removeClassFromUser(className, email);
-      debugger;
       cb && cb();
     });
   },

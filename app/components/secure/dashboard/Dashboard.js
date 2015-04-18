@@ -10,15 +10,13 @@ var Dashboard = requireAuth(class extends React.Component{
     this.state = {
       classes: classesStore.getClasses()
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this._onChange = this._onChange.bind(this);
   }
   componentDidMount(){
-    classesStore.addChangeListener(this._onChange);
+    classesStore.addChangeListener(this._onChange.bind(this));
     dashboardActions.getInitialClasses();
   }
   componentWillUnmount(){
-    classesStore.removeChangeListener(this._onChange)
+    classesStore.removeChangeListener(this._onChange.bind(this))
   }
   handleSubmit(e){
     e.preventDefault();
@@ -48,7 +46,7 @@ var Dashboard = requireAuth(class extends React.Component{
               <label>Class Name</label>
               <input type="text" ref="newClass" className="form-control" placeholder="Class Name" />
             </div>
-            <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Submit</button>
+            <button type="submit" className="btn btn-default" onClick={this.handleSubmit.bind(this)}>Submit</button>
           </form>
         </div>
         {list}

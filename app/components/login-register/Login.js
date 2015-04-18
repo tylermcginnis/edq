@@ -6,7 +6,6 @@ class Login extends React.Component{
   constructor(props){
     super(props)
     this.state = {error: false};
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit(e){
     e.preventDefault();
@@ -26,7 +25,7 @@ class Login extends React.Component{
     var errors = this.state.error ? <p> Error on Login </p> : '';
     return (
       <div className="col-sm-6 col-sm-offset-3">
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
             <label> Email </label>
             <input className="form-control" ref="email" placeholder="Email"/>

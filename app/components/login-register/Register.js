@@ -3,9 +3,6 @@ var Router = require('react-router');
 var authActions = require('../../actions/authActions');
 
 class Register extends React.Component{
-  constructor(){
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
   handleSubmit(e){
     e.preventDefault();
     var { router } = this.context;
@@ -24,7 +21,7 @@ class Register extends React.Component{
   render(){
     return (
       <div className="col-sm-6 col-sm-offset-3">
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
             <label> First Name </label>
             <input className="form-control" ref="firstName" placeholder="First Name"/>

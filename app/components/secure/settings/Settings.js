@@ -11,10 +11,6 @@ class Settings extends React.Component{
       students: classesStore.getStudents(),
       classes: classesStore.getClasses()
     }
-    this.updateStudents = this.updateStudents.bind(this);
-    this.deleteClass = this.deleteClass.bind(this);
-    this.removeStudent = this.removeStudent.bind(this);
-    this._onChange = this._onChange.bind(this);
   }
   updateStudents(students){
     this.setState({students});
@@ -25,11 +21,11 @@ class Settings extends React.Component{
   }
   componentDidMount(){
     settingsActions.getStudents();
-    classesStore.addChangeListener(this._onChange);
-    firebaseUtils.getStudents(this.context.router.getCurrentParams().class, this.updateStudents);
+    classesStore.addChangeListener(this._onChange.bind(this));
+    firebaseUtils.getStudents(this.context.router.getCurrentParams().class, this.updateStudents.bind(this));
   }
   componentWillUnmount(){
-    classesStore.removeChangeListener(this._onChange);
+    classesStore.removeChangeListener(this._onChange.bind(this));
   }
   deleteClass(className){
     var classIndex = this.state.classes.filter((item) => item.name === className)
@@ -45,14 +41,13 @@ class Settings extends React.Component{
   }
   render(){
     var currentClass = this.context.router.getCurrentParams().class;
-    debugger;
     var students = this.state.students.map((item, index) => {
       return (
         <StudentItem
           email={item.email}
           name={item.name}
           index={index}
-          remove={this.removeStudent}
+          remove={this.removeStudent.bind(this)}
           key={index} />
       )
     });
@@ -66,7 +61,7 @@ class Settings extends React.Component{
         </div>
         <div className="col-sm-6">
           <h3> Configuration </h3>
-          <button className="btn btn-default" onClick={this.deleteClass.bind(null, currentClass)}>Delete Class</button>
+          <button className="btn btn-default" onClick={this.deleteClass.bind(this, currentClass)}>Delete Class</button>
         </div>
       </div>
     )

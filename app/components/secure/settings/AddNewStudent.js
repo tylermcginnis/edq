@@ -2,9 +2,6 @@ var React = require('react');
 var firebaseUtils = require('../../../utils/firebase/firebaseUtils');
 
 class AddNewStudent extends React.Component{
-  constructor(){
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
   handleSubmit(e){
     e.preventDefault();
     var name = this.refs.name.getDOMNode().value;
@@ -25,7 +22,7 @@ class AddNewStudent extends React.Component{
             <label>Student Email</label>
             <input type="text" ref="email" className="form-control" placeholder="Student Email" />
           </div>
-          <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Add New Student</button>
+          <button type="submit" className="btn btn-default" onClick={this.handleSubmit.bind(this)}>Add New Student</button>
         </form>
       </div>
     )

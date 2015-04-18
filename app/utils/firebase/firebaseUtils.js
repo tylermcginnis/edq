@@ -7,7 +7,7 @@ var firebaseUtils = {
   loginWithPW: firebaseAuth.loginWithPW,
   isLoggedIn: firebaseAuth.isLoggedIn,
   addClassToFB: fbHelpers.addNewClassToFB,
-  removeClass: fbHelpers.removeClassFromFB,
+  removeClass: fbHelpers.removeClass,
   getClasses: fbHelpers.getClasses,
   getStudents: fbHelpers.getStudents,
   addStudent: fbHelpers.addStudent,
