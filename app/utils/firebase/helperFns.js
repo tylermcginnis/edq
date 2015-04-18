@@ -54,7 +54,7 @@ function toArray(obj){
   return arr;
 };
 
-var fbHelpers = {
+var helperFns = {
   addNewUserToFB(newUser){
     var key = formatEmailForFirebase(newUser.email);
     ref.child('users').child(key).set(newUser);
@@ -122,4 +122,4 @@ var fbHelpers = {
   }
 };
 
-module.exports = fbHelpers;
+module.exports = helperFns;

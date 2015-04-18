@@ -1,6 +1,6 @@
 var appDispatcher = require('../dispatcher/appDispatcher');
 var appConstants = require('../constants/appConstants');
-var firebaseAuth = require('../utils/firebase/firebaseAuth');
+var auth = require('../utils/firebase/auth');
 
 function dispatcherCallback(authObj) {
   if(authObj){
@@ -13,16 +13,16 @@ function dispatcherCallback(authObj) {
 
 var authActions = {
   registerUser(user, routeChangeCb){
-    firebaseAuth.createUser(user, (authObj) => {
+    auth.createUser(user, (authObj) => {
       dispatcherCallback.call(null, authObj);
       routeChangeCb.call(null, authObj);
     });
   },
   loginWithPW(user, routeChangeCb){
-    firebaseAuth.loginWithPW(user, routeChangeCb);
+    auth.loginWithPW(user, routeChangeCb);
   },
   logout(){
-    firebaseAuth.logout();
+    auth.logout();
   }
 };
 

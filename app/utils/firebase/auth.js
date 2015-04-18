@@ -1,8 +1,8 @@
 var ref = require('../../constants/fbref');
-var fbHelpers = require('./fbHelpers');
+var helperFns = require('./helperFns');
 var cachedUser = null;
 
-var firebaseAuth = {
+var auth = {
   createUser(user, cb) {
     var loginObj = {email: user.email, password: user.password};
     ref.createUser(loginObj, (err) => {
@@ -19,7 +19,7 @@ var firebaseAuth = {
         }
       } else {
           this.loginWithPW(loginObj, (authData) => {
-            fbHelpers.addNewUserToFB({
+            helperFns.addNewUserToFB({
               firstName: user.firstName,
               lastName: user.lastName,
               email: user.email,
@@ -56,4 +56,4 @@ var firebaseAuth = {
   }
 };
 
-module.exports = firebaseAuth;
+module.exports = auth;

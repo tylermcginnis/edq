@@ -1,20 +1,20 @@
 var React = require('react');
 var Router = require('react-router');
 var {RouteHandler, Link} = Router;
-var fbHelpers = require('../utils/firebase/fbHelpers');
-var firebaseAuth = require('../utils/firebase/firebaseAuth');
+var helperFns = require('../utils/firebase/helperFns');
+var auth = require('../utils/firebase/auth');
 
 class Main extends React.Component {
   constructor(props){
     this.state = {
-      loggedIn: firebaseAuth.isLoggedIn()
+      loggedIn: auth.isLoggedIn()
     }
   }
   handleLogout(loggedIn){
     this.setState({loggedIn});
   }
   componentWillMount(){
-    fbHelpers.onChange = this.handleLogout.bind(this)
+    helperFns.onChange = this.handleLogout.bind(this)
   }
   render(){
     var loginOrOut;

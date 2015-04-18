@@ -1,6 +1,6 @@
 var React = require('react');
 var Login = require("../components/login-register/Login");
-var firebaseAuth = require('./firebase/firebaseAuth');
+var auth = require('./firebase/auth');
 
 var requireAuth = (Component) => {
   class Authenticated extends React.Component{
@@ -11,7 +11,7 @@ var requireAuth = (Component) => {
 
   Authenticated.willTransitionTo = function (transition) {
     var nextPath = transition.path;
-    if(!firebaseAuth.isLoggedIn()){
+    if(!auth.isLoggedIn()){
       transition.redirect('login', {}, {'nextPath': nextPath});
     }
   };
