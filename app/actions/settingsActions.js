@@ -1,6 +1,6 @@
 var appDispatcher = require('../dispatcher/appDispatcher');
 var appConstants = require('../constants/appConstants');
-var firebaseUtils = require('../utils/firebase/firebaseUtils');
+var fbHelpers = require('../utils/firebase/fbHelpers');
 
 var settingsActions = {
   removeClass(name, index, cb) {
@@ -8,14 +8,14 @@ var settingsActions = {
       actionType: appConstants.REMOVE_CLASS,
       data: index
     });
-    firebaseUtils.removeClass(name, cb);
+    fbHelpers.removeClass(name, cb);
   },
   removeStudent(index, email){
     appDispatcher.handleAction({
       actionType: appConstants.REMOVE_STUDENT,
       data: index
     });
-    firebaseUtils.removeClass(name);
+    fbHelpers.removeClass(name);
   },
   getStudents(){
 

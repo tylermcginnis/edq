@@ -1,6 +1,6 @@
 var appDispatcher = require('../dispatcher/appDispatcher');
 var appConstants = require('../constants/appConstants');
-var firebaseUtils = require('../utils/firebase/firebaseUtils');
+var fbHelpers = require('../utils/firebase/fbHelpers');
 
 var dashboardActions = {
   addClass(newClass) {
@@ -8,10 +8,10 @@ var dashboardActions = {
       actionType: appConstants.ADD_CLASS,
       data: newClass
     });
-    firebaseUtils.addClassToFB(newClass);
+    fbHelpers.addNewClassToFB(newClass);
   },
   getInitialClasses(){
-    firebaseUtils.getClasses((classes) => {
+    fbHelpers.getClasses((classes) => {
       appDispatcher.handleAction({
         actionType: appConstants.INIT_CLASSES,
         data: classes

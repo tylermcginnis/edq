@@ -116,6 +116,9 @@ var fbHelpers = {
     var classId = prepClassId(prepFBKey(className), formatEmailForFirebase(ref.getAuth().password.email));
     ref.child(`classes/${classId}/students/${formatEmailForFirebase(studentEmail)}`).remove();
     ref.child(`users/${formatEmailForFirebase(studentEmail)}/classes/${classId}`).remove();
+  },
+  getQueue(className){
+
   }
 };
 

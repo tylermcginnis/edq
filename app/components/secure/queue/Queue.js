@@ -3,6 +3,7 @@ var ClassStatus = require('./ClassStatus');
 var queueStore = require('../../../stores/queueStore');
 var QueueItem = require('./QueueItem');
 
+
 class Queue extends React.Component {
   constructor(props){
     super(props);
@@ -11,8 +12,9 @@ class Queue extends React.Component {
     };
   }
   componentDidMount(){
-    //fetch fb queue and set store
     var className = this.context.router.getCurrentParams().class;
+    //get queue from firebase then pass it to actions which will dispatch and update the store.
+
   }
   render(){
     var className = this.context.router.getCurrentParams().class;

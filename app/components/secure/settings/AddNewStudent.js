@@ -1,5 +1,5 @@
 var React = require('react');
-var firebaseUtils = require('../../../utils/firebase/firebaseUtils');
+var fbHelpers = require('../../../utils/firebase/fbHelpers');
 
 class AddNewStudent extends React.Component{
   handleSubmit(e){
@@ -8,7 +8,7 @@ class AddNewStudent extends React.Component{
     var email = this.refs.email.getDOMNode().value;
     this.refs.name.getDOMNode().value = ''
     this.refs.email.getDOMNode().value = ''
-    firebaseUtils.addStudent(this.props.currentClass, {name, email});
+    fbHelpers.addStudent(this.props.currentClass, {name, email});
   }
   render(){
     return (
