@@ -1,5 +1,5 @@
 var ref = require('../../constants/fbref');
-var helperFns = require('./helperFns');
+var classHelpers = require('./classHelpers');
 var cachedUser = null;
 
 var auth = {
@@ -19,7 +19,7 @@ var auth = {
         }
       } else {
           this.loginWithPW(loginObj, (authData) => {
-            helperFns.addNewUserToFB({
+            classHelpers.addNewUserToFB({
               firstName: user.firstName,
               lastName: user.lastName,
               email: user.email,

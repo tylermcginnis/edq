@@ -1,5 +1,5 @@
 var React = require('react');
-var helperFns = require('../../../utils/firebase/helperFns');
+var classHelpers = require('../../../utils/firebase/classHelpers');
 var AddNewStudent = require('./AddNewStudent');
 var StudentItem = require('./StudentItem');
 var settingsActions = require('../../../actions/settingsActions');
@@ -17,12 +17,12 @@ class Settings extends React.Component{
   }
   removeStudent(index, email){
     settingsActions.removeStudent(index);
-    helperFns.removeStudent(this.context.router.getCurrentParams().class, email);
+    classHelpers.removeStudent(this.context.router.getCurrentParams().class, email);
   }
   componentDidMount(){
     settingsActions.getStudents();
     classesStore.addChangeListener(this._onChange.bind(this));
-    helperFns.getStudents(this.context.router.getCurrentParams().class, this.updateStudents.bind(this));
+    classHelpers.getStudents(this.context.router.getCurrentParams().class, this.updateStudents.bind(this));
   }
   componentWillUnmount(){
     classesStore.removeChangeListener(this._onChange.bind(this));

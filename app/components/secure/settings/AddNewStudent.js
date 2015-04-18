@@ -1,5 +1,5 @@
 var React = require('react');
-var helperFns = require('../../../utils/firebase/helperFns');
+var classHelpers = require('../../../utils/firebase/classHelpers');
 
 class AddNewStudent extends React.Component{
   handleSubmit(e){
@@ -8,7 +8,7 @@ class AddNewStudent extends React.Component{
     var email = this.refs.email.getDOMNode().value;
     this.refs.name.getDOMNode().value = ''
     this.refs.email.getDOMNode().value = ''
-    helperFns.addStudent(this.props.currentClass, {name, email});
+    classHelpers.addStudent(this.props.currentClass, {name, email});
   }
   render(){
     return (
