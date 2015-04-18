@@ -1,10 +1,32 @@
 var React = require('react');
+var ClassStatus = require('./ClassStatus');
+var queueStore = require('../../../stores/queueStore');
+var QueueItem = require('./QueueItem');
 
 class Queue extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      queue: queueStore.getQueue()
+    };
+  }
+  componentDidMount(){
+    //fetch fb queue and set store
+    var className = this.context.router.getCurrentParams().class;
+  }
   render(){
     var className = this.context.router.getCurrentParams().class;
+    var list = this.state.queue.map((item, index) => {
+      return (
+        <QueueItem item={item} index={index} key={index} />
+      )
+    });
     return (
-      <div> THE QUEUEUEUEU {className} </div>
+      <div>
+        <ClassStatus />
+        <p> QUEUE MAIN - {className} </p>
+        {list}
+      </div>
     )
   }
 };
