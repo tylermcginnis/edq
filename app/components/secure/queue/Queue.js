@@ -2,6 +2,7 @@ var React = require('react');
 var ClassStatus = require('./ClassStatus');
 var queueStore = require('../../../stores/queueStore');
 var QueueItem = require('./QueueItem');
+var queueActions = require('../../../actions/queueActions');
 
 
 class Queue extends React.Component {
@@ -12,9 +13,17 @@ class Queue extends React.Component {
     };
   }
   componentDidMount(){
+    queueStore.addChangeListener(this._onChange.bind(this));
     var className = this.context.router.getCurrentParams().class;
-    //get queue from firebase then pass it to actions which will dispatch and update the store.
-
+    queueActions.initQueue();
+  }
+  componentWillUnmount(){
+    queueStore.removeChangeListener(this._onChange.bind(this));
+  }
+  _onChange(){
+    this.setState({
+      queue: queueStore.getQueue()
+    })
   }
   render(){
     var className = this.context.router.getCurrentParams().class;
