@@ -2,8 +2,8 @@ var appDispatcher = require('../dispatcher/appDispatcher');
 var queueHelpers = require('../utils/firebase/queueHelpers');
 
 var queueActions = {
-  initQueue(){
-    queueHelpers.fetchQueue((queue) => {
+  initQueue(className){
+    queueHelpers.fetchQueue(className, (queue) => {
       appDispatcher.handleAction({
         actionType: appConstants.INIT_QUEUE,
         data: queue

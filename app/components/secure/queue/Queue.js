@@ -7,6 +7,7 @@ var queueActions = require('../../../actions/queueActions');
 
 class Queue extends React.Component {
   constructor(props){
+    //put queue data on classStore?
     super(props);
     this.state = {
       queue: queueStore.getQueue()
@@ -15,7 +16,7 @@ class Queue extends React.Component {
   componentDidMount(){
     queueStore.addChangeListener(this._onChange.bind(this));
     var className = this.context.router.getCurrentParams().class;
-    queueActions.initQueue();
+    queueActions.initQueue(className);
   }
   componentWillUnmount(){
     queueStore.removeChangeListener(this._onChange.bind(this));

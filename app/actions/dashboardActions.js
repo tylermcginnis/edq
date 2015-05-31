@@ -10,8 +10,8 @@ var dashboardActions = {
     });
     classHelpers.addNewClassToFB(newClass);
   },
-  getInitialClasses(){
-    classHelpers.getClasses((classes) => {
+  getInitialClasses(userId){
+    classHelpers.getClasses(userId, (classes) => {
       appDispatcher.handleAction({
         actionType: appConstants.INIT_CLASSES,
         data: classes

@@ -1,11 +1,10 @@
 var ref = require('../../constants/fbref');
 var classHelpers = require('./classHelpers');
-var cachedUser = null;
 
 var auth = {
   createUser(user, cb) {
     var loginObj = {email: user.email, password: user.password};
-    ref.createUser(loginObj, (err) => {
+    ref.createUser(loginObj, (err, userData) => {
       if (err) {
         switch (err.code) {
           case "EMAIL_TAKEN":
@@ -18,41 +17,33 @@ var auth = {
             console.log("Error creating user:", err);
         }
       } else {
-          this.loginWithPW(loginObj, (authData) => {
-            classHelpers.addNewUserToFB({
-              firstName: user.firstName,
-              lastName: user.lastName,
-              email: user.email,
-              uid: authData.uid,
-              token: authData.token
-            });
-          }, cb);
+        var newUserRef = ref.child('users').push({firstName: user.firstName,lastName: user.lastName,email: user.email,uid: userData.uid});
+        loginObj.pushId = newUserRef.key();
+        console.log('this new loginObj should have a .id prop of the new random key firebase generated when I added a new user to firebases db', loginObj);
+        this.loginWithPW(loginObj, cb);
       }
     });
   },
-  loginWithPW(userObj, cb, cbOnRegister){
+  loginWithPW(userObj, cb){
     ref.authWithPassword(userObj, (err, authData) => {
       if(err){
         console.log('Error on login:', err.message);
-        cbOnRegister && cbOnRegister(false);
+        cb(true);
       } else {
-        cachedUser = authData;
-        cb(authData);
+        // localStorage.setItem('user', JSON.stringify(authData));
         this.onChange(true);
-        cbOnRegister && cbOnRegister(true);
+        authData.pushId = userObj.pushId;
+        cb(false, authData);
       }
     });
   },
   isLoggedIn(){
-    return cachedUser && true || ref.getAuth() || false;
+    return localStorage.getItem('user') && true || ref.getAuth() || false;
   },
-  logout(){
+  logout(cb){
     ref.unauth();
-    cachedUser = null;
+    cb();
     this.onChange(false);
-  },
-  getUser(){
-    return cachedUser || ref.getAuth();
   }
 };
 

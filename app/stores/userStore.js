@@ -3,22 +3,23 @@ var appConstants = require('../constants/appConstants');
 var objectAssign = require('react/lib/Object.assign');
 var EventEmitter = require('events').EventEmitter;
 
-var _state = {
-  user: {
-    firstName: '',
-    lastName: '',
-    email: ''
-  }
-};
+var CHANGE_EVENT = 'change';
 
 function setState(newState){
-  objectAssign(_state, newState);
-  UserStore.emit(CHANGE_EVENT);
+  var _state = JSON.parse(localStorage.getItem('user')) || {};
+  objectAssign(_state, newState.user);
+  localStorage.setItem('user', JSON.stringify(_state));
+  userStore.emit(CHANGE_EVENT);
 };
+
+function resetUser(){
+  localStorage.removeItem('user');
+  console.log('The new user state is ', localStorage.getItem('user'))
+}
 
 var userStore = objectAssign({}, EventEmitter.prototype, {
   getUser(){
-    return _state.user;
+    return JSON.parse(localStorage.getItem('user'));
   },
   addChangeListener(cb) {
     this.on(CHANGE_EVENT, cb);
@@ -36,8 +37,9 @@ appDispatcher.register((payload) => {
         user: action.data
       });
     break;
-    case appConstants.XXX :
-      setState(action.data);
+    case appConstants.RESET_USER :
+      resetUser();
+    break;
     default :
       return true;
   }

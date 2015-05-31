@@ -21,10 +21,6 @@ function removeClassFromUser(className, email){
 };
 
 var classHelpers = {
-  addNewUserToFB(newUser){
-    var key = helpers.formatEmailForFirebase(newUser.email);
-    ref.child('users').child(key).set(newUser);
-  },
   addNewClassToFB(newClass){
     var email = helpers.formatEmailForFirebase(ref.getAuth().password.email);
     var className = helpers.prepFBKey(newClass.name);
@@ -47,16 +43,15 @@ var classHelpers = {
       cb && cb();
     });
   },
-  getClasses(cb){
-    var email = helpers.formatEmailForFirebase(ref.getAuth().password.email);
-    ref.child('users').child(email).child('classes').on('value', (snapshot) => {
+  getClasses(userId, cb){
+    ref.child(`users/${userId}/classes`).on('value', (snapshot) => {
       var classes = snapshot.val();
       if(!classes){
         cb([]);
       } else {
         cb(helpers.toArray(classes));
       }
-    })
+    });
   },
   getStudents(className, cb){
     var email = helpers.formatEmailForFirebase(ref.getAuth().password.email);
@@ -86,3 +81,10 @@ var classHelpers = {
 };
 
 module.exports = classHelpers;
+
+/*
+  addNewUserToFB(newUser){
+    var key = helpers.formatEmailForFirebase(newUser.email);
+    ref.child('users').child(key).set(newUser);
+  },
+*/

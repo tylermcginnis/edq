@@ -1,33 +1,32 @@
 users
-  - id (tm*gmail*com)
+  - id (SOME-PUSH-ID-STUDENTID)
     - email (tylermcginnis33@gmail.com)
     - name (Tyler McGinnis)
-    - token (XJDUY8ESX)
     - classes
-      - classid (physics-tm*gmail*com)
+      - classid (SOME-PUSH-ID-CLASSID)
         - name (Pysics)
         - isTeacher (true)
         - isMentor (false)
         - isStudent (false)
 
 classes
-  - id (physics-tm*gmail*com)
+  - id (SOME-PUSH-ID-CLASSID)
     - name (Physics)
     - mentors
-      - mentorid (jacob*devmounta*in)
+      - mentorid (SOME-PUSH-ID-STUDENTID)
     - students
-      - studentid (tm*gmail*com)
+      - studentid (SOME-PUSH-ID-STUDENTID)
         - name (Tyler McGinnis)
         - email (tylermcginnis33@gmail.com)
 
 queue
-  - classid (physics-tm*gmail*com)
+  - classid (SOME-PUSH-ID-CLASSID)
     - student in queue (XEGS#SEGE)
       - time entered (10139443)
       - name || anonymous (Tyler McGinnis)
       - question (Can you chain promises?)
 
 studentStatus
-  - classid (physics-tm*gmail*com)
-    - studentid (tm*gmail*com)
+  - classid (SOME-PUSH-ID-CLASSID)
+    - studentid (SOME-PUSH-ID-STUDENTID)
       - status (84)

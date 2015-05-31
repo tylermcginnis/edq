@@ -13,11 +13,15 @@ class Login extends React.Component{
     var email = this.refs.email.getDOMNode().value;
     var password = this.refs.pw.getDOMNode().value;
     var nextPath = router.getCurrentQuery().nextPath;
-    authActions.loginWithPW({email, password}, () => {
-      if(nextPath){
-        this.context.router.transitionTo(nextPath);
+    authActions.loginWithPW({email, password}, (err, data) => {
+      if(err){
+        console.log('Error on Login.');
       } else {
-        this.context.router.replaceWith('dashboard');
+        if(nextPath){
+          this.context.router.transitionTo(nextPath);
+        } else {
+          this.context.router.replaceWith('dashboard');
+        }
       }
     });
   }

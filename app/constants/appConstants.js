@@ -4,7 +4,8 @@ var appConstants = {
   ADD_CLASS: "ADD_CLASS",
   REMOVE_CLASS: "REMOVE_CLASS",
   ADD_TO_QUEUE: "ADD_TO_QUEUE",
-  INIT_QUEUE: "INIT_QUEUE"
+  INIT_QUEUE: "INIT_QUEUE",
+  RESET_USER: "RESET_USER"
 };
 
 module.exports = appConstants;

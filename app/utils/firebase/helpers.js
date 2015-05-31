@@ -1,11 +1,4 @@
 var helpers = {
-  formatEmailForFirebase(email){
-    var key = email.replace('@', '^');
-    if(key.indexOf('.') !== -1){
-      return key.split('.').join('*');
-    }
-    return key;
-  },
   prepFbKey(endpoint){
     var hash = {
       ".": true, "#": true, "$": true, "[": true, "]": true
@@ -30,5 +23,15 @@ var helpers = {
     return arr;
   }
 };
+
+/*
+  formatEmailForFirebase(email){
+    var key = email.replace('@', '^');
+    if(key.indexOf('.') !== -1){
+      return key.split('.').join('*');
+    }
+    return key;
+  },
+*/
 
 module.exports = helpers;

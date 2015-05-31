@@ -4,6 +4,7 @@ var ClassBadge = require('./ClassBadge');
 var requireAuth = require('../../../utils/authenticated');
 var classesStore = require('../../../stores/classesStore');
 var dashboardActions = require('../../../actions/dashboardActions');
+var userStore = require('../../../stores/userStore');
 
 var Dashboard = requireAuth(class extends React.Component{
   constructor(){
@@ -13,7 +14,8 @@ var Dashboard = requireAuth(class extends React.Component{
   }
   componentDidMount(){
     classesStore.addChangeListener(this._onChange.bind(this));
-    dashboardActions.getInitialClasses();
+    var user = userStore.getUser();
+    dashboardActions.getInitialClasses(user.pushId);
   }
   componentWillUnmount(){
     classesStore.removeChangeListener(this._onChange.bind(this))
