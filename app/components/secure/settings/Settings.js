@@ -4,44 +4,47 @@ var AddNewStudent = require('./AddNewStudent');
 var StudentItem = require('./StudentItem');
 var settingsActions = require('../../../actions/settingsActions');
 var classesStore = require('../../../stores/classesStore');
+var userStore = require('../../../stores/userStore');
 
 class Settings extends React.Component{
   constructor(){
     this.state = {
-      students: classesStore.getStudents(),
-      classes: classesStore.getClasses()
-    }
-  }
-  updateStudents(students){
-    this.setState({students});
+      members: classesStore.getMembers()
+    };
   }
   removeStudent(index, email){
+    //update
     settingsActions.removeStudent(index);
-    classHelpers.removeStudent(this.context.router.getCurrentParams().class, email);
+    classHelpers.removeStudent(this.context.router.getCurrentParams().class, email); //this too
+  }
+  addStudent(firstName, lastName, email){
+    var className = this.context.router.getCurrentParams().class;
+    var userId = userStore.getUser().pushId;
+    settingsActions.addStudent({firstName, lastName, email, className, userId});
   }
   componentDidMount(){
-    settingsActions.getStudents();
     classesStore.addChangeListener(this._onChange.bind(this));
-    classHelpers.getStudents(this.context.router.getCurrentParams().class, this.updateStudents.bind(this));
+    var userId = userStore.getUser().pushId;
+    settingsActions.getStudents(userId, this.context.router.getCurrentParams().class);
   }
   componentWillUnmount(){
     classesStore.removeChangeListener(this._onChange.bind(this));
   }
   deleteClass(className){
-    var classIndex = this.state.classes.filter((item) => item.name === className)
-    settingsActions.removeClass(className, classIndex, () =>{
+    var classIndex = this.state.classes.filter((item) => item.name === className);
+    var userId = userStore.getUser().pushId;
+    settingsActions.removeClass(userId, className, classIndex, () => {
       this.context.router.transitionTo('dashboard');
-    })
+    });
   }
   _onChange(){
     this.setState({
-      students: classesStore.getStudents(),
-      classes: classesStore.getClasses()
+      members: classesStore.getMembers()
     });
   }
   render(){
     var currentClass = this.context.router.getCurrentParams().class;
-    var students = this.state.students.map((item, index) => {
+    var students = this.state.members.map((item, index) => {
       return (
         <StudentItem
           email={item.email}
@@ -51,11 +54,12 @@ class Settings extends React.Component{
           key={index} />
       )
     });
+    students = students.length === 0 ? 'No Students' : students;
     return (
       <div className="col-sm-12">
         <h1 className="text-center">{currentClass}</h1>
         <div className="col-sm-6">
-          <AddNewStudent currentClass={currentClass} />
+          <AddNewStudent addStudent={this.addStudent.bind(this)}/>
           <h3> Students </h3>
           {students}
         </div>

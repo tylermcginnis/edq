@@ -7,7 +7,7 @@ var CHANGE_EVENT = 'change';
 
 var _state = {
   classes: [],
-  students: []
+  members: []
 };
 
 function setState(newState){
@@ -19,8 +19,8 @@ var classesStore = objectAssign({}, EventEmitter.prototype, {
   getClasses(){
     return _state.classes;
   },
-  getStudents(){
-    return _state.students;
+  getMembers(){
+    return _state.members;
   },
   addChangeListener(cb) {
     this.on(CHANGE_EVENT, cb);
@@ -44,10 +44,25 @@ appDispatcher.register((payload) => {
       setState({
         classes: ref
       });
+    break;
     case appConstants.INIT_CLASSES :
       setState({
         classes: action.data
       });
+    break;
+    case appConstants.INIT_MEMBERS :
+      setState({
+        members: action.data
+      });
+    break;
+    case appConstants.ADD_STUDENT :
+      var arrRef = _state.members;
+      arrRef.push(action.data);
+      debugger;
+      setState({
+        members: arrRef
+      });
+    break;
     default :
       return true;
   }

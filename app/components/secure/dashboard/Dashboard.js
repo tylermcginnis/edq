@@ -24,7 +24,7 @@ var Dashboard = requireAuth(class extends React.Component{
     e.preventDefault();
     var newClass = this.refs.newClass.getDOMNode().value;
     this.refs.newClass.getDOMNode().value = ''
-    dashboardActions.addClass({name: newClass});
+    dashboardActions.addClass(userStore.getUser().pushId, newClass);
   }
   removeClass(name, index){
     dashboardActions.removeClass(name, index);

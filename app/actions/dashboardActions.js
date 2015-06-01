@@ -3,12 +3,12 @@ var appConstants = require('../constants/appConstants');
 var classHelpers = require('../utils/firebase/classHelpers');
 
 var dashboardActions = {
-  addClass(newClass) {
+  addClass(userId, newClassName) {
     appDispatcher.handleAction({
       actionType: appConstants.ADD_CLASS,
-      data: newClass
+      data: newClassName
     });
-    classHelpers.addNewClassToFB(newClass);
+    classHelpers.addNewClassToFB(userId, newClassName);
   },
   getInitialClasses(userId){
     classHelpers.getClasses(userId, (classes) => {

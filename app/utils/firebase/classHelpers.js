@@ -1,49 +1,59 @@
 var ref = require('../../constants/fbref');
 var helpers = require('./helpers');
 
-function addClassToUser(rawClassName, email, role){
-  var classId = helpers.prepClassId(helpers.prepFBKey(rawClassName), email);
+function addClassToUser(userId, newClassName, role, classId){
+  /*Finished Refactor*/
   var classObj = {
     isTeacher: false,
     isMentor: false,
     isStudent: false,
-    name: rawClassName
+    name: newClassName
   };
   role === 'teacher'  && (classObj.isTeacher = true);
   role === 'mentor' && (classObj.isMentor = true);
   role === 'student'  && (classObj.isStudent = true);
-  ref.child('users').child(email).child('classes').child(classId).set(classObj);
+  ref.child(`users/${userId}/classes/${classId}`).set(classObj);
 };
 
-function removeClassFromUser(className, email){
-  var classId = helpers.prepClassId(className, email);
-  ref.child('users').child(email).child('classes').child(classId).remove();
+function removeClassFromUser(userId, classId){
+  /*Finished Refactor*/
+  ref.child(`users/${userId}/classes/${classId}`).remove();
+};
+
+function getClassId(teacherId, className, cb){
+  /*Finished Refactor*/
+  return ref.child(`users/${teacherId}/classes`).once('value', (snapshot) => {
+    var classes = snapshot.val();
+    for(var key in classes){
+      if(classes[key].name === className && classes[key].isTeacher === true){
+        cb(key);
+      }
+    }
+  });
 };
 
 var classHelpers = {
-  addNewClassToFB(newClass){
-    var email = helpers.formatEmailForFirebase(ref.getAuth().password.email);
-    var className = helpers.prepFBKey(newClass.name);
-    var classId = helpers.prepClassId(className, email)
-    ref.child('classes').child(classId).set(newClass);
-    addClassToUser(newClass.name, email, 'teacher');
+  addNewClassToFB(userId, newClassName){
+    /*Finished Refactor*/
+    var newClassRef = ref.child('classes').push({name: newClassName});
+    addClassToUser(userId, newClassName, 'teacher', newClassRef.key());
   },
-  removeClass(className, cb){
-    var email = helpers.formatEmailForFirebase(ref.getAuth().password.email);
-    var className = helpers.prepFBKey(className);
-    var classId = helpers.prepClassId(className, email);
-    var studentsOfClassEndpoint = `classes/${classId}/students`;
-    ref.child(studentsOfClassEndpoint).once('value', (snapshot) => {
-      var students = snapshot.val();
-      for(var student in students){
-        ref.child(`users/${student}/classes/${classId}`).remove();
-      }
-      ref.child(`classes/${classId}`).remove();
-      removeClassFromUser(className, email);
-      cb && cb();
+  removeClass(userId, className, cb){
+    /*Finished Refactor*/
+    getClassId(userId, className, (classId) => {
+      ref.child(`classes/${classId}/students`).once('value', (snapshot) => {
+        var students = snapshot.val();
+        for(var studentId in students){
+          ref.child(`users/${studentId}/classes/${classId}`).remove();
+        }
+        ref.child(`classes/${classId}`).remove();
+        removeClassFromUser(userId, classId);
+        cb && cb();
+      });
     });
   },
   getClasses(userId, cb){
+    /*Finished Refactor*/
     ref.child(`users/${userId}/classes`).on('value', (snapshot) => {
       var classes = snapshot.val();
       if(!classes){
@@ -53,25 +63,36 @@ var classHelpers = {
       }
     });
   },
-  getStudents(className, cb){
-    var email = helpers.formatEmailForFirebase(ref.getAuth().password.email);
-    var formatedClass = helpers.prepFBKey(className);
-    var classId = helpers.prepClassId(formatedClass, email);
-    ref.child(`classes/${classId}/students`).on('value', (snapshot) => {
-      var data = snapshot.val();
-      data ? cb(helpers.toArray(data)) : cb([]);
+  getStudents(userId, className, cb){
+    getClassId(userId, className, (classId) => {
+      //change students to mentors?
+      ref.child(`classes/${classId}/students`).on('value', (snapshot) => {
+        var data = snapshot.val();
+        data ? cb(helpers.toArray(data)) : cb([]);
+      });
     });
   },
-  addStudent(className, studentObj){
-    var classId = helpers.prepClassId(helpers.prepFBKey(className), helpers.formatEmailForFirebase(ref.getAuth().password.email));
-    ref.child(`classes/${classId}/students/${helpers.formatEmailForFirebase(studentObj.email)}`).set(studentObj);
-    ref.child(`users/${helpers.formatEmailForFirebase(studentObj.email)}/classes/${classId}`)
-      .set({
-        name: className,
+  addStudent(obj){
+    getClassId(obj.userId, obj.className, (classId) => {
+      var newUserRef = ref.child('users').push({
+        firstName: obj.firstName,
+        lastName: obj.lastName,
+        email: obj.email
+      });
+
+      newUserRef.child(`classes/${classId}`).set({
+        name: obj.className,
         isTeacher: false,
         isMentor: false,
         isStudent: true
-      })
+      });
+
+      ref.child(`classes/${classId}/students/${newUserRef.key()}`).set({
+        firstName: obj.firstName,
+        lastName: obj.lastName,
+        email: obj.email
+      });
+    });
   },
   removeStudent(className, studentEmail){
     var classId = helpers.prepClassId(helpers.prepFBKey(className), helpers.formatEmailForFirebase(ref.getAuth().password.email));
@@ -81,10 +102,3 @@ var classHelpers = {
 };
 
 module.exports = classHelpers;
-
-/*
-  addNewUserToFB(newUser){
-    var key = helpers.formatEmailForFirebase(newUser.email);
-    ref.child('users').child(key).set(newUser);
-  },
-*/

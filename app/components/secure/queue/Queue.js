@@ -7,7 +7,6 @@ var queueActions = require('../../../actions/queueActions');
 
 class Queue extends React.Component {
   constructor(props){
-    //put queue data on classStore?
     super(props);
     this.state = {
       queue: queueStore.getQueue()

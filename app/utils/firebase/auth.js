@@ -19,7 +19,6 @@ var auth = {
       } else {
         var newUserRef = ref.child('users').push({firstName: user.firstName,lastName: user.lastName,email: user.email,uid: userData.uid});
         loginObj.pushId = newUserRef.key();
-        console.log('this new loginObj should have a .id prop of the new random key firebase generated when I added a new user to firebases db', loginObj);
         this.loginWithPW(loginObj, cb);
       }
     });
@@ -30,7 +29,6 @@ var auth = {
         console.log('Error on login:', err.message);
         cb(true);
       } else {
-        // localStorage.setItem('user', JSON.stringify(authData));
         this.onChange(true);
         authData.pushId = userObj.pushId;
         cb(false, authData);

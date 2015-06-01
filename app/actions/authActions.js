@@ -2,11 +2,11 @@ var appDispatcher = require('../dispatcher/appDispatcher');
 var appConstants = require('../constants/appConstants');
 var auth = require('../utils/firebase/auth');
 
-function dispatcherCallback(authObj) {
-  if(authObj){
+function dispatcherCallback(data) {
+  if(data){
     appDispatcher.handleAction({
       actionType: appConstants.INIT_USER,
-      data: authObj
+      data: data
     });
   }
 };
@@ -16,6 +16,15 @@ function resetUser(){
     actionType: appConstants.RESET_USER,
     data: {}
   });
+};
+
+function initClassStore(data){
+  if(data){
+    appDispatcher.handleAction({
+      actionType: appConstants.INIT_CLASSES,
+      data: data
+    });
+  }
 }
 
 var authActions = {
@@ -26,6 +35,7 @@ var authActions = {
       } else {
         dispatcherCallback.call(null, data);
         routeChangeCb.call(null, data);
+        initClassStore.call(null, data);
       }
     });
   },

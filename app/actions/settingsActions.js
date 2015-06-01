@@ -3,12 +3,12 @@ var appConstants = require('../constants/appConstants');
 var classHelpers = require('../utils/firebase/classHelpers');
 
 var settingsActions = {
-  removeClass(name, index, cb) {
+  removeClass(userId, className, index, cb) {
     appDispatcher.handleAction({
       actionType: appConstants.REMOVE_CLASS,
       data: index
     });
-    classHelpers.removeClass(name, cb);
+    classHelpers.removeClass(userId, className, cb);
   },
   removeStudent(index, email){
     appDispatcher.handleAction({
@@ -17,8 +17,20 @@ var settingsActions = {
     });
     classHelpers.removeClass(name);
   },
-  getStudents(){
-
+  getStudents(userId, className, cb){
+    classHelpers.getStudents(userId, className, (data) => {
+      appDispatcher.handleAction({
+        actionType: appConstants.INIT_MEMBERS,
+        data: data
+      });
+    });
+  },
+  addStudent(obj){
+    appDispatcher.handleAction({
+      actionType: appConstants.ADD_STUDENT,
+      data: {email: obj.email, firstName: obj.firstName, lastName: obj.lastName}
+    });
+    classHelpers.addStudent(obj);
   }
 };
 

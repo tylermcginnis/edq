@@ -4,19 +4,25 @@ var classHelpers = require('../../../utils/firebase/classHelpers');
 class AddNewStudent extends React.Component{
   handleSubmit(e){
     e.preventDefault();
-    var name = this.refs.name.getDOMNode().value;
+    var firstName = this.refs.firstName.getDOMNode().value;
+    var lastName = this.refs.lastName.getDOMNode().value;
     var email = this.refs.email.getDOMNode().value;
-    this.refs.name.getDOMNode().value = ''
+    this.refs.firstName.getDOMNode().value = ''
+    this.refs.lastName.getDOMNode().value = ''
     this.refs.email.getDOMNode().value = ''
-    classHelpers.addStudent(this.props.currentClass, {name, email});
+    this.props.addStudent(firstName, lastName, email);
   }
   render(){
     return (
       <div className="col-sm-12">
         <form>
           <div className="form-group">
-            <label>Student Name</label>
-            <input type="text" ref="name" className="form-control" placeholder="New Student Name" />
+            <label>Student First Name</label>
+            <input type="text" ref="firstName" className="form-control" placeholder="New Student First Name" />
+          </div>
+          <div className="form-group">
+            <label>Student Last Name</label>
+            <input type="text" ref="lastName" className="form-control" placeholder="New Student Last Name" />
           </div>
           <div className="form-group">
             <label>Student Email</label>
