@@ -5,7 +5,6 @@ var StudentItem = require('./StudentItem');
 var settingsActions = require('../../../actions/settingsActions');
 var classesStore = require('../../../stores/classesStore');
 var userStore = require('../../../stores/userStore');
-var isMounted = require('../../../utils/isMounted');
 
 class Settings extends React.Component{
   constructor(){
@@ -30,7 +29,7 @@ class Settings extends React.Component{
     settingsActions.getStudents(userId, this.context.router.getCurrentParams().class);
   }
   componentWillUnmount(){
-    classesStore.removeChangeListener(this._onChange.bind(this));
+    // classesStore.removeChangeListener(this._onChange.bind(this));
   }
   deleteClass(className){
     var userId = userStore.getUser().pushId;
@@ -39,11 +38,9 @@ class Settings extends React.Component{
     });
   }
   _onChange(){
-    if(isMounted(Settings)){
-      this.setState({
-        members: classesStore.getMembers()
-      });
-    }
+    this.setState({
+      members: classesStore.getMembers()
+    });
   }
   render(){
     var currentClass = this.context.router.getCurrentParams().class;

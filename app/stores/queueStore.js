@@ -21,7 +21,7 @@ var queueStore = objectAssign({}, EventEmitter.prototype, {
   addChangeListener(cb){
     this.on(CHANGE_EVENT, cb);
   },
-  removeChangeListener(){
+  removeChangeListener(cb){
     this.removeListener(CHANGE_EVENT, cb);
   }
 });
