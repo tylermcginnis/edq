@@ -10,12 +10,12 @@ var settingsActions = {
     });
     classHelpers.removeClass(userId, className, cb);
   },
-  removeStudent(index, email){
+  removeStudent(index, userId, className, email){
     appDispatcher.handleAction({
       actionType: appConstants.REMOVE_STUDENT,
       data: index
     });
-    classHelpers.removeClass(name);
+    classHelpers.removeStudent(userId, className, email);
   },
   getStudents(userId, className, cb){
     classHelpers.getStudents(userId, className, (data) => {

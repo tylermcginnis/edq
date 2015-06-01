@@ -58,11 +58,16 @@ appDispatcher.register((payload) => {
     case appConstants.ADD_STUDENT :
       var arrRef = _state.members;
       arrRef.push(action.data);
-      debugger;
       setState({
         members: arrRef
       });
     break;
+    case appConstants.REMOVE_STUDENT :
+      var ref = _state.members.slice(0);
+      ref.splice(action.data, 1);
+      setState({
+        members: ref
+      });
     default :
       return true;
   }

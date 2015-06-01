@@ -4,8 +4,9 @@ class StudentItem extends React.Component{
   render(){
     return (
       <div>
-        <span onClick={this.props.remove.bind(null, this.props.index, this.props.email)}> XXX</span> <br />
-        Name: {this.props.name} <br />
+        <span onClick={this.props.remove.bind(null, this.props.index)}> XXX</span> <br />
+        FirstName: {this.props.firstName} <br />
+        LastName: {this.props.lastName} <br />
         Email: {this.props.email}
       </div>
     )

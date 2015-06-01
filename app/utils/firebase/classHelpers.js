@@ -22,7 +22,7 @@ function removeClassFromUser(userId, classId){
 
 function getClassId(teacherId, className, cb){
   /*Finished Refactor*/
-  return ref.child(`users/${teacherId}/classes`).once('value', (snapshot) => {
+  ref.child(`users/${teacherId}/classes`).once('value', (snapshot) => {
     var classes = snapshot.val();
     for(var key in classes){
       if(classes[key].name === className && classes[key].isTeacher === true){
@@ -31,6 +31,18 @@ function getClassId(teacherId, className, cb){
     }
   });
 };
+
+function getStudentId(email, classId, cb){
+  ref.child(`classes/${classId}/students`).once('value', (snapshot) => {
+    var data = snapshot.val();
+    for(var key in data){
+      if(data[key].email === email){
+        console.log('THE KEY WAS', key);
+        cb(key);
+      }
+    }
+  });
+}
 
 var classHelpers = {
   addNewClassToFB(userId, newClassName){
@@ -94,10 +106,13 @@ var classHelpers = {
       });
     });
   },
-  removeStudent(className, studentEmail){
-    var classId = helpers.prepClassId(helpers.prepFBKey(className), helpers.formatEmailForFirebase(ref.getAuth().password.email));
-    ref.child(`classes/${classId}/students/${helpers.formatEmailForFirebase(studentEmail)}`).remove();
-    ref.child(`users/${helpers.formatEmailForFirebase(studentEmail)}/classes/${classId}`).remove();
+  removeStudent(userId, className, email){
+    getClassId(userId, className, (classId) => {
+      getStudentId(email, classId, (studentId) => {
+        ref.child(`classes/${classId}/students/${studentId}`).remove();
+        ref.child(`users/${studentId}/classes/${classId}`).remove();
+      })
+    });
   }
 };
 

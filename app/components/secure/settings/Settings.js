@@ -12,10 +12,11 @@ class Settings extends React.Component{
       members: classesStore.getMembers()
     };
   }
-  removeStudent(index, email){
-    //update
-    settingsActions.removeStudent(index);
-    classHelpers.removeStudent(this.context.router.getCurrentParams().class, email); //this too
+  removeStudent(index){
+    var userId = userStore.getUser().pushId;
+    var className = this.context.router.getCurrentParams().class;
+    var email = this.state.members[index].email;
+    settingsActions.removeStudent(index, userId, className, email);
   }
   addStudent(firstName, lastName, email){
     var className = this.context.router.getCurrentParams().class;
@@ -31,6 +32,7 @@ class Settings extends React.Component{
     classesStore.removeChangeListener(this._onChange.bind(this));
   }
   deleteClass(className){
+    //UPDATE THIS THING
     var classIndex = this.state.classes.filter((item) => item.name === className);
     var userId = userStore.getUser().pushId;
     settingsActions.removeClass(userId, className, classIndex, () => {
@@ -48,7 +50,8 @@ class Settings extends React.Component{
       return (
         <StudentItem
           email={item.email}
-          name={item.name}
+          firstName={item.firstName}
+          lastName={item.lastName}
           index={index}
           remove={this.removeStudent.bind(this)}
           key={index} />
