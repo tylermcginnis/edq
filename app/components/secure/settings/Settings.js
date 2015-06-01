@@ -32,10 +32,8 @@ class Settings extends React.Component{
     classesStore.removeChangeListener(this._onChange.bind(this));
   }
   deleteClass(className){
-    //UPDATE THIS THING
-    var classIndex = this.state.classes.filter((item) => item.name === className);
     var userId = userStore.getUser().pushId;
-    settingsActions.removeClass(userId, className, classIndex, () => {
+    settingsActions.removeClass(userId, className, () => {
       this.context.router.transitionTo('dashboard');
     });
   }

@@ -40,7 +40,12 @@ appDispatcher.register((payload) => {
     break;
     case appConstants.REMOVE_CLASS :
       var ref = _state.classes.slice(0);
-      ref.splice(action.data, 1);
+      for(var i = 0; i < ref.length; i++){
+        if(ref[i].name === action.data){
+          ref.splice(i, 1);
+          break;
+        }
+      }
       setState({
         classes: ref
       });

@@ -3,10 +3,10 @@ var appConstants = require('../constants/appConstants');
 var classHelpers = require('../utils/firebase/classHelpers');
 
 var settingsActions = {
-  removeClass(userId, className, index, cb) {
+  removeClass(userId, className, cb) {
     appDispatcher.handleAction({
       actionType: appConstants.REMOVE_CLASS,
-      data: index
+      data: className
     });
     classHelpers.removeClass(userId, className, cb);
   },

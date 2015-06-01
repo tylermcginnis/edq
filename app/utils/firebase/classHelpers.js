@@ -60,7 +60,7 @@ var classHelpers = {
         }
         ref.child(`classes/${classId}`).remove();
         removeClassFromUser(userId, classId);
-        cb && cb();
+        cb();
       });
     });
   },
