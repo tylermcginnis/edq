@@ -29,7 +29,7 @@ class Settings extends React.Component{
     settingsActions.getStudents(userId, this.context.router.getCurrentParams().class);
   }
   componentWillUnmount(){
-    // classesStore.removeChangeListener(this._onChange.bind(this));
+    classesStore.removeChangeListener(this._onChange.bind(this));
   }
   deleteClass(className){
     var userId = userStore.getUser().pushId;

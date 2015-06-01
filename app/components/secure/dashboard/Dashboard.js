@@ -18,7 +18,6 @@ var Dashboard = requireAuth(class extends React.Component{
     dashboardActions.getInitialClasses(user.pushId);
   }
   componentWillUnmount(){
-    console.log('here');
     classesStore.removeChangeListener(this._onChange.bind(this));
   }
   handleSubmit(e){

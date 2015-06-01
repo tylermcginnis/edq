@@ -26,7 +26,7 @@ var classesStore = objectAssign({}, EventEmitter.prototype, {
     this.on(CHANGE_EVENT, cb);
   },
   removeChangeListener(cb) {
-    this.removeListener(CHANGE_EVENT, cb);
+    this.removeAllListeners();
   }
 });
 
