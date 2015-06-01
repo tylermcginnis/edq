@@ -5,6 +5,7 @@ var StudentItem = require('./StudentItem');
 var settingsActions = require('../../../actions/settingsActions');
 var classesStore = require('../../../stores/classesStore');
 var userStore = require('../../../stores/userStore');
+var isMounted = require('../../../utils/isMounted');
 
 class Settings extends React.Component{
   constructor(){
@@ -38,9 +39,11 @@ class Settings extends React.Component{
     });
   }
   _onChange(){
-    this.setState({
-      members: classesStore.getMembers()
-    });
+    if(isMounted(Settings)){
+      this.setState({
+        members: classesStore.getMembers()
+      });
+    }
   }
   render(){
     var currentClass = this.context.router.getCurrentParams().class;

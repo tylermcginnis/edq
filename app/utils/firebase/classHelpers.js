@@ -2,7 +2,6 @@ var ref = require('../../constants/fbref');
 var helpers = require('./helpers');
 
 function addClassToUser(userId, newClassName, role, classId){
-  /*Finished Refactor*/
   var classObj = {
     isTeacher: false,
     isMentor: false,
@@ -16,12 +15,10 @@ function addClassToUser(userId, newClassName, role, classId){
 };
 
 function removeClassFromUser(userId, classId){
-  /*Finished Refactor*/
   ref.child(`users/${userId}/classes/${classId}`).remove();
 };
 
 function getClassId(teacherId, className, cb){
-  /*Finished Refactor*/
   ref.child(`users/${teacherId}/classes`).once('value', (snapshot) => {
     var classes = snapshot.val();
     for(var key in classes){
@@ -46,12 +43,12 @@ function getStudentId(email, classId, cb){
 
 var classHelpers = {
   addNewClassToFB(userId, newClassName){
-    /*Finished Refactor*/
+
     var newClassRef = ref.child('classes').push({name: newClassName});
     addClassToUser(userId, newClassName, 'teacher', newClassRef.key());
   },
   removeClass(userId, className, cb){
-    /*Finished Refactor*/
+
     getClassId(userId, className, (classId) => {
       ref.child(`classes/${classId}/students`).once('value', (snapshot) => {
         var students = snapshot.val();
@@ -65,7 +62,7 @@ var classHelpers = {
     });
   },
   getClasses(userId, cb){
-    /*Finished Refactor*/
+
     ref.child(`users/${userId}/classes`).on('value', (snapshot) => {
       var classes = snapshot.val();
       if(!classes){

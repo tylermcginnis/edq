@@ -5,6 +5,7 @@ var requireAuth = require('../../../utils/authenticated');
 var classesStore = require('../../../stores/classesStore');
 var dashboardActions = require('../../../actions/dashboardActions');
 var userStore = require('../../../stores/userStore');
+var isMounted = require('../../../utils/isMounted');
 
 var Dashboard = requireAuth(class extends React.Component{
   constructor(){
@@ -30,9 +31,11 @@ var Dashboard = requireAuth(class extends React.Component{
     dashboardActions.removeClass(name, index);
   }
   _onChange(){
-    this.setState({
-      classes: classesStore.getClasses()
-    });
+    if(isMounted(Dashboard)){
+      this.setState({
+        classes: classesStore.getClasses()
+      });
+    }
   }
   render(){
     var list = this.state.classes.map((item, index) => {
