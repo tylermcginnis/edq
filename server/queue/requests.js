@@ -24,7 +24,7 @@ var queueRequests = {
         for(var key in data){
           avg += data[key]
         }
-        avg = avg / Object.keys(data).length;
+        avg = Math.ceil(avg / Object.keys(data).length);
         resolve(avg);
       });
     });

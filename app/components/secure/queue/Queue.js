@@ -1,5 +1,5 @@
 var React = require('react');
-var Slider = require('./Slider');
+var SliderGuage = require('./slider-guage/SliderGuage');
 var queueStore = require('../../../stores/queueStore');
 var QueueItem = require('./QueueItem');
 var queueActions = require('../../../actions/queueActions');
@@ -37,7 +37,7 @@ class Queue extends React.Component {
     });
     return (
       <div>
-        <Slider status={this.state.status} />
+        <SliderGuage status={this.state.status} /> <br /><br /><br />
         <p> QUEUE MAIN - {className} </p>
         {list}
       </div>
