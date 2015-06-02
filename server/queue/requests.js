@@ -7,7 +7,13 @@ var queueRequests = {
     var classId = req.query.classId;
     var queuePromise = new Promise((resolve, reject) => {
       ref.child(`queue/${classId}`).on('value', (snapshot) => {
-        resolve(snapshot.val());
+        var data = snapshot.val();
+        var arr = [];
+        //Update once I have schema set up for this
+        for(var key in data){
+          arr.push({key: key, data: data[key]});
+        }
+        resolve(arr);
       });
     });
 

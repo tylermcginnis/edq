@@ -6,7 +6,6 @@ var Register = require('../components/login-register/Register');
 var Login = require("../components/login-register/Login");
 var Logout = require('../components/login-register/Logout');
 var Dashboard = require('../components/secure/dashboard/Dashboard');
-var Home = require("../components/Home");
 var Settings = require('../components/secure/settings/Settings');
 var Queue = require('../components/secure/queue/Queue');
 
@@ -15,10 +14,9 @@ var routes = (
     <Route name="login" handler={Login} />
     <Route name="logout" handler={Logout} />
     <Route name="register" handler={Register} />
-    <Route name="dashboard" handler={Dashboard} />
     <Route name="queue" path="/queue/:class" handler={Queue} />
     <Route name="settings" path="/settings/:class" handler={Settings} />
-    <Route name="home" path="/" handler={Home} />
+    <Route name="dashboard" path="/" handler={Dashboard} />
   </Route>
 );
 

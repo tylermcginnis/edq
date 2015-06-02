@@ -39,7 +39,6 @@ appDispatcher.register((payload) => {
       });
     break;
     case appConstants.INIT_QUEUE :
-      console.log('woooo')
       setState({
         queue: action.data.queueData,
         status: action.data.statusData,
