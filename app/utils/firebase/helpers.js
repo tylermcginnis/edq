@@ -1,37 +1,23 @@
+var ref = require('../../constants/fbref');
+
 var helpers = {
-  prepFbKey(endpoint){
-    var hash = {
-      ".": true, "#": true, "$": true, "[": true, "]": true
-    };
-    endpoint = endpoint.split('');
-    var result = endpoint.map((item) => {
-      if(hash[item]){
-        return ""
-      }
-      return item.toLowerCase();
-    });
-    return result.join('');
-  },
-  prepClassId(className, email){
-    return `${className}-${email}`
-  },
   toArray(obj){
     var arr = [];
     for(var key in obj){
       arr.push(obj[key]);
     }
     return arr;
+  },
+  getClassId(teacherId, className, cb){
+    ref.child(`users/${teacherId}/classes`).once('value', (snapshot) => {
+      var classes = snapshot.val();
+      for(var key in classes){
+        if(classes[key].name === className && classes[key].isTeacher === true){
+          cb(key);
+        }
+      }
+    });
   }
 };
-
-/*
-  formatEmailForFirebase(email){
-    var key = email.replace('@', '^');
-    if(key.indexOf('.') !== -1){
-      return key.split('.').join('*');
-    }
-    return key;
-  },
-*/
 
 module.exports = helpers;

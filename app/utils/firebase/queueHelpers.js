@@ -1,9 +1,16 @@
 var ref = require('../../constants/fbref');
-
+var axios = require('axios');
+var helpers = require('./helpers');
 
 var queueHelpers = {
-  fetchQueue(className, cb){
-    //Find the className that this particular user is in.
+  init(userId, className, cb){
+    helpers.getClassId(userId, className, (classId) => {
+      axios.get('http://localhost:4001/api/initQueue', {
+        params: {userId, classId}
+      }).then((res) => {
+        cb(res.data);
+      })
+    });
   }
 };
 

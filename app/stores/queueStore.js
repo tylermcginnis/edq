@@ -6,7 +6,8 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
 var _state = {
-  queue: [1,2,3,4]
+  queue: [],
+  status: 0
 };
 
 function setState(newState){
@@ -17,6 +18,9 @@ function setState(newState){
 var queueStore = objectAssign({}, EventEmitter.prototype, {
   getQueue(){
     return _state.queue;
+  },
+  getStatus(){
+    return _state.status
   },
   addChangeListener(cb){
     this.on(CHANGE_EVENT, cb);
@@ -32,6 +36,18 @@ appDispatcher.register((payload) => {
     case appConstants.ADD_TO_QUEUE :
       setState({
         classes: _state.queue.concat([action.data])
+      });
+    break;
+    case appConstants.INIT_QUEUE :
+      console.log('woooo')
+      setState({
+        queue: action.data.queueData,
+        status: action.data.statusData,
+      });
+    break;
+    case appConstants.SET_STUDENT_STATUS :
+      setState({
+        status: action.data
       });
     break;
     default :

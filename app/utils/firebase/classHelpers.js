@@ -18,23 +18,11 @@ function removeClassFromUser(userId, classId){
   ref.child(`users/${userId}/classes/${classId}`).remove();
 };
 
-function getClassId(teacherId, className, cb){
-  ref.child(`users/${teacherId}/classes`).once('value', (snapshot) => {
-    var classes = snapshot.val();
-    for(var key in classes){
-      if(classes[key].name === className && classes[key].isTeacher === true){
-        cb(key);
-      }
-    }
-  });
-};
-
 function getStudentId(email, classId, cb){
   ref.child(`classes/${classId}/students`).once('value', (snapshot) => {
     var data = snapshot.val();
     for(var key in data){
       if(data[key].email === email){
-        console.log('THE KEY WAS', key);
         cb(key);
       }
     }
@@ -43,13 +31,11 @@ function getStudentId(email, classId, cb){
 
 var classHelpers = {
   addNewClassToFB(userId, newClassName){
-
     var newClassRef = ref.child('classes').push({name: newClassName});
     addClassToUser(userId, newClassName, 'teacher', newClassRef.key());
   },
   removeClass(userId, className, cb){
-
-    getClassId(userId, className, (classId) => {
+    helpers.getClassId(userId, className, (classId) => {
       ref.child(`classes/${classId}/students`).once('value', (snapshot) => {
         var students = snapshot.val();
         for(var studentId in students){
@@ -62,7 +48,6 @@ var classHelpers = {
     });
   },
   getClasses(userId, cb){
-
     ref.child(`users/${userId}/classes`).on('value', (snapshot) => {
       var classes = snapshot.val();
       if(!classes){
@@ -73,8 +58,7 @@ var classHelpers = {
     });
   },
   getStudents(userId, className, cb){
-    getClassId(userId, className, (classId) => {
-      //change students to mentors?
+    helpers.getClassId(userId, className, (classId) => {
       ref.child(`classes/${classId}/students`).on('value', (snapshot) => {
         var data = snapshot.val();
         data ? cb(helpers.toArray(data)) : cb([]);
@@ -82,7 +66,7 @@ var classHelpers = {
     });
   },
   addStudent(obj){
-    getClassId(obj.userId, obj.className, (classId) => {
+    helpers.getClassId(obj.userId, obj.className, (classId) => {
       var newUserRef = ref.child('users').push({
         firstName: obj.firstName,
         lastName: obj.lastName,
@@ -104,7 +88,7 @@ var classHelpers = {
     });
   },
   removeStudent(userId, className, email){
-    getClassId(userId, className, (classId) => {
+    helpers.getClassId(userId, className, (classId) => {
       getStudentId(email, classId, (studentId) => {
         ref.child(`classes/${classId}/students/${studentId}`).remove();
         ref.child(`users/${studentId}/classes/${classId}`).remove();

@@ -14,7 +14,6 @@ function setState(newState){
 
 function resetUser(){
   localStorage.removeItem('user');
-  console.log('The new user state is ', localStorage.getItem('user'))
 }
 
 var userStore = objectAssign({}, EventEmitter.prototype, {
