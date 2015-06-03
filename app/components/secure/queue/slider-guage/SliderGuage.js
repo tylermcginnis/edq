@@ -3,6 +3,8 @@ var styles = require('./sliderGuageStyles');
 
 class SliderGuage extends React.Component {
   render(){
+    styles.lightTheme.pinContainer.left = this.props.status + '%';
+    console.log(styles.lightTheme.pinContainer)
     return (
       <div style={styles.lightTheme.innerContainer}>
         <div style={styles.lightTheme.sliderBar}>
