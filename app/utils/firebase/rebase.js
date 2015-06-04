@@ -57,8 +57,6 @@ module.exports = (function(){
       errorMsg = `${defaultError} must be a non-empty string. Instead, got ${endpoint}`;
     } else if(endpoint.length > 768){
       errorMsg = `${defaultError} is too long to be stored in Firebase. It be less than 768 characters.`;
-    } else if(/[\[\].#$\/\u0000-\u001F\u007F]/.test(endpoint)) {
-      errorMsg = `${defaultError} cannot contain any of the following characters. "# $ ] [ /" Instead, got ${defaultError}`;
     } else if(firebaseRefs[endpoint]){
       errorMsg = `${defaultError} (${endpoint}) has already been bound. An endpoint may only have one binding`;
     }

@@ -1,6 +1,7 @@
 var React = require('react');
 var Router = require('react-router');
 var authActions = require('../../actions/authActions');
+var auth = require('../../utils/firebase/auth');
 
 class Register extends React.Component{
   handleSubmit(e){
@@ -12,10 +13,13 @@ class Register extends React.Component{
       firstName: this.refs.firstName.getDOMNode().value,
       lastName: this.refs.lastName.getDOMNode().value
     }
-    authActions.registerUser(authObj, (result) => {
-      if(result){
+    auth.createUser(authObj, (err, data) => {
+      if(err){
+        console.log('Error on Create User');
+      } else if(data){
+        console.log("Data is ", data);
         router.replaceWith('dashboard');
-      }
+      };
     });
   }
   render(){
@@ -38,7 +42,7 @@ class Register extends React.Component{
             <label>Password</label>
             <input ref="pw" type="password" className="form-control" placeholder="Password" />
           </div>
-          <button type="submit" className="btn btn-primary">Login</button>
+          <button type="submit" className="btn btn-primary">Register</button>
         </form>
       </div>
     )

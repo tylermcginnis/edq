@@ -31,6 +31,7 @@ var auth = {
       } else {
         this.onChange(true);
         authData.pushId = userObj.pushId;
+        localStorage.setItem('user', JSON.stringify(userObj));
         cb(false, authData);
       }
     });
@@ -40,6 +41,7 @@ var auth = {
   },
   logout(cb){
     ref.unauth();
+    localStorage.removeItem('user');
     cb();
     this.onChange(false);
   }

@@ -2,30 +2,12 @@ var appDispatcher = require('../dispatcher/appDispatcher');
 var appConstants = require('../constants/appConstants');
 var auth = require('../utils/firebase/auth');
 
-function dispatcherCallback(data) {
-  if(data){
-    appDispatcher.handleAction({
-      actionType: appConstants.INIT_USER,
-      data: data
-    });
-  }
-};
-
 function resetUser(){
   appDispatcher.handleAction({
     actionType: appConstants.RESET_USER,
     data: {}
   });
 };
-
-function initClassStore(data){
-  if(data){
-    appDispatcher.handleAction({
-      actionType: appConstants.INIT_CLASSES,
-      data: data
-    });
-  }
-}
 
 var authActions = {
   registerUser(user, routeChangeCb){

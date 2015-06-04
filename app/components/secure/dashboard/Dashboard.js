@@ -5,39 +5,40 @@ var requireAuth = require('../../../utils/authenticated');
 var classesStore = require('../../../stores/classesStore');
 var dashboardActions = require('../../../actions/dashboardActions');
 var userStore = require('../../../stores/userStore');
+var Rebase = require('../../../utils/firebase/rebase');
+var appConstants = require('../../../constants/appConstants');
+var classHelpers = require('../../../utils/firebase/classHelpers');
+
+var base = Rebase.createClass(appConstants.FIREBASE_URL);
 
 var Dashboard = requireAuth(class extends React.Component{
   constructor(){
     this.state = {
-      classes: classesStore.getClasses()
+      classes: [],
+      user: userStore.getUser()
     }
   }
   componentDidMount(){
-    classesStore.addChangeListener(this._onChange.bind(this));
-    var user = userStore.getUser();
-    dashboardActions.getInitialClasses(user.pushId);
+    base.bindToState(`users/${this.state.user.pushId}/classes`, {
+      context: this,
+      asArray: true,
+      state: 'classes'
+    });
   }
   componentWillUnmount(){
-    classesStore.removeChangeListener(this._onChange.bind(this));
+    var user = userStore.getUser();
+    base.removeBinding(`users/${this.state.user.pushId}/classes`);
   }
   handleSubmit(e){
     e.preventDefault();
-    var newClass = this.refs.newClass.getDOMNode().value;
-    this.refs.newClass.getDOMNode().value = ''
-    dashboardActions.addClass(userStore.getUser().pushId, newClass);
-  }
-  removeClass(name, index){
-    dashboardActions.removeClass(name, index);
-  }
-  _onChange(){
-    this.setState({
-      classes: classesStore.getClasses()
-    });
+    var newClassName = this.refs.newClass.getDOMNode().value;
+    this.refs.newClass.getDOMNode().value = '';
+    classHelpers.addNewClassToFB(this.state.user.pushId, newClassName);
   }
   render(){
     var list = this.state.classes.map((item, index) => {
       return (
-        <ClassBadge info={item} index={index} key={index} removeClass={this.removeClass.bind(null, item.name, index)}/>
+        <ClassBadge info={item} index={index} key={index} />
       )
     });
     return (
