@@ -42,7 +42,6 @@ var auth = {
   logout(cb){
     ref.unauth();
     localStorage.removeItem('user');
-    cb();
     this.onChange(false);
   }
 };

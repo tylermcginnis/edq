@@ -1,9 +1,9 @@
 var React = require('react');
-var authActions = require('../../actions/authActions');
+var auth = require('../../utils/firebase/auth');
 
 var Logout = React.createClass({
   componentDidMount(){
-    authActions.logout();
+    auth.logout();
   },
   render(){
     return <p>You are now logged out</p>;

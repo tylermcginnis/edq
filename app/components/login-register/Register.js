@@ -1,6 +1,5 @@
 var React = require('react');
 var Router = require('react-router');
-var authActions = require('../../actions/authActions');
 var auth = require('../../utils/firebase/auth');
 
 class Register extends React.Component{
