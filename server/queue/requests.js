@@ -1,5 +1,5 @@
 import Firebase from 'firebase';
-var ref = new Firebase('https://edq.firebaseio.com/');
+var ref = new Firebase('https://edqio.firebaseio.com/');
 
 var queueRequests = {
   init(req, res){

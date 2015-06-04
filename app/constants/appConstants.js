@@ -1,5 +1,5 @@
 var appConstants = {
-  FIREBASE_URL: "https://edq.firebaseio.com",
+  FIREBASE_URL: "https://edqio.firebaseio.com",
   INIT_USER: "INIT_USER",
   ADD_CLASS: "ADD_CLASS",
   REMOVE_CLASS: "REMOVE_CLASS",
