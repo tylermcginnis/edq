@@ -26,9 +26,8 @@ class Settings extends React.Component{
   }
   componentDidMount(){
     var userId = helpers.getCurrentUserId();
-    base.bindToState(`classes/${this.props.query.classId}/students`, {
+    base.bindToState(`classes/${this.props.query.classId}`, {
       context: this,
-      asArray: true,
       state: 'members'
     });
   }
@@ -44,16 +43,20 @@ class Settings extends React.Component{
   }
   render(){
     var currentClass = this.context.router.getCurrentParams().class;
-    var students = this.state.members.map((item, index) => {
-      return (
-        <StudentItem
-          user={item}
-          index={index}
-          remove={this.removeStudent.bind(this)}
-          key={index} />
-      )
+    var studentArr = helpers.toArray(this.state.members.students);
+    var mentorArr = helpers.toArray(this.state.members.mentors);
+    var teacherArr = helpers.toArray(this.state.members.teachers);
+
+    var students = studentArr.map((item, index) => {
+      return <StudentItem user={item} index={index} remove={this.removeStudent.bind(this)} key={index} />
     });
-    students = students.length === 0 ? 'No Students' : students;
+    var mentors = mentorArr.map((item, index) => {
+      return <StudentItem user={item} index={index} remove={this.removeStudent.bind(this)} key={index} />
+    });
+    var teachers = teacherArr.map((item, index) => {
+      return <StudentItem user={item} index={index} remove={this.removeStudent.bind(this)} key={index} />
+    });
+    // students = students.length === 0 ? 'No Students' : students;
     return (
       <div className="col-sm-12">
         <h1 className="text-center">{currentClass}</h1>
@@ -61,9 +64,10 @@ class Settings extends React.Component{
           <AddNewUser addUser={this.addUser.bind(this)}/>
         </div>
         <div className="col-sm-6">
-          <h3> Configuration </h3>
-                    <h3> Students </h3>
           {students}
+          {mentors}
+          {teachers}
+          <h3> Configuration </h3>
           <button className="btn btn-default" onClick={this.deleteClass.bind(this, currentClass)}>Delete Class</button>
         </div>
       </div>

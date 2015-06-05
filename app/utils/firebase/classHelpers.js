@@ -69,7 +69,7 @@ var classHelpers = {
       isStudent: user.userType === 'student' ? true : false,
     });
 
-    ref.child(`classes/${classId}/students/${newUserRef.key()}`).set(user);
+    ref.child(`classes/${classId}/${user.userType}s/${newUserRef.key()}`).set(user);
   },
   removeStudent(email, classId){
     helpers.getStudentId(email, classId, (studentId) => {
