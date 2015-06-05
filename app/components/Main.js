@@ -41,7 +41,7 @@ class Main extends React.Component {
         </nav>
         <div className="container">
           <div className="row">
-            <RouteHandler />
+            <RouteHandler {...this.props}/>
           </div>
         </div>
       </span>

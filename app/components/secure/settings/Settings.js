@@ -5,41 +5,44 @@ var StudentItem = require('./StudentItem');
 var settingsActions = require('../../../actions/settingsActions');
 var classesStore = require('../../../stores/classesStore');
 var userStore = require('../../../stores/userStore');
+var Rebase = require('../../../utils/firebase/rebase');
+var appConstants = require('../../../constants/appConstants');
+var helpers = require("../../../utils/firebase/helpers");
+
+var base = Rebase.createClass(appConstants.FIREBASE_URL);
 
 class Settings extends React.Component{
   constructor(){
     this.state = {
-      members: classesStore.getMembers()
+      members: []
     };
   }
   removeStudent(index){
-    var userId = userStore.getUser().pushId;
+    var userId = helpers.getCurrentUserId();
     var className = this.context.router.getCurrentParams().class;
     var email = this.state.members[index].email;
-    settingsActions.removeStudent(index, userId, className, email);
+    classHelpers.removeStudent(email, this.props.query.classId);
   }
   addStudent(firstName, lastName, email){
     var className = this.context.router.getCurrentParams().class;
-    var userId = userStore.getUser().pushId;
-    settingsActions.addStudent({firstName, lastName, email, className, userId});
+    classHelpers.addStudent({firstName, lastName, email}, className, this.props.query.classId);
   }
   componentDidMount(){
-    classesStore.addChangeListener(this._onChange.bind(this));
-    var userId = userStore.getUser().pushId;
-    settingsActions.getStudents(userId, this.context.router.getCurrentParams().class);
-  }
-  componentWillUnmount(){
-    classesStore.removeChangeListener(this._onChange.bind(this));
-  }
-  deleteClass(className){
-    var userId = userStore.getUser().pushId;
-    settingsActions.removeClass(userId, className, () => {
-      this.context.router.transitionTo('dashboard');
+    var userId = helpers.getCurrentUserId();
+    base.bindToState(`classes/${this.props.query.classId}/students`, {
+      context: this,
+      asArray: true,
+      state: 'members'
     });
   }
-  _onChange(){
-    this.setState({
-      members: classesStore.getMembers()
+  componentWillUnmount(){
+    var userId = helpers.getCurrentUserId();
+    base.removeBinding(`classes/${this.props.query.classId}/students`);
+  }
+  deleteClass(className){
+    var userId = helpers.getCurrentUserId();
+    classHelpers.removeClass(userId, this.context.router.getCurrentParams().class, () => {
+      this.context.router.transitionTo('dashboard');
     });
   }
   render(){

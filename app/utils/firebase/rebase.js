@@ -17,6 +17,7 @@ module.exports = (function(){
   function _toArray(obj){
     var arr = [];
     for(var key in obj){
+      obj[key].key = key;
       arr.push(obj[key]);
     }
     return arr;

@@ -38,6 +38,9 @@ var helpers = {
         }
       });
     }
+  },
+  getCurrentUserId(){
+    return JSON.parse(localStorage.getItem('user')).pushId;
   }
 };
 

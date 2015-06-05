@@ -3,11 +3,11 @@ var React = require('react');
 class ClassBadge extends React.Component{
   goToSettings(index){
     var router = this.context.router;
-    router.transitionTo('settings', {class: this.props.info.name});
+    router.transitionTo('settings', {class: this.props.info.name}, {classId: this.props.info.key});
   }
   goToQueue(){
     var router = this.context.router;
-    router.transitionTo('queue', {class: this.props.info.name});
+    router.transitionTo('queue', {class: this.props.info.name}, {classId: this.props.info.key});
   }
   render(){
     return (

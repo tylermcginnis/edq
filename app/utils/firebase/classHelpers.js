@@ -54,35 +54,27 @@ var classHelpers = {
       });
     });
   },
-  addStudent(obj){
-    helpers.getClassId(obj.userId, obj.className, (classId) => {
-      var newUserRef = ref.child('users').push({
-        firstName: obj.firstName,
-        lastName: obj.lastName,
-        email: obj.email
-      });
-
-      newUserRef.child(`classes/${classId}`).set({
-        name: obj.className,
-        isTeacher: false,
-        isMentor: false,
-        isStudent: true
-      });
-
-      ref.child(`classes/${classId}/students/${newUserRef.key()}`).set({
-        firstName: obj.firstName,
-        lastName: obj.lastName,
-        email: obj.email
-      });
+  addStudent(user, className, classId){
+    var newUserRef = ref.child('users').push({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email
     });
+
+    newUserRef.child(`classes/${classId}`).set({
+      name: className,
+      isTeacher: false,
+      isMentor: false,
+      isStudent: true
+    });
+
+    ref.child(`classes/${classId}/students/${newUserRef.key()}`).set(user);
   },
-  removeStudent(userId, className, email){
-    helpers.getClassId(userId, className, (classId) => {
-      helpers.getStudentId(email, classId, (studentId) => {
-        ref.child(`classes/${classId}/students/${studentId}`).remove();
-        ref.child(`users/${studentId}/classes/${classId}`).remove();
-      })
-    });
+  removeStudent(email, classId){
+    helpers.getStudentId(email, classId, (studentId) => {
+      ref.child(`classes/${classId}/students/${studentId}`).remove();
+      ref.child(`users/${studentId}/classes/${classId}`).remove();
+    })
   }
 };
 
