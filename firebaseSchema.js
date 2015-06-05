@@ -12,6 +12,8 @@ users
 classes
   - id (SOME-PUSH-ID-CLASSID)
     - name (Physics)
+    - teachers (NEW)
+      - teacherID (SOME-PUSH-ID)
     - mentors
       - mentorid (SOME-PUSH-ID-STUDENTID)
     - students

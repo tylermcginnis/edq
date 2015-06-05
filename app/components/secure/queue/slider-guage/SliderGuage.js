@@ -20,6 +20,10 @@ class SliderGuage extends React.Component {
 
 SliderGuage.propTypes = {
   status: React.PropTypes.number.isRequired
-}
+};
+
+SliderGuage.defaultProps = {
+  status: 0
+};
 
 module.exports = SliderGuage;

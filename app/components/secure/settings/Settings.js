@@ -1,6 +1,6 @@
 var React = require('react');
 var classHelpers = require('../../../utils/firebase/classHelpers');
-var AddNewStudent = require('./AddNewStudent');
+var AddNewUser = require('./AddNewUser');
 var StudentItem = require('./StudentItem');
 var Rebase = require('../../../utils/firebase/rebase');
 var appConstants = require('../../../constants/appConstants');
@@ -20,7 +20,7 @@ class Settings extends React.Component{
     var email = this.state.members[index].email;
     classHelpers.removeStudent(email, this.props.query.classId);
   }
-  addStudent(firstName, lastName, email){
+  addUser(firstName, lastName, email, status){
     var className = this.context.router.getCurrentParams().class;
     classHelpers.addStudent({firstName, lastName, email}, className, this.props.query.classId);
   }
@@ -59,13 +59,13 @@ class Settings extends React.Component{
     return (
       <div className="col-sm-12">
         <h1 className="text-center">{currentClass}</h1>
-        <div className="col-sm-6">
-          <AddNewStudent addStudent={this.addStudent.bind(this)}/>
-          <h3> Students </h3>
-          {students}
+        <div className="col-sm-6 col-sm-offset-3">
+          <AddNewUser addUser={this.addUser.bind(this)}/>
         </div>
         <div className="col-sm-6">
           <h3> Configuration </h3>
+                    <h3> Students </h3>
+          {students}
           <button className="btn btn-default" onClick={this.deleteClass.bind(this, currentClass)}>Delete Class</button>
         </div>
       </div>

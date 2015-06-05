@@ -30,6 +30,7 @@ class Queue extends React.Component {
           total += item;
         });
         var avg = Math.floor((total / data.length));
+        isNaN(avg) && (avg = 0);
         avg > 100 && (avg = 100)
         this.setState({
           status: avg
@@ -49,8 +50,7 @@ class Queue extends React.Component {
     });
     return (
       <div>
-        <SliderGuage status={this.state.status} /> <br /><br /><br />
-        STATUS: {this.state.status} <br /><br />
+        <SliderGuage status={this.state.status} />
         <p> QUEUE MAIN - {className} </p>
         {list}
       </div>
