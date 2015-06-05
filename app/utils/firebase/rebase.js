@@ -17,7 +17,9 @@ module.exports = (function(){
   function _toArray(obj){
     var arr = [];
     for(var key in obj){
-      obj[key].key = key;
+      if(_isObject(obj[key])){
+        obj[key].key = key;
+      }
       arr.push(obj[key]);
     }
     return arr;
@@ -97,7 +99,7 @@ module.exports = (function(){
     firebaseListeners[endpoint] = ref.child(endpoint).on('value', (snapshot) => {
       var data = snapshot.val();
       if(options.then){
-        options.asArray === true ? options.then(_toArray(data)) : options.then(data);
+        options.asArray === true ? options.then.call(options.context, _toArray(data)) : options.then.call(options.context, data);
       } else {
         if(options.state){
           var newState = {};

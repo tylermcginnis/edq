@@ -1,32 +1,44 @@
 var React = require('react');
 var SliderGuage = require('./slider-guage/SliderGuage');
-var queueStore = require('../../../stores/queueStore');
 var QueueItem = require('./QueueItem');
-var queueActions = require('../../../actions/queueActions');
-var userStore = require('../../../stores/userStore');
+var Rebase = require('../../../utils/firebase/rebase');
+var appConstants = require('../../../constants/appConstants');
+
+var base = Rebase.createClass(appConstants.FIREBASE_URL);
 
 class Queue extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      queue: queueStore.getQueue(),
-      status: queueStore.getStatus()
+      queue: [],
+      status: 0
     };
   }
   componentDidMount(){
-    queueStore.addChangeListener(this._onChange.bind(this));
-    var className = this.context.router.getCurrentParams().class;
-    var userId = userStore.getUser().pushId;
-    queueActions.initQueue(userId, className);
+    base.bindToState(`queue/${this.props.query.classId}`, {
+      asArray: true,
+      context: this,
+      state: 'queue'
+    });
+
+    base.listenTo(`studentStatus/${this.props.query.classId}`, {
+      context: this,
+      asArray: true,
+      then(data){
+        var total = 0;
+        data.forEach((item) => {
+          total += item;
+        });
+        var avg = Math.floor((total / data.length));
+        avg > 100 && (avg = 100)
+        this.setState({
+          status: avg
+        });
+      }
+    });
   }
   componentWillUnmount(){
-    queueStore.removeChangeListener(this._onChange.bind(this));
-  }
-  _onChange(){
-    this.setState({
-      queue: queueStore.getQueue(),
-      status: queueStore.getStats()
-    })
+    base.removeBinding(`studentStatus/${this.props.query.classId}`)
   }
   render(){
     var className = this.context.router.getCurrentParams().class;
@@ -38,6 +50,7 @@ class Queue extends React.Component {
     return (
       <div>
         <SliderGuage status={this.state.status} /> <br /><br /><br />
+        STATUS: {this.state.status} <br /><br />
         <p> QUEUE MAIN - {className} </p>
         {list}
       </div>
