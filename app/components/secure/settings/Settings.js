@@ -53,20 +53,27 @@ class Settings extends React.Component{
     var teachers = teacherArr.map((item, index) => {
       return <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} key={index} />
     });
-    // students = students.length === 0 ? 'No Students' : students;
     return (
       <div className="col-sm-12">
         <h1 className="text-center">{currentClass}</h1>
         <div className="col-sm-6 col-sm-offset-3">
           <AddNewUser addUser={this.addUser.bind(this)}/>
         </div>
-        <div className="col-sm-6">
-          {students}
-          {mentors}
-          {teachers}
-          <h3> Configuration </h3>
-          <button className="btn btn-default" onClick={this.deleteClass.bind(this, currentClass)}>Delete Class</button>
+        <div className="col-sm-12">
+          <div className="col-sm-4">
+            <h2 className="text-center">Students</h2>
+            {students.length === 0 ? 'No Students' : students}
+          </div>
+          <div className="col-sm-4">
+            <h2 className="text-center">Mentors</h2>
+            {mentors.length === 0 ? 'No Mentors' : mentors}
+          </div>
+          <div className="col-sm-4">
+            <h2 className="text-center">Teachers</h2>
+            {teachers.length === 0 ? 'No Teachers' : teachers}
+          </div>
         </div>
+        <button className="btn btn-default" onClick={this.deleteClass.bind(this, currentClass)}>Delete Class</button>
       </div>
     )
   }

@@ -36,24 +36,6 @@ var classHelpers = {
       });
     });
   },
-  getClasses(userId, cb){
-    ref.child(`users/${userId}/classes`).on('value', (snapshot) => {
-      var classes = snapshot.val();
-      if(!classes){
-        cb([]);
-      } else {
-        cb(helpers.toArray(classes));
-      }
-    });
-  },
-  getStudents(userId, className, cb){
-    helpers.getClassId(userId, className, (classId) => {
-      ref.child(`classes/${classId}/students`).on('value', (snapshot) => {
-        var data = snapshot.val();
-        data ? cb(helpers.toArray(data)) : cb([]);
-      });
-    });
-  },
   addStudent(user, className, classId){
     var newUserRef = ref.child('users').push({
       firstName: user.firstName,
