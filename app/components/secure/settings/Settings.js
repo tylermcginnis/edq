@@ -14,11 +14,8 @@ class Settings extends React.Component{
       members: []
     };
   }
-  removeStudent(index){
-    var userId = helpers.getCurrentUserId();
-    var className = this.context.router.getCurrentParams().class;
-    var email = this.state.members[index].email;
-    classHelpers.removeStudent(email, this.props.query.classId);
+  removeUser(key, userType){
+    classHelpers.removeUser(key, this.props.query.classId, userType);
   }
   addUser(user){
     var className = this.context.router.getCurrentParams().class;
@@ -48,13 +45,13 @@ class Settings extends React.Component{
     var teacherArr = helpers.toArray(this.state.members.teachers);
 
     var students = studentArr.map((item, index) => {
-      return <StudentItem user={item} index={index} remove={this.removeStudent.bind(this)} key={index} />
+      return <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} key={index} />
     });
     var mentors = mentorArr.map((item, index) => {
-      return <StudentItem user={item} index={index} remove={this.removeStudent.bind(this)} key={index} />
+      return <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} key={index} />
     });
     var teachers = teacherArr.map((item, index) => {
-      return <StudentItem user={item} index={index} remove={this.removeStudent.bind(this)} key={index} />
+      return <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} key={index} />
     });
     // students = students.length === 0 ? 'No Students' : students;
     return (

@@ -4,9 +4,15 @@ var helpers = {
   toArray(obj){
     var arr = [];
     for(var key in obj){
+      if(this.isObject(obj[key])){
+        obj[key].key = key;
+      }
       arr.push(obj[key]);
     }
     return arr;
+  },
+  isObject(obj){
+    return Object.prototype.toString.call(obj) === '[object Object]' ? true : false;
   },
   getClassId(teacherId, className, cb){
     ref.child(`users/${teacherId}/classes`).once('value', (snapshot) => {

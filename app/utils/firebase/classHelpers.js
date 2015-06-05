@@ -71,11 +71,9 @@ var classHelpers = {
 
     ref.child(`classes/${classId}/${user.userType}s/${newUserRef.key()}`).set(user);
   },
-  removeStudent(email, classId){
-    helpers.getStudentId(email, classId, (studentId) => {
-      ref.child(`classes/${classId}/students/${studentId}`).remove();
-      ref.child(`users/${studentId}/classes/${classId}`).remove();
-    })
+  removeUser(userId, classId, userType){
+    ref.child(`classes/${classId}/${userType}s/${userId}`).remove();
+    ref.child(`users/${userId}/classes/${classId}`).remove();
   }
 };
 
