@@ -48,7 +48,7 @@ module.exports = (function(){
     }
   };
 
-  function _validateEndpoint(endpoint){
+  function _validateEndpoint(endpoint, onRemove){
     var defaultError = 'The Firebase endpoint you are trying to listen to';
     var errorMsg;
     if(typeof endpoint !== 'string'){
@@ -57,7 +57,7 @@ module.exports = (function(){
       errorMsg = `${defaultError} must be a non-empty string. Instead, got ${endpoint}`;
     } else if(endpoint.length > 768){
       errorMsg = `${defaultError} is too long to be stored in Firebase. It be less than 768 characters.`;
-    } else if(firebaseRefs[endpoint]){
+    } else if(onRemove && firebaseRefs[endpoint]){
       errorMsg = `${defaultError} (${endpoint}) has already been bound. An endpoint may only have one binding`;
     }
 
@@ -140,7 +140,7 @@ module.exports = (function(){
         _sync(endpoint, options);
       },
       removeBinding(endpoint){
-        _removeBinding(endpoint);
+        _removeBinding(endpoint, true);
       }
     }
   }
