@@ -1,6 +1,7 @@
 var React = require('react');
 var Router = require('react-router');
 var authActions = require('../../actions/authActions');
+var auth = require('../../utils/firebase/auth');
 
 class Login extends React.Component{
   constructor(props){
@@ -13,9 +14,9 @@ class Login extends React.Component{
     var email = this.refs.email.getDOMNode().value;
     var password = this.refs.pw.getDOMNode().value;
     var nextPath = router.getCurrentQuery().nextPath;
-    authActions.loginWithPW({email, password}, (err, data) => {
+    auth.loginWithPW({email, password}, (err, data) => {
       if(err){
-        console.log('Error on Login.');
+        console.log('Error on Login');
       } else {
         if(nextPath){
           this.context.router.transitionTo(nextPath);

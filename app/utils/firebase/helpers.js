@@ -17,6 +17,27 @@ var helpers = {
         }
       }
     });
+  },
+  getStudentId(email, cbOrClassId, cb){
+    if(cb){
+      ref.child(`classes/${cbOrClassId}/students`).once('value', (snapshot) => {
+        var data = snapshot.val();
+        for(var key in data){
+          if(data[key].email === email){
+            cb(key);
+          }
+        }
+      });
+    } else {
+      ref.child(`users`).on('value', (snapshot) => {
+        var data = snapshot.val();
+        for(var key in data){
+          if(data[key].email === email){
+            cbOrClassId(key);
+          }
+        }
+      });
+    }
   }
 };
 

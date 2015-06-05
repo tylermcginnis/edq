@@ -11,7 +11,7 @@ var Dashboard = requireAuth(class extends React.Component{
   constructor(){
     this.state = {
       classes: [],
-      user: userStore.getUser()
+      user: JSON.parse(localStorage.getItem('user'))
     }
   }
   componentDidMount(){
@@ -22,7 +22,6 @@ var Dashboard = requireAuth(class extends React.Component{
     });
   }
   componentWillUnmount(){
-    var user = userStore.getUser();
     base.removeBinding(`users/${this.state.user.pushId}/classes`);
   }
   handleSubmit(e){

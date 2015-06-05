@@ -1,4 +1,5 @@
 var ref = require('../../constants/fbref');
+var helpers = require('./helpers');
 var classHelpers = require('./classHelpers');
 
 var auth = {
@@ -30,9 +31,11 @@ var auth = {
         cb(true);
       } else {
         this.onChange(true);
-        authData.pushId = userObj.pushId;
-        localStorage.setItem('user', JSON.stringify(userObj));
-        cb(false, authData);
+        helpers.getStudentId(userObj.email, (id) => {
+          authData.pushId = id;
+          localStorage.setItem('user', JSON.stringify(authData));
+          cb(false, authData);
+        });
       }
     });
   },

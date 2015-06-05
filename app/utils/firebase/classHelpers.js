@@ -18,17 +18,6 @@ function removeClassFromUser(userId, classId){
   ref.child(`users/${userId}/classes/${classId}`).remove();
 };
 
-function getStudentId(email, classId, cb){
-  ref.child(`classes/${classId}/students`).once('value', (snapshot) => {
-    var data = snapshot.val();
-    for(var key in data){
-      if(data[key].email === email){
-        cb(key);
-      }
-    }
-  });
-}
-
 var classHelpers = {
   addNewClassToFB(userId, newClassName){
     var newClassRef = ref.child('classes').push({name: newClassName});
@@ -89,7 +78,7 @@ var classHelpers = {
   },
   removeStudent(userId, className, email){
     helpers.getClassId(userId, className, (classId) => {
-      getStudentId(email, classId, (studentId) => {
+      helpers.getStudentId(email, classId, (studentId) => {
         ref.child(`classes/${classId}/students/${studentId}`).remove();
         ref.child(`users/${studentId}/classes/${classId}`).remove();
       })
