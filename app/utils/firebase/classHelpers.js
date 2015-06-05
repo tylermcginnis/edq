@@ -58,14 +58,15 @@ var classHelpers = {
     var newUserRef = ref.child('users').push({
       firstName: user.firstName,
       lastName: user.lastName,
-      email: user.email
+      email: user.email,
+      userType: user.userType
     });
 
     newUserRef.child(`classes/${classId}`).set({
       name: className,
-      isTeacher: false,
-      isMentor: false,
-      isStudent: true
+      isTeacher: user.userType === 'teacher' ? true : false,
+      isMentor: user.userType === 'mentor' ? true : false,
+      isStudent: user.userType === 'student' ? true : false,
     });
 
     ref.child(`classes/${classId}/students/${newUserRef.key()}`).set(user);

@@ -12,7 +12,7 @@ class AddNewUser extends React.Component{
     this.refs.lastName.getDOMNode().value = ''
     this.refs.email.getDOMNode().value = ''
     this.refs.userType.getDOMNode().value = ''
-    this.props.addUser(firstName, lastName, email, userType);
+    this.props.addUser({firstName, lastName, email, userType});
   }
   render(){
     return (

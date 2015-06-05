@@ -20,9 +20,9 @@ class Settings extends React.Component{
     var email = this.state.members[index].email;
     classHelpers.removeStudent(email, this.props.query.classId);
   }
-  addUser(firstName, lastName, email, status){
+  addUser(user){
     var className = this.context.router.getCurrentParams().class;
-    classHelpers.addStudent({firstName, lastName, email}, className, this.props.query.classId);
+    classHelpers.addStudent(user, className, this.props.query.classId);
   }
   componentDidMount(){
     var userId = helpers.getCurrentUserId();
@@ -47,9 +47,7 @@ class Settings extends React.Component{
     var students = this.state.members.map((item, index) => {
       return (
         <StudentItem
-          email={item.email}
-          firstName={item.firstName}
-          lastName={item.lastName}
+          user={item}
           index={index}
           remove={this.removeStudent.bind(this)}
           key={index} />

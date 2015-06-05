@@ -5,9 +5,10 @@ class StudentItem extends React.Component{
     return (
       <div>
         <span onClick={this.props.remove.bind(null, this.props.index)}> XXX</span> <br />
-        FirstName: {this.props.firstName} <br />
-        LastName: {this.props.lastName} <br />
-        Email: {this.props.email}
+        FirstName: {this.props.user.firstName} <br />
+        LastName: {this.props.user.lastName} <br />
+        Email: {this.props.user.email} <br />
+        Type: {this.props.user.userType}
       </div>
     )
   }
