@@ -30,7 +30,7 @@ class Settings extends React.Component{
   }
   componentWillUnmount(){
     var userId = helpers.getCurrentUserId();
-    base.removeBinding(`classes/${this.props.query.classId}/students`);
+    base.removeBinding(`classes/${this.props.query.classId}`);
   }
   deleteClass(className){
     var userId = helpers.getCurrentUserId();
