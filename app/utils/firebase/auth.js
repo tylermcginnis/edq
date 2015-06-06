@@ -1,6 +1,5 @@
 var ref = require('../../constants/fbref');
 var helpers = require('./helpers');
-var classHelpers = require('./classHelpers');
 
 var auth = {
   createUser(user, cb) {
@@ -18,9 +17,24 @@ var auth = {
             console.log("Error creating user:", err);
         }
       } else {
-        var newUserRef = ref.child('users').push({firstName: user.firstName,lastName: user.lastName,email: user.email,uid: userData.uid});
-        loginObj.pushId = newUserRef.key();
-        this.loginWithPW(loginObj, cb);
+        helpers.getUserIdWithEmail(user.email, (userId) => {
+          var objToSave = {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            uid: userData.uid
+          };
+          if(userId === -1){
+            var newUserRef = ref.child('users').push(objToSave);
+            loginObj.pushId = newUserRef.key();
+          } else {
+            //deletes this users class if their email is already assigned a class.
+            ref.child(`users/${userId}/firstName`).set(objToSave.firstName);
+            ref.child(`users/${userId}/lastName`).set(objToSave.lastName);
+            loginObj.pushId = userId;
+          }
+          this.loginWithPW(loginObj, cb);
+        });
       }
     });
   },
@@ -31,11 +45,16 @@ var auth = {
         cb(true);
       } else {
         this.onChange(true);
-        helpers.getStudentId(userObj.email, (id) => {
-          authData.pushId = id;
-          localStorage.setItem('user', JSON.stringify(authData));
-          cb(false, authData);
-        });
+        if(userObj.pushId){
+          localStorage.setItem('user', JSON.stringify(userObj));
+          cb(false, userObj);
+        } else {
+          helpers.getStudentId(userObj.email, (id) => {
+            authData.pushId = id;
+            localStorage.setItem('user', JSON.stringify(authData));
+            cb(false, authData);
+          });
+        }
       }
     });
   },

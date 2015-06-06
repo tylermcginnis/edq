@@ -37,6 +37,19 @@ var helpers = {
   },
   getCurrentUserId(){
     return JSON.parse(localStorage.getItem('user')).pushId;
+  },
+  getUserIdWithEmail(email, cb){
+    ref.child('users').once('value', (snapshot) => {
+      var data = snapshot.val();
+      var id = -1;
+      for(var key in data){
+        if(data[key].email.toLowerCase() === email.toLowerCase()){
+          id = key;
+          break;
+        }
+      }
+      cb(id);
+    });
   }
 };
 
