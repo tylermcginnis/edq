@@ -129,6 +129,20 @@ module.exports = (function(){
     _validateEndpoint(endpoint);
     _validateOptions(options);
     //2 way data binding
+
+    var context = options.context;
+    var reactSetState = context.setState
+    
+    firebaseListeners[endpoint] = ref.child(endpoint).on('value', (snapshot) => {
+      var data = snapshot.val();
+      data = options.asArray === true ? _toArray(data) : data;
+      reactSetState.call(context, data);
+    });
+
+    context.setState = function(data){
+      ref.child(endpoint).set(data);
+    }
+
   }
 
   function init(){
