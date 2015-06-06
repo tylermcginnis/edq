@@ -28,7 +28,6 @@ var auth = {
             var newUserRef = ref.child('users').push(objToSave);
             loginObj.pushId = newUserRef.key();
           } else {
-            //deletes this users class if their email is already assigned a class.
             ref.child(`users/${userId}/firstName`).set(objToSave.firstName);
             ref.child(`users/${userId}/lastName`).set(objToSave.lastName);
             loginObj.pushId = userId;

@@ -3,6 +3,7 @@ var SliderGuage = require('./slider-guage/SliderGuage');
 var QueueItem = require('./QueueItem');
 var Rebase = require('../../../utils/firebase/rebase');
 var appConstants = require('../../../constants/appConstants');
+var helpers = require('../../../utils/firebase/helpers');
 
 var base = Rebase.createClass(appConstants.FIREBASE_URL);
 
@@ -15,6 +16,18 @@ class Queue extends React.Component {
     };
   }
   componentDidMount(){
+    var userId = helpers.getCurrentUserId();
+    base.listenTo(`users/${userId}/classes/${this.props.query.classId}`, {
+      context: this,
+      then(data){
+        if(data.isMentor || data.isTeacher){
+          console.log('TEACHER OR MENTOR');
+        } else {
+          console.log('STUUUDENT');
+        }
+      }
+    });
+
     base.bindToState(`queue/${this.props.query.classId}`, {
       asArray: true,
       context: this,
