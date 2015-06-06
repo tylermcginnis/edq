@@ -8,7 +8,7 @@ var helpers = require("../../../utils/firebase/helpers");
 
 var base = Rebase.createClass(appConstants.FIREBASE_URL);
 
-class Settings extends React.Component{
+class ClassSetting extends React.Component{
   constructor(){
     this.state = {
       members: []
@@ -85,8 +85,8 @@ class Settings extends React.Component{
   }
 };
 
-Settings.contextTypes = {
+ClassSetting.contextTypes = {
   router: React.PropTypes.func.isRequired
-}
+};
 
-module.exports = Settings
+module.exports = ClassSetting;
