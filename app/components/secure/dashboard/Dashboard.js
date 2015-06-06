@@ -4,6 +4,7 @@ var requireAuth = require('../../../utils/authenticated');
 var Rebase = require('../../../utils/firebase/rebase');
 var appConstants = require('../../../constants/appConstants');
 var classHelpers = require('../../../utils/firebase/classHelpers');
+var helpers = require('../../../utils/firebase/helpers');
 
 var base = Rebase.createClass(appConstants.FIREBASE_URL);
 
@@ -11,7 +12,7 @@ var Dashboard = requireAuth(class extends React.Component{
   constructor(){
     this.state = {
       classes: [],
-      user: JSON.parse(localStorage.getItem('user'))
+      user: helpers.getCurrentUserId();
     }
   }
   componentDidMount(){

@@ -14,16 +14,6 @@ var helpers = {
   isObject(obj){
     return Object.prototype.toString.call(obj) === '[object Object]' ? true : false;
   },
-  getClassId(teacherId, className, cb){
-    ref.child(`users/${teacherId}/classes`).once('value', (snapshot) => {
-      var classes = snapshot.val();
-      for(var key in classes){
-        if(classes[key].name === className && classes[key].isTeacher === true){
-          cb(key);
-        }
-      }
-    });
-  },
   getStudentId(email, cbOrClassId, cb){
     if(cb){
       ref.child(`classes/${cbOrClassId}/students`).once('value', (snapshot) => {
