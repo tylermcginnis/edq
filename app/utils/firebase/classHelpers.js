@@ -23,17 +23,15 @@ var classHelpers = {
     var newClassRef = ref.child('classes').push({name: newClassName});
     addClassToUser(userId, newClassName, 'teacher', newClassRef.key());
   },
-  removeClass(userId, className, cb){
-    helpers.getClassId(userId, className, (classId) => {
-      ref.child(`classes/${classId}/students`).once('value', (snapshot) => {
-        var students = snapshot.val();
-        for(var studentId in students){
-          ref.child(`users/${studentId}/classes/${classId}`).remove();
-        }
-        ref.child(`classes/${classId}`).remove();
-        removeClassFromUser(userId, classId);
-        cb();
-      });
+  removeClass(userId, classId, cb){
+    ref.child(`classes/${classId}/students`).once('value', (snapshot) => {
+      var students = snapshot.val();
+      for(var studentId in students){
+        ref.child(`users/${studentId}/classes/${classId}`).remove();
+      }
+      ref.child(`classes/${classId}`).remove();
+      removeClassFromUser(userId, classId);
+      cb();
     });
   },
   addStudent(user, className, classId){

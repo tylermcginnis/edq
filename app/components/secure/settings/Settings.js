@@ -32,17 +32,23 @@ class Settings extends React.Component{
     var userId = helpers.getCurrentUserId();
     base.removeBinding(`classes/${this.props.query.classId}`);
   }
-  deleteClass(className){
+  deleteClass(){
     var userId = helpers.getCurrentUserId();
-    classHelpers.removeClass(userId, this.context.router.getCurrentParams().class, () => {
+    classHelpers.removeClass(userId, this.props.query.classId, () => {
       this.context.router.transitionTo('dashboard');
     });
   }
   render(){
     var currentClass = this.context.router.getCurrentParams().class;
-    var studentArr = helpers.toArray(this.state.members.students);
-    var mentorArr = helpers.toArray(this.state.members.mentors);
-    var teacherArr = helpers.toArray(this.state.members.teachers);
+    var studentArr = [];
+    var mentorArr = [];
+    var teacherArr = [];
+
+    if(this.state.members){
+      studentArr = helpers.toArray(this.state.members.students);
+      mentorArr = helpers.toArray(this.state.members.mentors);
+      teacherArr = helpers.toArray(this.state.members.teachers);
+    }
 
     var students = studentArr.map((item, index) => {
       return <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} key={index} />
