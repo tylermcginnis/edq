@@ -12,24 +12,24 @@ var Dashboard = requireAuth(class extends React.Component{
   constructor(){
     this.state = {
       classes: [],
-      user: helpers.getCurrentUserId();
+      userId: helpers.getCurrentUserId()
     }
   }
   componentDidMount(){
-    base.bindToState(`users/${this.state.user.pushId}/classes`, {
+    base.bindToState(`users/${this.state.userId}/classes`, {
       context: this,
       asArray: true,
       state: 'classes'
     });
   }
   componentWillUnmount(){
-    base.removeBinding(`users/${this.state.user.pushId}/classes`);
+    base.removeBinding(`users/${this.state.userId}/classes`);
   }
   handleSubmit(e){
     e.preventDefault();
     var newClassName = this.refs.newClass.getDOMNode().value;
     this.refs.newClass.getDOMNode().value = '';
-    classHelpers.addNewClassToFB(this.state.user.pushId, newClassName);
+    classHelpers.addNewClassToFB(this.state.userId, newClassName);
   }
   render(){
     var list = this.state.classes.map((item, index) => {

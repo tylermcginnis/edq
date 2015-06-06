@@ -16,7 +16,6 @@ class Register extends React.Component{
       if(err){
         console.log('Error on Create User');
       } else if(data){
-        console.log("Data is ", data);
         router.replaceWith('dashboard');
       };
     });
