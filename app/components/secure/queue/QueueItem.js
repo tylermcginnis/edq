@@ -3,7 +3,9 @@ var React = require('react');
 class QueueItem extends React.Component{
   render(){
     return (
-      <p> Queue Item </p>
+      <div>
+        <p> Question: {this.props.item.question} </p>
+      </div>
     );
   }
 };
