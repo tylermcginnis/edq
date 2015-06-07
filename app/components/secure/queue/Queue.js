@@ -59,28 +59,27 @@ class Queue extends React.Component {
     });
   }
   render(){
-    //this.state.user has all the info to verify user is teacher, mentor, or student.
+    var slider, enter, list;
     if(this.state.user.isTeacher || this.state.user.isMentor){
-      var isAdmin = true;
-    } else {
-      var isAdmin = false;
+      slider = <SliderGuage status={this.state.status} />
+      enter = <span></span>
+      list = this.state.queue.map((item, index) => {
+        return <QueueItem item={item} key={index} isAdmin={true} />
+      });
+    } else if(this.state.user.isStudent){
+      slider = <SliderGuage status={0} />;
+      enter = <EnterQueue enter={this.joinQueue.bind(this)} />;
+      list = this.state.queue.map((item, index) => {
+        return <QueueItem item={item} key={index} isAdmin={false} />
+      });
     }
     var className = this.context.router.getCurrentParams().class;
-    var list = this.state.queue.map((item, index) => {
-      return (
-        <QueueItem item={item} index={index} key={index} />
-      )
-    });
-    var thing = isAdmin ? <div> ADMIN!! </div> : <div> Not Admin </div>
     return (
       <div className="col-sm-12">
-        <SliderGuage status={this.state.status} />
-        <EnterQueue enter={this.joinQueue.bind(this)} />
-        <br />
-        Is Admin?: {thing} <br /> <br />
-        STAUTS: {this.state.status} <br />
+        <h1 className="text-center"> {className} </h1>
+        {slider} <br />
+        {enter} <br />
         {list} <br />
-
       </div>
     )
   }

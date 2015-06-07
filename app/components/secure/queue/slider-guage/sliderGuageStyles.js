@@ -7,7 +7,8 @@ module.exports = {
         backgroundColor: '#f8f8f8',
         borderRadius: '20px',
         width: '100%',
-        boxShadow: 'inset 1px 1px 2px 0px rgba(229, 225, 225, 0.75)'
+        boxShadow: 'inset 1px 1px 2px 0px rgba(229, 225, 225, 0.75)',
+        margin: '20px 0'
       },
       sliderBar: {
         width: '90%',
