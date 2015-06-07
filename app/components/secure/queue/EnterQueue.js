@@ -9,6 +9,7 @@ class EnterQueue extends React.Component{
     this.props.enter(question, anon);
   }
   render(){
+    var styles = {}
     return (
       <div className="col-sm-12">
         <div className="col-sm-8 pull-left">

@@ -54,8 +54,9 @@ class Queue extends React.Component {
     base.removeBinding(`studentStatus/${this.props.query.classId}`);
   }
   joinQueue(question, anon){
+    var user = JSON.parse(localStorage.getItem('user'));
     this.setState({
-      queue: this.state.queue.concat([{question, anon}])
+      queue: this.state.queue.concat([{question, anon, user}])
     });
   }
   render(){

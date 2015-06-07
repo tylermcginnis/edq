@@ -32,6 +32,9 @@ var auth = {
             ref.child(`users/${userId}/lastName`).set(objToSave.lastName);
             loginObj.pushId = userId;
           }
+          loginObj.firstName = user.firstName;
+          loginObj.lastName = user.lastName;
+          loginObj.email = user.email;
           this.loginWithPW(loginObj, cb);
         });
       }
@@ -48,8 +51,11 @@ var auth = {
           localStorage.setItem('user', JSON.stringify(userObj));
           cb(false, userObj);
         } else {
-          helpers.getStudentId(userObj.email, (id) => {
-            authData.pushId = id;
+          helpers.getStudentInfo(userObj.email, (userData) => {
+            authData.pushId = userData.key;
+            authData.firstName = userData.data.firstName;
+            authData.lastName = userData.data.lastName;
+            authData.email = userData.data.email
             localStorage.setItem('user', JSON.stringify(authData));
             cb(false, authData);
           });
