@@ -145,6 +145,8 @@ module.exports = (function(){
       for(var key in data){
         if(key === options.state){
           ref.child(endpoint).set(data[key]);
+        } else {
+          reactSetState.call(options.context, data);
         }
       }
     }

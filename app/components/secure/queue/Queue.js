@@ -13,11 +13,8 @@ class Queue extends React.Component {
     super(props);
     this.state = {
       queue: [],
-      user: {
-        isTeacher: 'NOOO',
-        isStudent: 'nnoooo'
-      },
-      status: 50
+      user: {},
+      status: 0
     };
   }
   componentDidMount(){
@@ -59,24 +56,28 @@ class Queue extends React.Component {
   joinQueue(question, anon){
     this.setState({
       queue: this.state.queue.concat([{question, anon}])
-    })
+    });
   }
   render(){
     //this.state.user has all the info to verify user is teacher, mentor, or student.
+    if(this.state.user.isTeacher || this.state.user.isMentor){
+      var isAdmin = true;
+    } else {
+      var isAdmin = false;
+    }
     var className = this.context.router.getCurrentParams().class;
-    console.log('this.state.queue', this.state.queue);
     var list = this.state.queue.map((item, index) => {
       return (
         <QueueItem item={item} index={index} key={index} />
       )
     });
+    var thing = isAdmin ? <div> ADMIN!! </div> : <div> Not Admin </div>
     return (
       <div className="col-sm-12">
         <SliderGuage status={this.state.status} />
         <EnterQueue enter={this.joinQueue.bind(this)} />
         <br />
-        Teacher: {this.state.user.isTeacher} <br /> <br />
-        Student: {this.state.user.isStudent} <br /> <br />
+        Is Admin?: {thing} <br /> <br />
         STAUTS: {this.state.status} <br />
         {list} <br />
 
