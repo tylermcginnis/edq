@@ -1,15 +1,15 @@
 var React = require('react');
+var Gravatar = require('react-gravatar');
 
 class QueueItem extends React.Component{
   render(){
-    var name = this.props.item.anon === true ? <p>Anonymous</p> : <p>{this.props.item.user.firstName + ' ' + this.props.item.user.lastName}</p>;
     return (
       <div className='col-sm-12'>
         <div className="col-sm-3 pull-left">
-          IMAGE
+          <Gravatar email={this.props.item.email} size={150} default="mm" />
         </div>
         <div className="col-sm-9 pull-left">
-          <p> {name} </p>
+          <p> {this.props.item.name} </p>
           <p> {this.props.item.question} </p>
         </div>
       </div>

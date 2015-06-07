@@ -55,8 +55,11 @@ class Queue extends React.Component {
   }
   joinQueue(question, anon){
     var user = JSON.parse(localStorage.getItem('user'));
+    var email = anon ? '' : user.email;
+    var name = anon ? 'Anonymous' : user.firstName + ' ' + user.lastName;
+    var userId = user.pushId;
     this.setState({
-      queue: this.state.queue.concat([{question, anon, user}])
+      queue: this.state.queue.concat([{question, anon, email, name, userId}])
     });
   }
   render(){
