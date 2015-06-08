@@ -35,7 +35,7 @@ var Dashboard = requireAuth(class extends React.Component{
     var styles = {
       outerContainer: {
         padding: 3,
-        height: 180,
+        height: 200,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -62,6 +62,9 @@ var Dashboard = requireAuth(class extends React.Component{
         height: 3,
         width: '100%',
         background: '#6DA5CD',
+      },
+      label: {
+        fontSize: 17
       }
     };
     var list = this.state.classes.map((item, index) => {
@@ -74,9 +77,9 @@ var Dashboard = requireAuth(class extends React.Component{
         <div className="col-sm-4" style={styles.outerContainer}>
           <div style={styles.container}>
             <span style={styles.topBar}></span>
-            <form>
+            <form className="col-sm-10">
               <div className="form-group">
-                <label>Class Name</label>
+                <label style={styles.label}>Class Name</label>
                 <input type="text" ref="newClass" className="form-control" placeholder="Class Name" />
               </div>
               <button type="submit" className="btn btn-default" onClick={this.handleSubmit.bind(this)}>Submit</button>

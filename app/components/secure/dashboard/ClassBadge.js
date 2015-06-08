@@ -13,7 +13,7 @@ class ClassBadge extends React.Component{
     var styles = {
       outerContainer: {
         padding: 3,
-        height: 180,
+        height: 200,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -77,7 +77,7 @@ class ClassBadge extends React.Component{
         <div style={styles.container}>
           {header}
           <div className="col-sm-12 text-center" style={styles.innerContainer}>
-            <h2> {this.props.info.name} </h2>
+            <h2 style={{paddingBottom: 10}}> {this.props.info.name} </h2>
             <div className="btn btn-primary col-sm-12" onClick={this.goToQueue.bind(this, this.props.index)}>
               Go to Queue
             </div>
