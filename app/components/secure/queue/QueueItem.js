@@ -18,14 +18,36 @@ class QueueItem extends React.Component{
         color: '#fff',
         cursor: 'pointer',
         fontSize: '18px'
-      }
+      },
+      layover: {
+        backgroundColor: "rgba(46, 46, 46, 0.75)",
+        padding: '0',
+        zIndex: 99,
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        color: 'white',
+        width: '100%',
+        height: '100%',
+        textAlign: 'center',
+        lineHeight: '120px',
+        fontSize: '45px'
+      },
     }
-    var imageText = this.props.isAdmin === true ? <span style={styles.imageText}> Answer </span> : <span style={styles.imageText}> Remove </span>;
+    var layover = <span></span>;
+    if(this.props.item.beingHelped){
+      layover = (
+        <div className="col-sm-12" style={styles.layover}>
+          {this.props.item.beingHelped}
+        </div>
+      )
+    }
     return (
-      <div className='col-sm-12'>
-        <div className="pull-left" style={styles.avatar} onClick={this.props.answer.bind(null)}>
+      <div className='col-sm-12' style={styles.avatar}>
+        {layover}
+        <div className="pull-left" style={styles.avatar} onClick={this.props.button.bind(null)}>
           <Gravatar email={this.props.item.email} size={130} default="mm" />
-          {imageText}
+          <span style={styles.imageText}> {this.props.isAdmin === true ? "Answer" : "Cancel"} </span>
         </div>
         <div className="col-sm-9 pull-left">
           <p> {this.props.item.name} </p>

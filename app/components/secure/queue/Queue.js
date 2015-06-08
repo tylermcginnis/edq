@@ -58,12 +58,26 @@ class Queue extends React.Component {
     var email = anon ? '' : user.email;
     var name = anon ? 'Anonymous' : user.firstName + ' ' + user.lastName;
     var userId = user.pushId;
+    var beingHelped = false;
+    var beingHelpedBy = false;
     this.setState({
-      queue: this.state.queue.concat([{question, anon, email, name, userId}])
+      queue: this.state.queue.concat([{question, anon, email, name, userId, beingHelped}])
     });
   }
   answer(index){
-    console.log(index)
+    var temp = this.state.queue;
+    var helper = JSON.parse(localStorage.getItem('user'));
+    temp[index].beingHelped = helper.firstName + ' ' + helper.lastName;
+    this.setState({
+      queue: temp
+    });
+  }
+  removeSelf(index){
+    var temp = this.state.queue;
+    temp.splice(index, 1);
+    this.setState({
+      queue: temp
+    })
   }
   render(){
     var enter, list, isAdmin, status;
@@ -77,7 +91,11 @@ class Queue extends React.Component {
       isAdmin = false;
     }
     list = this.state.queue.map((item, index) => {
-      return <QueueItem item={item} key={index} isAdmin={isAdmin} answer={this.answer.bind(this, index)}/>
+      if(isAdmin === true){
+        return <QueueItem item={item} key={index} isAdmin={isAdmin} button={this.answer.bind(this, index)}/>
+      } else {
+        return <QueueItem item={item} key={index} isAdmin={isAdmin} button={this.removeSelf.bind(this, index)} />
+      }
     });
     var className = this.context.router.getCurrentParams().class;
     return (
