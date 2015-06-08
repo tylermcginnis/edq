@@ -23,7 +23,8 @@ class Queue extends React.Component {
     //todo: check to make sure syncState isn't called with asArray
     base.syncState(`queue/${this.props.query.classId}`, {
       context: this,
-      state: 'queue'
+      state: 'queue',
+      asArray: true
     });
 
     base.bindToState(`users/${userId}/classes/${this.props.query.classId}`, {

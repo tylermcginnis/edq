@@ -32,6 +32,38 @@ var Dashboard = requireAuth(class extends React.Component{
     classHelpers.addNewClassToFB(this.state.userId, newClassName);
   }
   render(){
+    var styles = {
+      outerContainer: {
+        padding: 3,
+        height: 180,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative'
+      },
+      container: {
+        backgroundColor: '#f8f8f8',
+        position: 'relative',
+        marginLeft: 2,
+        boxSizing: 'border-box',
+        height: '100%',
+        padding: 15,
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 0
+      },
+      topBar: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        height: 3,
+        width: '100%',
+        background: '#6DA5CD',
+      }
+    };
     var list = this.state.classes.map((item, index) => {
       return (
         <ClassBadge info={item} index={index} key={index} />
@@ -39,14 +71,17 @@ var Dashboard = requireAuth(class extends React.Component{
     });
     return (
       <span>
-        <div className="col-sm-4 card">
-          <form>
-            <div className="form-group">
-              <label>Class Name</label>
-              <input type="text" ref="newClass" className="form-control" placeholder="Class Name" />
-            </div>
-            <button type="submit" className="btn btn-default" onClick={this.handleSubmit.bind(this)}>Submit</button>
-          </form>
+        <div className="col-sm-4" style={styles.outerContainer}>
+          <div style={styles.container}>
+            <span style={styles.topBar}></span>
+            <form>
+              <div className="form-group">
+                <label>Class Name</label>
+                <input type="text" ref="newClass" className="form-control" placeholder="Class Name" />
+              </div>
+              <button type="submit" className="btn btn-default" onClick={this.handleSubmit.bind(this)}>Submit</button>
+            </form>
+          </div>
         </div>
         {list}
       </span>
