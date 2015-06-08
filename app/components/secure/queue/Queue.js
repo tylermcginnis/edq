@@ -62,26 +62,28 @@ class Queue extends React.Component {
       queue: this.state.queue.concat([{question, anon, email, name, userId}])
     });
   }
+  answer(index){
+    console.log(index)
+  }
   render(){
-    var slider, enter, list;
+    var enter, list, isAdmin, status;
     if(this.state.user.isTeacher || this.state.user.isMentor){
-      slider = <SliderGuage status={this.state.status} />
+      status = this.state.status;
       enter = <span></span>
-      list = this.state.queue.map((item, index) => {
-        return <QueueItem item={item} key={index} isAdmin={true} />
-      });
+      isAdmin = true;
     } else if(this.state.user.isStudent){
-      slider = <SliderGuage status={0} />;
+      status = 0;
       enter = <EnterQueue enter={this.joinQueue.bind(this)} />;
-      list = this.state.queue.map((item, index) => {
-        return <QueueItem item={item} key={index} isAdmin={false} />
-      });
+      isAdmin = false;
     }
+    list = this.state.queue.map((item, index) => {
+      return <QueueItem item={item} key={index} isAdmin={isAdmin} answer={this.answer.bind(this, index)}/>
+    });
     var className = this.context.router.getCurrentParams().class;
     return (
       <div className="col-sm-12">
         <h1 className="text-center"> {className} </h1>
-        {slider} <br />
+        <SliderGuage status={status} /> <br />
         {enter} <br />
         {list} <br />
       </div>
