@@ -176,7 +176,7 @@ module.exports = (function(){
 
   function init(){
     return {
-      listenTo(endpoint, options){
+    listenTo(endpoint, options){queu
         _bind(endpoint, options, 'listenTo');
       },
       bindToState(endpoint, options){

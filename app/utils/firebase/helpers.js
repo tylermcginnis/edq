@@ -39,6 +39,9 @@ var helpers = {
       }
       cb(id);
     });
+  },
+  getLocalUser(){
+    return JSON.parse(localStorage.getItem('user'));
   }
 };
 

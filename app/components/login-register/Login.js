@@ -6,7 +6,7 @@ class Login extends React.Component{
   constructor(props){
     super(props)
     this.state = {error: false};
-  }
+}
   handleSubmit(e){
     e.preventDefault();
     var { router } = this.context;
