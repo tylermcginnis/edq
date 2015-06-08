@@ -72,7 +72,7 @@ class Queue extends React.Component {
       queue: temp
     });
   }
-  removeSelf(index){
+  removeUser(index){
     var temp = this.state.queue;
     temp.splice(index, 1);
     this.setState({
@@ -92,9 +92,9 @@ class Queue extends React.Component {
     }
     list = this.state.queue.map((item, index) => {
       if(isAdmin === true){
-        return <QueueItem item={item} key={index} isAdmin={isAdmin} button={this.answer.bind(this, index)}/>
+        return <QueueItem item={item} key={index} isAdmin={isAdmin} button={this.answer.bind(this, index)} removeUser={this.removeUser.bind(this, index)}/>
       } else {
-        return <QueueItem item={item} key={index} isAdmin={isAdmin} button={this.removeSelf.bind(this, index)} />
+        return <QueueItem item={item} key={index} isAdmin={isAdmin} button={this.removeUser.bind(this, index)} />
       }
     });
     var className = this.context.router.getCurrentParams().class;

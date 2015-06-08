@@ -33,11 +33,21 @@ class QueueItem extends React.Component{
         lineHeight: '120px',
         fontSize: '45px'
       },
+      remove: {
+        position: 'absolute',
+        right: '10',
+        top: 10,
+        fontSize: 15,
+        cursor: 'pointer'
+      }
     }
     var layover = <span></span>;
+    var removeUser = <span></span>
+    this.props.isAdmin === true && (removeUser = <span onClick={this.props.removeUser.bind(null)} className="glyphicon glyphicon-remove" style={styles.remove}></span>);
     if(this.props.item.beingHelped){
       layover = (
         <div className="col-sm-12" style={styles.layover}>
+          {removeUser}
           {this.props.item.beingHelped}
         </div>
       )
