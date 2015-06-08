@@ -16,6 +16,18 @@ class Main extends React.Component {
     auth.onChange = this.handleLogout.bind(this)
   }
   render(){
+    var styles = {
+      logo: {
+        width: 33,
+        float: 'left',
+        margin: 5,
+        marginRight: 11
+      },
+      navbar: {
+        backgroundColor: '#373d44',
+        color: '#f8f8f8'
+      }
+    };
     var loginOrOut;
     var register;
     if(this.state.loggedIn){
@@ -30,10 +42,11 @@ class Main extends React.Component {
         <nav className="navbar navbar-default navbar-static-top">
           <div className="container">
             <div className="navbar-header">
-              <a href="http://www.google.com" className="navbar-brand"> EDQ </a>
+              <img src="../images/logo-mini.png" style={styles.logo} />
+              <a href="http://www.google.com" className="navbar-brand">EDQ </a>
             </div>
             <ul className="nav navbar-nav pull-right">
-              <li><Link to="dashboard" className="navbar-brand"> Dashboard </Link></li>
+              <li><Link to="dashboard" className="navbar-brand">Dashboard</Link></li>
               {register}
               {loginOrOut}
             </ul>
