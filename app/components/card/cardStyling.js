@@ -1,3 +1,5 @@
+var colors = require('../../styles/mainColors');
+
 module.exports = {
   cardContainer: {
     padding: 3,
@@ -27,6 +29,6 @@ module.exports = {
     top: 0,
     height: 3,
     width: '100%',
-    background: '#6DA5CD',
+    background: colors.blue,
   }
 };
