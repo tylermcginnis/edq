@@ -36,15 +36,18 @@ class Main extends React.Component {
         right: 10
       }
     };
-    var loginOrOut, register, icon;
+    var icon = null;
+    var register = null;
+    var loginOrOut;
     if(this.state.loggedIn){
+      var user = helpers.getLocalUser();
+      if(user){
+        icon = <li style={styles.gravatar}><Gravatar email={user.email} size={40} default="mm" /></li>;
+      }
       loginOrOut = <li><Link to="logout" className="navbar-brand">Logout</Link></li>;
-      icon = <li style={styles.gravatar}><Gravatar email={helpers.getLocalUser().email} size={40} default="mm" /></li>;
-      register = null
     } else {
       loginOrOut = <li><Link to="login" className="navbar-brand">Login</Link></li>;
       register = <li><Link to="register" className="navbar-brand"> Register </Link></li>;
-      icon = null
     }
     return (
       <span>
