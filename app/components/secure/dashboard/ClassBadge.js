@@ -11,27 +11,6 @@ class ClassBadge extends React.Component{
   }
   render(){
     var styles = {
-      outerContainer: {
-        padding: 3,
-        height: 200,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative'
-      },
-      container: {
-        backgroundColor: '#f8f8f8',
-        position: 'relative',
-        marginLeft: 2,
-        boxSizing: 'border-box',
-        height: '100%',
-        padding: 15,
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: 0
-      },
       cog: {
         position: 'absolute',
         top: 4,
@@ -39,44 +18,35 @@ class ClassBadge extends React.Component{
         fontSize: 18,
         cursor: 'pointer'
       },
-      headerContainer: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        height: 3,
-      },
-      teacher: {
+      member: {
         width: '100%',
-        background: '#44bf87',
         position: 'absolute',
         height: '100%'
       },
-      student: {
-        width: '100%',
-        background: '#7A7CD5',
-        position: 'absolute',
-        height: '100%'
-      }
     };
-    var header = this.props.info.isTeacher === true ?
-      (
-        <div style={styles.headerContainer}>
-          <span style={styles.teacher}></span>
+    var header;
+    if(this.props.info.isTeacher === true){
+      styles.member.background = '#44bf87';
+      header = (
+        <div style={this.props.styles.topBar}>
+          <span style={styles.member}></span>
           <span className="pull-right" style={styles.cog} onClick={this.goToSettings.bind(this, this.props.index)}><i className="fa fa-cog"></i></span>
         </div>
-      ) :
-      (
-        <div style={styles.headerContainer}>
-          <span style={styles.student}></span>
+      );
+    } else {
+      styles.member.background = '#7A7CD5'
+      header = (
+        <div style={this.props.styles.topBar}>
+          <span style={styles.member}></span>
         </div>
       );
+    };
 
     return (
-      <div className="col-sm-4" style={styles.outerContainer}>
-        <div style={styles.container}>
+      <div className="col-sm-4" style={this.props.styles.cardContainer}>
+        <div style={this.props.styles.card}>
           {header}
-          <div className="col-sm-12 text-center" style={styles.innerContainer}>
+          <div className="col-sm-12 text-center">
             <h2 style={{paddingBottom: 10}}> {this.props.info.name} </h2>
             <div className="btn btn-primary col-sm-12" onClick={this.goToQueue.bind(this, this.props.index)}>
               Go to Queue

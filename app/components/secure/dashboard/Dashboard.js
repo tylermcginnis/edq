@@ -5,6 +5,7 @@ var Rebase = require('../../../utils/firebase/rebase');
 var appConstants = require('../../../constants/appConstants');
 var classHelpers = require('../../../utils/firebase/classHelpers');
 var helpers = require('../../../utils/firebase/helpers');
+var cardStyling = require('../../../styles/card');
 
 var base = Rebase.createClass(appConstants.FIREBASE_URL);
 
@@ -33,50 +34,20 @@ var Dashboard = requireAuth(class extends React.Component{
   }
   render(){
     var styles = {
-      outerContainer: {
-        padding: 3,
-        height: 200,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative'
-      },
-      container: {
-        backgroundColor: '#f8f8f8',
-        position: 'relative',
-        marginLeft: 2,
-        boxSizing: 'border-box',
-        height: '100%',
-        padding: 15,
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: 0
-      },
-      topBar: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        height: 3,
-        width: '100%',
-        background: '#6DA5CD',
-      },
       label: {
         fontSize: 17
       }
     };
     var list = this.state.classes.map((item, index) => {
       return (
-        <ClassBadge info={item} index={index} key={index} />
+        <ClassBadge info={item} index={index} key={index} styles={cardStyling}/>
       )
     });
     return (
       <span>
-        <div className="col-sm-4" style={styles.outerContainer}>
-          <div style={styles.container}>
-            <span style={styles.topBar}></span>
+        <div className="col-sm-4" style={cardStyling.cardContainer}>
+          <div style={cardStyling.card}>
+            <span style={cardStyling.topBar}></span>
             <form className="col-sm-10">
               <div className="form-group">
                 <label style={styles.label}>Class Name</label>
