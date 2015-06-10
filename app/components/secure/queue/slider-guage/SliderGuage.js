@@ -20,7 +20,6 @@ class SliderGuage extends React.Component {
   componentDidMount(){
     (function(_this) {
       function resizeHandler() {
-        console.log('hererere')
         _this.setState({
           width: _this.refs.slider.getDOMNode().offsetWidth - 40
         });
