@@ -1,5 +1,5 @@
 var React = require('react');
-var styling = require('./cardStyling');
+var styling = require('./cardStyling').getStyles();
 
 class Card extends React.Component{
   colorMixin(bgColor){
