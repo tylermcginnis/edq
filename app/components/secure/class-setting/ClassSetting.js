@@ -40,11 +40,12 @@ class ClassSetting extends React.Component{
     });
   }
   render(){
-    var styles = {
-      container: {
-        borderTop: `3px solid ${appConstants.blue}`,
+    function makeBorder(color){
+      return {
+        borderTop: `3px solid ${appConstants[color]}`,
         padding: 20,
-        background: '#f8f8f8'
+        background: '#f8f8f8',
+        height: 375
       }
     }
     var currentClass = this.context.router.getCurrentParams().class;
@@ -82,8 +83,17 @@ class ClassSetting extends React.Component{
     return (
       <div className="col-sm-12">
         <h1 className="text-center">{currentClass}</h1>
-        <div className="col-sm-6 col-sm-offset-3" style={styles.container}>
-          <AddNewUser addUser={this.addUser.bind(this)}/>
+        <div className="col-sm-6 pull-left">
+          <h2 className="text-center">Add User</h2>
+          <div className="col-sm-12" style={makeBorder('blue')}>
+            <AddNewUser addUser={this.addUser.bind(this)}/>
+          </div>
+        </div>
+        <div className="col-sm-6 pull-right">
+          <h2 className="text-center">Settings</h2>
+          <div className="col-sm-12" style={makeBorder('green')}>
+            <button className="btn btn-default" onClick={this.deleteClass.bind(this, currentClass)}>Delete Class</button>
+          </div>
         </div>
         <div className="col-sm-12">
           <div className="col-sm-4">
@@ -99,7 +109,6 @@ class ClassSetting extends React.Component{
             {teachers.length === 0 ? 'No Teachers' : teachers}
           </div>
         </div>
-        <button className="btn btn-default" onClick={this.deleteClass.bind(this, currentClass)}>Delete Class</button>
       </div>
     )
   }
