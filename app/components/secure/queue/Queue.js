@@ -84,7 +84,7 @@ class Queue extends React.Component {
   updateStatus(status){
     var userId = helpers.getCurrentUserId();
     base.post(`studentStatus/${this.props.query.classId}/${userId}`, {
-      data: status
+      data: status,
     });
   }
   render(){

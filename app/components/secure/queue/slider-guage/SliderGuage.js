@@ -18,9 +18,29 @@ class SliderGuage extends React.Component {
     this.props.updateStatus(this.state.currentStatus);
   }
   componentDidMount(){
-    //update on resize
-    var width = this.refs.slider.getDOMNode().offsetWidth - 40;
+    (function(_this) {
+      function resizeHandler() {
+        console.log('hererere')
+        _this.setState({
+          width: _this.refs.slider.getDOMNode().offsetWidth - 40
+        });
+      };
+      var resizeTimeout;
+      _this.resizeThrottler = function() {
+        if ( !resizeTimeout ) {
+          resizeTimeout = setTimeout(function() {
+            resizeTimeout = null;
+            resizeHandler();
+           }, 66);
+        }
+      }
+      window.addEventListener("resize", _this.resizeThrottler, false);
+    }(this));
+    var width =this.refs.slider.getDOMNode().offsetWidth - 40;
     this.setState({width});
+  }
+  componentWillUnmount(){
+    window.removeEventListener("resize", this.resizeThrottler, false);
   }
   render(){
     var drag;
