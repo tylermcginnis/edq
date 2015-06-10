@@ -70,6 +70,7 @@ var auth = {
     ref.unauth();
     localStorage.removeItem('user');
     this.onChange(false);
+    cb();
   }
 };
 
