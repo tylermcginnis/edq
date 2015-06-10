@@ -40,6 +40,13 @@ class ClassSetting extends React.Component{
     });
   }
   render(){
+    var styles = {
+      container: {
+        borderTop: `3px solid ${appConstants.blue}`,
+        padding: 20,
+        background: '#f8f8f8'
+      }
+    }
     var currentClass = this.context.router.getCurrentParams().class;
     var studentArr = [];
     var mentorArr = [];
@@ -53,29 +60,29 @@ class ClassSetting extends React.Component{
 
     var students = studentArr.map((item, index) => {
       return (
-        <Card size={12} color={appConstants.blue}>
-          <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} key={index} />
+        <Card size={12} color={appConstants.blue} key={index}>
+          <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)}/>
         </Card>
       );
     });
     var mentors = mentorArr.map((item, index) => {
       return (
-        <Card size={12} color={appConstants.purple}>
-          <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} key={index} />
+        <Card size={12} color={appConstants.purple} key={index}>
+          <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} />
         </Card>
       );
     });
     var teachers = teacherArr.map((item, index) => {
       return (
-        <Card size={12} color={appConstants.green}>
-          <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} key={index} />
+        <Card size={12} color={appConstants.green} key={index}>
+          <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} />
         </Card>
       );
     });
     return (
       <div className="col-sm-12">
         <h1 className="text-center">{currentClass}</h1>
-        <div className="col-sm-6 col-sm-offset-3">
+        <div className="col-sm-6 col-sm-offset-3" style={styles.container}>
           <AddNewUser addUser={this.addUser.bind(this)}/>
         </div>
         <div className="col-sm-12">
