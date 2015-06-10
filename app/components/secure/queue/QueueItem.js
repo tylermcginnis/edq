@@ -56,7 +56,7 @@ class QueueItem extends React.Component{
         {layover}
         <div className="pull-left" style={styles.avatar} onClick={this.props.button.bind(null)}>
           <Gravatar email={this.props.item.email} size={130} default="mm" />
-          <span style={styles.imageText}> {this.props.isAdmin === true ? "Answer" : "Cancel"} </span>
+          {this.props.showRemoveBtn && <span style={styles.imageText}> {this.props.isAdmin === true ? "Answer" : "Cancel"} </span>}
         </div>
         <div className="col-sm-9 pull-left">
           <h3> {this.props.item.name} </h3>

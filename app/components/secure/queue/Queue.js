@@ -74,12 +74,15 @@ class Queue extends React.Component {
       queue: temp
     });
   }
-  removeUser(index){
-    var temp = this.state.queue;
-    temp.splice(index, 1);
-    this.setState({
-      queue: temp
-    })
+  removeUser(index, item){
+    var user = helpers.getLocalUser();
+    if(item.email === user.email){
+      var temp = this.state.queue;
+      temp.splice(index, 1);
+      this.setState({
+        queue: temp
+      })
+    }
   }
   updateStatus(status){
     var userId = helpers.getCurrentUserId();
@@ -104,14 +107,16 @@ class Queue extends React.Component {
       isAdmin = false;
     }
     list = this.state.queue.map((item, index) => {
+      var showRemoveBtn = item.email === helpers.getLocalUser().email;
       if(isAdmin === true){
         return (
           <Card size={12} height={height} color={appConstants.purple} key={index} >
             <QueueItem
               item={item}
-              isAdmin={isAdmin}
+              isAdmin={'isAdmin'}
               button={this.answer.bind(this, index)}
-              removeUser={this.removeUser.bind(this, index)}/>
+              removeUser={this.removeUser.bind(this, index)}
+              showRemoveBtn={true} />
           </Card>
         )
       } else {
@@ -120,7 +125,8 @@ class Queue extends React.Component {
             <QueueItem
               item={item}
               isAdmin={isAdmin}
-              button={this.removeUser.bind(this, index)} />
+              showRemoveBtn={showRemoveBtn}
+              button={this.removeUser.bind(this, index, item)} />
           </Card>
         );
       }
