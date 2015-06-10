@@ -75,13 +75,20 @@ class Queue extends React.Component {
     });
   }
   removeUser(index, item){
+    var temp = this.state.queue;
+    temp.splice(index, 1);
+    this.setState({
+      queue: temp
+    })
+  }
+  removeSelf(index, item){
     var user = helpers.getLocalUser();
-    if(item.email === user.email){
-      var temp = this.state.queue;
-      temp.splice(index, 1);
-      this.setState({
-        queue: temp
-      })
+      if(item.email === user.email){
+        var temp = this.state.queue;
+        temp.splice(index, 1);
+        this.setState({
+          queue: temp
+        })
     }
   }
   updateStatus(status){
@@ -126,7 +133,7 @@ class Queue extends React.Component {
               item={item}
               isAdmin={isAdmin}
               showRemoveBtn={showRemoveBtn}
-              button={this.removeUser.bind(this, index, item)} />
+              button={this.removeSelf.bind(this, index, item)} />
           </Card>
         );
       }
