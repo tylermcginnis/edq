@@ -83,22 +83,38 @@ class Queue extends React.Component {
   }
   render(){
     var enter, list, isAdmin, status;
+    var height = 165;
     if(this.state.user.isTeacher || this.state.user.isMentor){
       status = this.state.status;
       enter = <span></span>
       isAdmin = true;
     } else if(this.state.user.isStudent){
       status = 0;
-      enter = (<Card size={12} color={appConstants.blue} height={140}>
+      enter = (<Card size={12} color={appConstants.blue} height={130}>
                 <EnterQueue enter={this.joinQueue.bind(this)} />
               </Card>);
       isAdmin = false;
     }
     list = this.state.queue.map((item, index) => {
       if(isAdmin === true){
-        return <QueueItem item={item} key={index} isAdmin={isAdmin} button={this.answer.bind(this, index)} removeUser={this.removeUser.bind(this, index)}/>
+        return (
+          <Card size={12} height={height} color={appConstants.purple} key={index} >
+            <QueueItem
+              item={item}
+              isAdmin={isAdmin}
+              button={this.answer.bind(this, index)}
+              removeUser={this.removeUser.bind(this, index)}/>
+          </Card>
+        )
       } else {
-        return <QueueItem item={item} key={index} isAdmin={isAdmin} button={this.removeUser.bind(this, index)} />
+        return (
+          <Card size={12} height={height} color={appConstants.green} key={index}>
+            <QueueItem
+              item={item}
+              isAdmin={isAdmin}
+              button={this.removeUser.bind(this, index)} />
+          </Card>
+        );
       }
     });
     var className = this.context.router.getCurrentParams().class;

@@ -5,7 +5,6 @@ class QueueItem extends React.Component{
   render(){
     var styles = {
       avatar: {
-        position: 'relative',
         padding: 0
       },
       imageText: {
@@ -60,7 +59,7 @@ class QueueItem extends React.Component{
           <span style={styles.imageText}> {this.props.isAdmin === true ? "Answer" : "Cancel"} </span>
         </div>
         <div className="col-sm-9 pull-left">
-          <p> {this.props.item.name} </p>
+          <h3> {this.props.item.name} </h3>
           <p> {this.props.item.question} </p>
         </div>
       </div>

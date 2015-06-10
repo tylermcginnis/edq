@@ -2,12 +2,10 @@ var appConstants = require('../../constants/appConstants');
 
 module.exports = {
   cardContainer: {
-    padding: 3,
+    margin: "10px 0px",
+    padding: "0 4px",
     height: 200,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative'
+    position: 'relative',
   },
   card: {
     backgroundColor: '#f8f8f8',
@@ -15,12 +13,11 @@ module.exports = {
     marginLeft: 2,
     boxSizing: 'border-box',
     height: '100%',
-    padding: 15,
     width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 0
+    padding: 0
   },
   topBar: {
     position: 'absolute',

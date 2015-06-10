@@ -3,12 +3,12 @@ module.exports = {
       innerContainer: {
         display: "flex",
         justifyContent: "center",
-        height: '35px',
-        backgroundColor: '#f8f8f8',
-        borderRadius: '20px',
+        height: '60px',
+        // backgroundColor: '#f8f8f8',
         width: '100%',
-        boxShadow: 'inset 1px 1px 2px 0px rgba(229, 225, 225, 0.75)',
-        margin: '20px 0'
+        // boxShadow: 'inset 1px 1px 2px 0px rgba(244, 244, 244, 0.75)',
+        margin: '0',
+        // borderTop: "3px solid silver"
       },
       sliderBar: {
         width: '90%',

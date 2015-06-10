@@ -12,7 +12,7 @@ class EnterQueue extends React.Component{
   render(){
     var styles = {
       container: {
-        paddingTop: 20
+        paddingTop: 13
       },
       pad: {
         marginRight: 15
