@@ -5,6 +5,7 @@ var Rebase = require('../../../utils/firebase/rebase');
 var appConstants = require('../../../constants/appConstants');
 var helpers = require('../../../utils/firebase/helpers');
 var EnterQueue = require('./EnterQueue');
+var Card = require('../../card/Card');
 
 var base = Rebase.createClass(appConstants.FIREBASE_URL);
 
@@ -88,7 +89,9 @@ class Queue extends React.Component {
       isAdmin = true;
     } else if(this.state.user.isStudent){
       status = 0;
-      enter = <EnterQueue enter={this.joinQueue.bind(this)} />;
+      enter = (<Card size={12} color={appConstants.blue} height={140}>
+                <EnterQueue enter={this.joinQueue.bind(this)} />
+              </Card>);
       isAdmin = false;
     }
     list = this.state.queue.map((item, index) => {

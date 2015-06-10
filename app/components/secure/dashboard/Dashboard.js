@@ -46,7 +46,7 @@ var Dashboard = requireAuth(class extends React.Component{
     return (
       <span>
         <Card size={4} color={appConstants.blue}>
-          <form className="col-sm-10">
+          <form className="col-sm-10" style={{padding: 0}}>
             <div className="form-group">
               <label style={styles.label}>Class Name</label>
               <input type="text" ref="newClass" className="form-control" placeholder="Class Name" />

@@ -55,7 +55,7 @@ class Main extends React.Component {
           <div className="container">
             <div className="navbar-header">
               <img src="../images/logo-mini.png" style={styles.logo} />
-              <a href="http://www.google.com" className="navbar-brand">EDQ </a>
+              <a href="/" className="navbar-brand">EDQ </a>
             </div>
             <ul className="nav navbar-nav pull-right">
               {icon}

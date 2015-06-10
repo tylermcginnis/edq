@@ -7,6 +7,7 @@ class Card extends React.Component{
   }
   render(){
     this.props.color && this.colorMixin(this.props.color);
+    this.props.height && (styling.cardContainer.height = this.props.height);
     var klassName = `col-sm-${this.props.size}`
     return (
       <div className={klassName} style={styling.cardContainer}>

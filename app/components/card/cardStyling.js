@@ -3,7 +3,6 @@ var appConstants = require('../../constants/appConstants');
 module.exports = {
   cardContainer: {
     padding: 3,
-    minHeight: 200,
     height: 200,
     display: 'flex',
     alignItems: 'center',
