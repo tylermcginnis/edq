@@ -82,14 +82,16 @@ class Queue extends React.Component {
     })
   }
   render(){
-    var enter, list, isAdmin, status;
+    var enter, list, isAdmin, status, slider;
     var height = 165;
     if(this.state.user.isTeacher || this.state.user.isMentor){
       status = this.state.status;
       enter = <span></span>
+      slider = <SliderGuage status={status} draggable={false} />
       isAdmin = true;
     } else if(this.state.user.isStudent){
       status = 0;
+      slider = <SliderGuage status={0} draggable={true} />
       enter = (<Card size={12} color={appConstants.blue} height={130}>
                 <EnterQueue enter={this.joinQueue.bind(this)} />
               </Card>);
@@ -121,7 +123,7 @@ class Queue extends React.Component {
     return (
       <div className="col-sm-12">
         <h1 className="text-center"> {className} </h1>
-        <SliderGuage status={status} /> <br />
+        {slider} <br />
         {enter} <br />
         {list} <br />
       </div>

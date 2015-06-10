@@ -4,14 +4,12 @@ module.exports = {
         display: "flex",
         justifyContent: "center",
         height: '60px',
-        // backgroundColor: '#f8f8f8',
         width: '100%',
-        // boxShadow: 'inset 1px 1px 2px 0px rgba(244, 244, 244, 0.75)',
         margin: '0',
-        // borderTop: "3px solid silver"
+        position: 'relative'
       },
       sliderBar: {
-        width: '90%',
+        width: '100%',
         height: '6px',
         backgroundColor: 'rgba(119, 119, 119, 0.32)',
         alignSelf: 'center',
@@ -29,7 +27,7 @@ module.exports = {
         display: 'flex',
         justifyContent: 'center',
         boxShadow: '0px 5px 14px -3px rgba(0, 0, 0, 0.57)',
-        position: 'relative'
+        position: 'relative',
       },
       pinInner: {
         borderRadius: '50%',
