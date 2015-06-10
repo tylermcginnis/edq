@@ -81,6 +81,12 @@ class Queue extends React.Component {
       queue: temp
     })
   }
+  updateStatus(status){
+    var userId = helpers.getCurrentUserId();
+    base.post(`studentStatus/${this.props.query.classId}/${userId}`, {
+      data: status
+    });
+  }
   render(){
     var enter, list, isAdmin, status, slider;
     var height = 165;
@@ -91,7 +97,7 @@ class Queue extends React.Component {
       isAdmin = true;
     } else if(this.state.user.isStudent){
       status = 0;
-      slider = <SliderGuage status={0} draggable={true} />
+      slider = <SliderGuage status={0} draggable={true} updateStatus={this.updateStatus.bind(this)} />
       enter = (<Card size={12} color={appConstants.blue} height={130}>
                 <EnterQueue enter={this.joinQueue.bind(this)} />
               </Card>);

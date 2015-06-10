@@ -2,7 +2,6 @@ var React = require('react');
 var styles = require('./sliderGuageStyles');
 var Draggable = require('react-draggable');
 
-
 class SliderGuage extends React.Component {
   constructor(){
     this.state = {
@@ -11,16 +10,16 @@ class SliderGuage extends React.Component {
     }
   }
   handleDrag(e, ui){
-    console.log('event', e);
-    console.log('UI', ui);
+    this.setState({
+      currentStatus: Math.ceil((ui.position.left / this.state.width) * 100)
+    });
   }
   handleStop(e, ui){
-    console.log('STop');
-    console.log('event', e);
-    console.log('pos', ui.position);
+    this.props.updateStatus(this.state.currentStatus);
   }
   componentDidMount(){
-    var width = this.refs.slider.getDOMNode().offsetWidth;
+    //update on resize
+    var width = this.refs.slider.getDOMNode().offsetWidth - 40;
     this.setState({width});
   }
   render(){
@@ -29,7 +28,7 @@ class SliderGuage extends React.Component {
     if(this.props.draggable === true){
       styles.lightTheme.pinContainer.cursor = 'move';
       drag = (
-        <Draggable axis="x" bounds="parent" onStop={this.handleStop} onDrag={this.handleDrag}>
+        <Draggable axis="x" bounds="parent" onStop={this.handleStop.bind(this)} onDrag={this.handleDrag.bind(this)}>
           <div id="pin" style={styles.lightTheme.pinContainer}>
             <div style={styles.lightTheme.pinInner}>
               {this.state.currentStatus}
