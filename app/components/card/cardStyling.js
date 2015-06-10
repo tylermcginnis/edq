@@ -1,4 +1,4 @@
-var colors = require('../../styles/mainColors');
+var appConstants = require('../../constants/appConstants');
 
 module.exports = {
   cardContainer: {
@@ -29,6 +29,6 @@ module.exports = {
     top: 0,
     height: 3,
     width: '100%',
-    background: colors.blue,
+    background: appConstants.blue,
   }
 };

@@ -7,8 +7,9 @@ class Card extends React.Component{
   }
   render(){
     this.props.color && this.colorMixin(this.props.color);
+    var klassName = `col-sm-${this.props.size}`
     return (
-      <div className="col-sm-4" style={styling.cardContainer}>
+      <div className={klassName} style={styling.cardContainer}>
         <div style={styling.card}>
           <span style={styling.topBar}></span>
           {this.props.children}
@@ -16,6 +17,10 @@ class Card extends React.Component{
       </div>
     )
   }
+};
+
+Card.propTypes = {
+  size: React.PropTypes.number.isRequired
 };
 
 module.exports = Card;

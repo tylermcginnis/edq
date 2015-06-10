@@ -5,6 +5,7 @@ var StudentItem = require('./StudentItem');
 var Rebase = require('../../../utils/firebase/rebase');
 var appConstants = require('../../../constants/appConstants');
 var helpers = require("../../../utils/firebase/helpers");
+var Card = require('../../card/Card');
 
 var base = Rebase.createClass(appConstants.FIREBASE_URL);
 
@@ -51,13 +52,25 @@ class ClassSetting extends React.Component{
     }
 
     var students = studentArr.map((item, index) => {
-      return <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} key={index} />
+      return (
+        <Card size={12} color={appConstants.blue}>
+          <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} key={index} />
+        </Card>
+      );
     });
     var mentors = mentorArr.map((item, index) => {
-      return <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} key={index} />
+      return (
+        <Card size={12} color={appConstants.purple}>
+          <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} key={index} />
+        </Card>
+      );
     });
     var teachers = teacherArr.map((item, index) => {
-      return <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} key={index} />
+      return (
+        <Card size={12} color={appConstants.green}>
+          <StudentItem user={item} remove={this.removeUser.bind(this, item.key, item.userType)} key={index} />
+        </Card>
+      );
     });
     return (
       <div className="col-sm-12">
