@@ -83,12 +83,12 @@ class Queue extends React.Component {
   }
   removeSelf(index, item){
     var user = helpers.getLocalUser();
-      if(item.email === user.email){
-        var temp = this.state.queue;
-        temp.splice(index, 1);
-        this.setState({
-          queue: temp
-        })
+    if(item.email === user.email){
+      var temp = this.state.queue;
+      temp.splice(index, 1);
+      this.setState({
+        queue: temp
+      })
     }
   }
   updateStatus(status){
@@ -120,7 +120,7 @@ class Queue extends React.Component {
           <Card size={12} height={height} color={appConstants.purple} key={index} >
             <QueueItem
               item={item}
-              isAdmin={'isAdmin'}
+              isAdmin={isAdmin}
               button={this.answer.bind(this, index)}
               removeUser={this.removeUser.bind(this, index)}
               showRemoveBtn={true} />
