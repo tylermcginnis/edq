@@ -59,7 +59,7 @@ class SliderGuage extends React.Component {
     } else {
       drag = (
         <div id="pin" className="pin-container" style={styles.pinContainerDefault}>
-          <div classname="pin-inner">
+          <div className="pin-inner">
             {this.props.status}
           </div>
         </div>
