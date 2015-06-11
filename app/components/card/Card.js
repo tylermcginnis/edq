@@ -1,18 +1,14 @@
 var React = require('react');
-var styling = require('./cardStyling').getStyles();
+var appConstants = require('../../constants/appConstants');
 
 class Card extends React.Component{
-  colorMixin(bgColor){
-    styling.topBar.background = bgColor;
-  }
   render(){
-    this.props.color && this.colorMixin(this.props.color);
-    this.props.height && (styling.cardContainer.height = this.props.height);
-    var klassName = `col-sm-${this.props.size}`
+    var borderTop = this.props.color ? `3px solid ${this.props.color}` : `3px solid ${appConstants.blue}`
+    var height = this.props.height || '';
+    var klassName = `col-sm-${this.props.size} card-container`;
     return (
-      <div className={klassName} style={styling.cardContainer}>
-        <div style={styling.card}>
-          <span style={styling.topBar}></span>
+      <div className={klassName} style={{height}}>
+        <div className="card" style={{borderTop}}>
           {this.props.children}
         </div>
       </div>

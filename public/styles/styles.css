@@ -1,0 +1,84 @@
+.card-container {
+  margin: 10px 0px;
+  padding: 0 4px;
+  height: 200px;
+  position: relative;
+}
+
+.card {
+  background-color: #f8f8f8;
+  position: relative;
+  margin-left: 2px;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  align-items: center;
+  -webkit-align-items: center;
+  -ms-align-items: center;
+  padding: 0;
+}
+
+.slider .inner-container {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -ms-justify-content: center;
+  height: 60px;
+  width: 100%;
+  margin: 0;
+  position: relative;
+}
+
+.slider .slider-bar {
+  width: 100%;
+  height: 6px;
+  background-color: rgba(119, 119, 119, 0.32);
+  align-self: center;
+  -webkit-align-self: center;
+  -ms-align-self: center;
+  border-radius: 6px;
+  border-bottom: 1px solid #fff;
+  border-top: 1px solid rgb(169, 169, 169);
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+}
+
+.slider .pin-container {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  background-color: rgb(189, 189, 189);
+  align-self: center;
+  -webkit-align-self: center;
+  -ms-align-self: center;
+  display: flex;
+  display: -ms-flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -ms-justify-content: center;
+  box-shadow: 0px 5px 14px -3px rgba(0, 0, 0, 0.57);
+  position: relative;
+}
+
+.slider .pin-inner{
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  background-color: rgb(123, 123, 123);
+  align-self: center;
+  -webkit-align-self: center;
+  -ms-align-self: center;
+  color: #f8f8f8;
+  font-size: 14px;
+  text-align: center;
+  line-height: 30px;
+  box-shadow: inset 0px 0px 1px 0.5px rgb(73, 73, 73);
+}

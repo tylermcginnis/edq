@@ -1,5 +1,4 @@
 var React = require('react');
-var styles = require('./sliderGuageStyles');
 var Draggable = require('react-draggable');
 
 class SliderGuage extends React.Component {
@@ -43,34 +42,37 @@ class SliderGuage extends React.Component {
   }
   render(){
     var drag;
-    styles.lightTheme.pinContainer.left = this.props.status + '%';
+    var styles = {
+      pinContainerMove: {left: this.props.status + '%', cursor: 'move'},
+      pinContainerDefault: {left: this.props.status + '%', cursor: 'default'},
+    };
     if(this.props.draggable === true){
-      styles.lightTheme.pinContainer.cursor = 'move';
       drag = (
         <Draggable axis="x" bounds="parent" onStop={this.handleStop.bind(this)} onDrag={this.handleDrag.bind(this)}>
-          <div id="pin" style={styles.lightTheme.pinContainer}>
-            <div style={styles.lightTheme.pinInner}>
+          <div id="pin" className="pin-container" style={styles.pinContainerMove}>
+            <div className="pin-inner">
               {this.state.currentStatus}
             </div>
           </div>
         </Draggable>
       )
     } else {
-      styles.lightTheme.pinContainer.cursor = 'default'
       drag = (
-        <div id="pin" style={styles.lightTheme.pinContainer}>
-          <div style={styles.lightTheme.pinInner}>
+        <div id="pin" className="pin-container" style={styles.pinContainerDefault}>
+          <div classname="pin-inner">
             {this.props.status}
           </div>
         </div>
       );
     };
     return (
-      <div style={styles.lightTheme.innerContainer} ref="slider">
-        <div style={styles.lightTheme.sliderBar}>
-          {drag}
+      <span className="slider">
+        <div className="inner-container" ref="slider">
+          <div className="slider-bar">
+            {drag}
+          </div>
         </div>
-      </div>
+      </span>
     )
   }
 };
