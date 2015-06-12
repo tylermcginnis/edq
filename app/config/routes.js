@@ -2,6 +2,7 @@ var React = require('react');
 var Router = require('react-router');
 var Route = Router.Route;
 var Main = require('../components/Main');
+var Home = require('../components/Home');
 var Register = require('../components/login-register/Register');
 var Login = require("../components/login-register/Login");
 var Logout = require('../components/login-register/Logout');
@@ -11,12 +12,13 @@ var Queue = require('../components/secure/queue/Queue');
 
 var routes = (
   <Route handler={Main} >
+    <Route path="/" name="home" handler={Home} />
     <Route name="login" handler={Login} />
     <Route name="logout" handler={Logout} />
     <Route name="register" handler={Register} />
     <Route name="queue" path="/queue/:class" handler={Queue} />
     <Route name="settings" path="/settings/:class" handler={ClassSetting} />
-    <Route name="dashboard" path="/" handler={Dashboard} />
+    <Route name="dashboard" handler={Dashboard} />
   </Route>
 );
 
