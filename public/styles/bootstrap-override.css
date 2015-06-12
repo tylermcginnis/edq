@@ -57,3 +57,21 @@
     background-color: #44bf87;
   }
 }
+
+.navbar-default {
+  height: 50px !important;
+}
+
+.navbar-collapse.collapse {
+  display: block!important;
+  height: 50px !important;
+}
+
+.navbar-nav>li, .navbar-nav {
+float: right !important;
+}
+
+
+.navbar-right {
+float: right!important;
+}

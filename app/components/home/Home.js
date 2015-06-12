@@ -2,6 +2,9 @@ var React = require('react');
 var styles = require('./homeStyles');
 
 class Home extends React.Component{
+  register(){
+    this.context.router.transitionTo('register');
+  }
   render(){
     return (
       <div className="col-sm-12">
@@ -54,11 +57,19 @@ class Home extends React.Component{
           </div>
         </div>
         <div className="col-sm-4 col-sm-offset-4" style={styles.cushion}>
-          <button style={styles.btn} type="submit" className="btn btn-primary">Register</button>
+          <button
+            style={styles.btn}
+            type="submit"
+            className="btn btn-primary"
+            onClick={this.register.bind(this)}>Register</button>
         </div>
       </div>
     )
   }
+};
+
+Home.contextTypes = {
+  router: React.PropTypes.func.isRequired
 };
 
 module.exports = Home;

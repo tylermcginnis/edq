@@ -33,33 +33,36 @@ class Main extends React.Component {
       gravatar: {
         position: 'relative',
         top: 5,
-        right: 10
+        left: 0
       }
     };
     var icon = null;
     var register = null;
+    var dashboard = null;
     var loginOrOut;
     if(this.state.loggedIn){
       var user = helpers.getLocalUser();
       if(user){
         icon = <li style={styles.gravatar}><Gravatar email={user.email} size={40} default="mm" /></li>;
       }
+      dashboard = <li><Link to="dashboard" className="navbar-brand">Dashboard</Link></li>
       loginOrOut = <li><Link to="logout" className="navbar-brand">Logout</Link></li>;
     } else {
       loginOrOut = <li><Link to="login" className="navbar-brand">Login</Link></li>;
       register = <li><Link to="register" className="navbar-brand"> Register </Link></li>;
+      dashboard = <span></span>
     }
     return (
       <span>
         <nav className="navbar navbar-default navbar-static-top">
           <div className="container">
-            <div className="navbar-header">
+            <div className="navbar-header pull-left">
               <img src="./images/logo-mini.png" style={styles.logo} />
               <a href="/" className="navbar-brand">EDQ </a>
             </div>
             <ul className="nav navbar-nav pull-right">
               {icon}
-              <li><Link to="dashboard" className="navbar-brand">Dashboard</Link></li>
+              {dashboard}
               {register}
               {loginOrOut}
             </ul>
