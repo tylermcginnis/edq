@@ -110,7 +110,8 @@
   padding: 0;
   border: 1px solid #ECECEC;
   border-top: 0;
-  border-radius: 0 0 3px 3pxe;
+  border-radius: 0 0 3px 3px;
+  padding-bottom: 10px;
 }
 
 .browser .menu {
@@ -180,21 +181,13 @@
   line-height: 25px;
 }
 
-
-
-
 .browser .queue-item {
-  height: 75px;
+  height: 90px;
   padding: 10px;
   border-top: 2px solid #44bf87;
   margin: 5px 0;
   background: #f8f8f8;
 }
-
-.queue-item .being-helped {
-
-}
-
 
 
 

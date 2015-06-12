@@ -10,6 +10,11 @@ module.exports = {
     fontWeight: 'bold'
   },
   question: {
-    fontSize: 9,
+    fontSize: 12,
+  },
+  btn: {
+    width: "100%",
+    height: 50,
+    fontSize: 19,
   }
 };
