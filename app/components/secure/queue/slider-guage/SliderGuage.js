@@ -48,7 +48,7 @@ class SliderGuage extends React.Component {
     };
     if(this.props.draggable === true){
       drag = (
-        <Draggable axis="x" bounds="parent" onStop={this.handleStop.bind(this)} onDrag={this.handleDrag.bind(this)}>
+        <Draggable axis="x" start={{x: -40}} bounds="parent" onStop={this.handleStop.bind(this)} onDrag={this.handleDrag.bind(this)}>
           <div id="pin" className="pin-container" style={styles.pinContainerMove}>
             <div className="pin-inner">
               {this.state.currentStatus}
