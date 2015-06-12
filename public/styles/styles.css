@@ -82,3 +82,123 @@
   line-height: 30px;
   box-shadow: inset 0px 0px 1px 0.5px rgb(73, 73, 73);
 }
+
+.browser .browser-top {
+  position: relative;
+  border-top: 2em solid rgba(230, 230, 230, 0.7);
+  border-radius: 3px 3px 0 0
+}
+
+.browser .browser-top:before {
+  position: absolute;
+  display: block;
+  left: 1em;
+  width: 0.5em;
+  content: '';
+  height: 0.5em;
+  top: -1.25em;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+  background-color: #f44;
+}
+
+.browser .browser-top > * {
+  display: block;
+}
+
+.browser .browser-body {
+  padding: 0;
+  border: 1px solid #ECECEC;
+  border-top: 0;
+  border-radius: 0 0 3px 3pxe;
+}
+
+.browser .menu {
+  padding: 0;
+  background: #373d44;
+  height: 15px;
+}
+
+.browser .slider .container{
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -ms-justify-content: center;
+  height: 60px;
+  width: 100%;
+  margin: 0;
+  position: relative;
+}
+
+.browser .slider .slider-bar{
+  width: 100%;
+  height: 6px;
+  background-color: rgba(119, 119, 119, 0.32);
+  align-self: center;
+  -webkit-align-self: center;
+  -ms-align-self: center;
+  border-radius: 6px;
+  border-bottom: 1px solid #fff;
+  border-top: 1px solid rgb(169, 169, 169);
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+}
+
+.browser .slider .pin-container {
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  left: 75%;
+  background-color: rgb(189, 189, 189);
+  align-self: center;
+  -webkit-align-self: center;
+  -ms-align-self: center;
+  display: flex;
+  display: -ms-flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -ms-justify-content: center;
+  position: relative;
+}
+
+.browser .slider .pin-inner {
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  background-color: rgb(123, 123, 123);
+  align-self: center;
+  -webkit-align-self: center;
+  -ms-align-self: center;
+  color: #f8f8f8;
+  font-size: 12px;
+  text-align: center;
+  line-height: 25px;
+}
+
+
+
+
+.browser .queue-item {
+  height: 75px;
+  padding: 10px;
+  border-top: 2px solid #44bf87;
+  margin: 5px 0;
+  background: #f8f8f8;
+}
+
+.queue-item .being-helped {
+
+}
+
+
+
+
+
+
+
+
