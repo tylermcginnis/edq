@@ -5,12 +5,12 @@ class SliderGuage extends React.Component {
   constructor(){
     this.state = {
       width: 0,
-      currentStatus: 0
+      currentStatus: 100
     }
   }
   handleDrag(e, ui){
     this.setState({
-      currentStatus: Math.ceil((ui.position.left / this.state.width) * 100)
+      currentStatus: Math.ceil(((this.state.width + ui.position.left + 40) / this.state.width) * 100)
     });
   }
   handleStop(e, ui){

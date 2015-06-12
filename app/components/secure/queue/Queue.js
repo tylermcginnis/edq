@@ -15,7 +15,7 @@ class Queue extends React.Component {
     this.state = {
       queue: [],
       user: {},
-      status: 0
+      status: 100
     };
   }
   componentDidMount(){
@@ -37,16 +37,18 @@ class Queue extends React.Component {
       context: this,
       asArray: true,
       then(data){
-        var total = 0;
-        data.forEach((item) => {
-          total += item;
-        });
-        var avg = Math.floor((total / data.length));
-        isNaN(avg) && (avg = 0);
-        avg > 100 && (avg = 100)
-        this.setState({
-          status: avg
-        });
+        if(this.state.user.isTeacher || this.state.user.isMentor){
+          var total = 0;
+          data.forEach((item) => {
+            total += item;
+          });
+          var avg = Math.floor((total / data.length));
+          isNaN(avg) && (avg = 0);
+          avg > 100 && (avg = 100)
+          this.setState({
+            status: avg
+          });
+        }
       }
     });
   }
@@ -101,13 +103,11 @@ class Queue extends React.Component {
     var enter, list, isAdmin, status, slider;
     var height = 165;
     if(this.state.user.isTeacher || this.state.user.isMentor){
-      status = this.state.status;
       enter = <span></span>
-      slider = <SliderGuage status={status} draggable={false} />
+      slider = <SliderGuage status={this.state.status} draggable={false} />
       isAdmin = true;
     } else if(this.state.user.isStudent){
-      status = 0;
-      slider = <SliderGuage status={0} draggable={true} updateStatus={this.updateStatus.bind(this)} />
+      slider = <SliderGuage status={100} draggable={true} updateStatus={this.updateStatus.bind(this)} />
       enter = (<Card size={12} color={appConstants.blue} height={130}>
                 <EnterQueue enter={this.joinQueue.bind(this)} />
               </Card>);
