@@ -33,7 +33,7 @@ class Main extends React.Component {
       gravatar: {
         position: 'relative',
         top: 5,
-        left: 0
+        right: 10
       }
     };
     var icon = null;
@@ -61,10 +61,10 @@ class Main extends React.Component {
               <a href="/" className="navbar-brand">EDQ </a>
             </div>
             <ul className="nav navbar-nav pull-right">
-              {icon}
-              {dashboard}
-              {register}
               {loginOrOut}
+              {register}
+              {dashboard}
+              {icon}
             </ul>
           </div>
         </nav>
