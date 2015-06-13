@@ -140,7 +140,7 @@ class Queue extends React.Component {
     });
     var className = this.context.router.getCurrentParams().class;
     return (
-      <div className="col-sm-12">
+      <div className="col-xs-12">
         <h1 className="text-center"> {className} </h1>
         {slider} <br />
         {enter} <br />

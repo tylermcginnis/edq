@@ -30,9 +30,9 @@ class ClassBadge extends React.Component{
       return (
         <Card size={4} color={appConstants.green}>
           <span className="pull-right" style={styles.cog} onClick={this.goToSettings.bind(this, this.props.index)}><i className="fa fa-cog"></i></span>
-          <div className="col-sm-12 text-center">
+          <div className="col-xs-12 text-center">
             <h2 style={styles.h2}> {this.props.info.name} </h2>
-            <div className="btn btn-primary col-sm-12" onClick={this.goToQueue.bind(this, this.props.index)}>
+            <div className="btn btn-primary col-xs-12" onClick={this.goToQueue.bind(this, this.props.index)}>
               Go to Queue
             </div>
           </div>
@@ -41,9 +41,9 @@ class ClassBadge extends React.Component{
     } else {
       return (
         <Card size={4} color={appConstants.purple}>
-          <div className="col-sm-12 text-center">
+          <div className="col-xs-12 text-center">
             <h2 style={styles.h2}> {this.props.info.name} </h2>
-            <div className="btn btn-primary col-sm-12" onClick={this.goToQueue.bind(this, this.props.index)}>
+            <div className="btn btn-primary col-xs-12" onClick={this.goToQueue.bind(this, this.props.index)}>
               Go to Queue
             </div>
           </div>

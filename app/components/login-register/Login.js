@@ -30,9 +30,9 @@ class Login extends React.Component{
   render(){
     var errors = this.state.error ? <p> Error on Login </p> : '';
     return (
-      <span className="col-sm-6 col-sm-offset-3">
+      <span className="col-xs-6 col-xs-offset-3">
         <Card size={12} height={325} color={appConstants.purple}>
-          <div className="col-sm-6 col-sm-offset-3">
+          <div className="col-xs-6 col-xs-offset-3">
             <h1 className="text-center"> Login </h1>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group">

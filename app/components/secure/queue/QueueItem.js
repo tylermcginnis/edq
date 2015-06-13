@@ -45,20 +45,20 @@ class QueueItem extends React.Component{
     this.props.isAdmin === true && (removeUser = <span onClick={this.props.removeUser.bind(null)} className="glyphicon glyphicon-remove" style={styles.remove}></span>);
     if(this.props.item.beingHelped){
       layover = (
-        <div className="col-sm-12" style={styles.layover}>
+        <div className="col-xs-12" style={styles.layover}>
           {removeUser}
           {this.props.item.beingHelped}
         </div>
       )
     }
     return (
-      <div className='col-sm-12' style={styles.avatar}>
+      <div className='col-xs-12' style={styles.avatar}>
         {layover}
         <div className="pull-left" style={styles.avatar} onClick={this.props.button.bind(null)}>
           <Gravatar email={this.props.item.email} size={130} default="mm" />
           {this.props.showRemoveBtn && <span style={styles.imageText}> {this.props.isAdmin === true ? "Answer" : "Cancel"} </span>}
         </div>
-        <div className="col-sm-9 pull-left">
+        <div className="col-xs-9 pull-left">
           <h3> {this.props.item.name} </h3>
           <p> {this.props.item.question} </p>
         </div>

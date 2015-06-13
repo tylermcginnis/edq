@@ -56,6 +56,10 @@
     color: #e5e5e5;
     background-color: #44bf87;
   }
+  .navbar-nav>li, .navbar-nav {
+    float: right !important;
+    top: 0 !important;
+  }
 }
 
 .navbar-default {
@@ -64,14 +68,13 @@
 
 .navbar-collapse.collapse {
   display: block!important;
-  height: 50px !important;
 }
 
 .navbar-nav>li, .navbar-nav {
-float: right !important;
+  float: right !important;
 }
 
 
 .navbar-right {
-float: right!important;
+  float: right!important;
 }

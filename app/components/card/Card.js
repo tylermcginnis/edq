@@ -5,7 +5,7 @@ class Card extends React.Component{
   render(){
     var borderTop = this.props.color ? `3px solid ${this.props.color}` : `3px solid ${appConstants.blue}`
     var height = this.props.height || '';
-    var klassName = `col-sm-${this.props.size} card-container`;
+    var klassName = `col-xs-${this.props.size} card-container`;
     return (
       <div className={klassName} style={{height}}>
         <div className="card" style={{borderTop}}>

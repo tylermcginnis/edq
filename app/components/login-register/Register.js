@@ -24,9 +24,9 @@ class Register extends React.Component{
   }
   render(){
     return (
-      <span className="col-sm-8 col-sm-offset-2">
+      <span className="col-xs-8 col-xs-offset-2">
         <Card size={12} height={460} color={appConstants.blue}>
-          <div className="col-sm-6 col-sm-offset-3">
+          <div className="col-xs-6 col-xs-offset-3">
             <h1 className="text-center"> Register </h1>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group">

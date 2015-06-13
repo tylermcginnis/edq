@@ -81,30 +81,30 @@ class ClassSetting extends React.Component{
       );
     });
     return (
-      <div className="col-sm-12">
+      <div className="col-xs-12">
         <h1 className="text-center">{currentClass}</h1>
-        <div className="col-sm-6 pull-left">
+        <div className="col-xs-6 pull-left">
           <h2 className="text-center">Add User</h2>
-          <div className="col-sm-12" style={makeBorder('blue')}>
+          <div className="col-xs-12" style={makeBorder('blue')}>
             <AddNewUser addUser={this.addUser.bind(this)}/>
           </div>
         </div>
-        <div className="col-sm-6 pull-right">
+        <div className="col-xs-6 pull-right">
           <h2 className="text-center">Settings</h2>
-          <div className="col-sm-12" style={makeBorder('green')}>
+          <div className="col-xs-12" style={makeBorder('green')}>
             <button className="btn btn-default" onClick={this.deleteClass.bind(this, currentClass)}>Delete Class</button>
           </div>
         </div>
-        <div className="col-sm-12">
-          <div className="col-sm-4">
+        <div className="col-xs-12">
+          <div className="col-xs-4">
             <h2 className="text-center">Students</h2>
             {students.length === 0 ? 'No Students' : students}
           </div>
-          <div className="col-sm-4">
+          <div className="col-xs-4">
             <h2 className="text-center">Mentors</h2>
             {mentors.length === 0 ? 'No Mentors' : mentors}
           </div>
-          <div className="col-sm-4">
+          <div className="col-xs-4">
             <h2 className="text-center">Teachers</h2>
             {teachers.length === 0 ? 'No Teachers' : teachers}
           </div>

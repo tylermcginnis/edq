@@ -10,14 +10,15 @@ class StudentItem extends React.Component{
       },
       email: {
         fontSize: 16,
-        marginBottom: 25
+        marginBottom: 25,
+        wordWrap: "break-word"
       },
       remove: {
         cursor: 'pointer'
       }
     }
     return (
-      <div className="col-sm-12 text-center">
+      <div className="col-xs-12 text-center">
         <div style={styles.name}>
           {this.props.user.firstName} <br />
           {this.props.user.lastName}

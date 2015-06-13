@@ -19,11 +19,11 @@ class EnterQueue extends React.Component{
       }
     }
     return (
-      <div className="col-sm-12" style={styles.container}>
-        <div className="col-sm-12 form-group">
+      <div className="col-xs-12" style={styles.container}>
+        <div className="col-xs-12 form-group">
           <input type="text" className="form-control" ref="question" placeholder="Question..." />
         </div>
-        <div className="col-sm-12">
+        <div className="col-xs-12">
           <button style={styles.pad} className="btn btn-primary" onClick={this.enter.bind(this)} > Enter Queue </button>
           Anonymous? <input type="checkbox" ref="anonymous" />
         </div>

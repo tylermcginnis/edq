@@ -16,7 +16,7 @@ class AddNewUser extends React.Component{
   }
   render(){
     return (
-      <div className="col-sm-12">
+      <div className="col-xs-12">
         <form>
           <div className="form-group">
             <label>First Name</label>
