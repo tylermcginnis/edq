@@ -21,19 +21,18 @@ class Queue extends React.Component {
   componentDidMount(){
     var userId = helpers.getCurrentUserId();
 
-    //todo: check to make sure syncState isn't called with asArray
-    base.syncState(`queue/${this.props.query.classId}`, {
+    this.syncRef = base.syncState(`queue/${this.props.query.classId}`, {
       context: this,
       state: 'queue',
       asArray: true
     });
 
-    base.bindToState(`users/${userId}/classes/${this.props.query.classId}`, {
+    this.bindRef = base.bindToState(`users/${userId}/classes/${this.props.query.classId}`, {
       context: this,
       state: 'user'
     });
 
-    base.listenTo(`studentStatus/${this.props.query.classId}`, {
+    this.listenRef = base.listenTo(`studentStatus/${this.props.query.classId}`, {
       context: this,
       asArray: true,
       then(data){
@@ -53,9 +52,9 @@ class Queue extends React.Component {
     });
   }
   componentWillUnmount(){
-    base.removeBinding(`queue/${this.props.query.classId}`);
-    base.removeBinding(`users/${helpers.getCurrentUserId()}/classes/${this.props.query.classId}`);
-    base.removeBinding(`studentStatus/${this.props.query.classId}`);
+    base.removeBinding(this.bindRef);
+    base.removeBinding(this.listenRef);
+    base.removeBinding(this.syncRef);
   }
   joinQueue(question, anon){
     var user = JSON.parse(localStorage.getItem('user'));

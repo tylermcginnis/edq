@@ -17,14 +17,14 @@ var Dashboard = requireAuth(class extends React.Component{
     }
   }
   componentDidMount(){
-    base.bindToState(`users/${this.state.userId}/classes`, {
+    this.ref = base.bindToState(`users/${this.state.userId}/classes`, {
       context: this,
       asArray: true,
       state: 'classes'
     });
   }
   componentWillUnmount(){
-    base.removeBinding(`users/${this.state.userId}/classes`);
+    base.removeBinding(this.ref);
   }
   handleSubmit(e){
     e.preventDefault();

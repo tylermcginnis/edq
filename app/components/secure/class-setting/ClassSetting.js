@@ -24,14 +24,13 @@ class ClassSetting extends React.Component{
   }
   componentDidMount(){
     var userId = helpers.getCurrentUserId();
-    base.bindToState(`classes/${this.props.query.classId}`, {
+    this.ref = base.bindToState(`classes/${this.props.query.classId}`, {
       context: this,
       state: 'members'
     });
   }
   componentWillUnmount(){
-    var userId = helpers.getCurrentUserId();
-    base.removeBinding(`classes/${this.props.query.classId}`);
+    base.removeBinding(this.ref);
   }
   deleteClass(){
     var userId = helpers.getCurrentUserId();
